@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2023 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="copy">Copy</string>
+    <string name="delete">Delete</string>
+    <string name="navigate_up">Navigate up</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+
+    <string name="app_name">Untracker</string>
+
+    <string name="main_home">Home</string>
+    <string name="main_home_share_title">Untrack when sharing</string>
+    <string name="main_home_share_text">You may share links to “Untracker” in the sharesheet to remove tracking information and copy or share again.</string>
+    <string name="main_home_select_title">Select to untrack</string>
+    <string name="main_home_select_text">You may select text and click “Untrack” in the selection toolbar to remove tracking information and replace.</string>
+    <string name="main_rules">Rules</string>
+    <string name="main_rules_builtin">Built-in</string>
+    <string name="main_rules_custom">Custom</string>
+    <string name="main_about">About</string>
+    <string name="main_about_version_title">Version</string>
+    <string name="main_about_version_summary">%1$s (%2$d)</string>
+    <string name="main_about_github_title">View on GitHub</string>
+    <string name="main_about_github_uri" translatable="false">https://github.com/zhanghai/Untracker</string>
+    <string name="main_about_licenses" translatable="false">@string/licenses_title</string>
+
+    <string name="rule_view">View rule</string>
+    <string name="rule_edit">Edit rule</string>
+    <string name="rule_add">Add rule</string>
+    <string name="rule_name">Name</string>
+    <string name="rule_description">Description</string>
+    <string name="rule_script">Script</string>
+
+    <string name="licenses_title">Open source licenses</string>
+
+    <string name="text_original">Original</string>
+    <string name="text_untracked">Untracked</string>
+    <string name="text_processing">Processing…</string>
+    <string name="text_error_format">Error: %1$s</string>
+</resources>

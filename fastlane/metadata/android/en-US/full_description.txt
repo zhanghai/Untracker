@@ -1,0 +1,8 @@
+App to help you remove tracking information before sharing links.
+
+Features:
+- Untrack when sharing: You may share links to “Untracker” in the sharesheet to remove tracking information and copy or share again.
+- Select to untrack: You may select text and click “Untrack” in the selection toolbar to remove tracking information and replace.
+- Manage rules: You may control or add rules to remove tracking information with JavaScript code.
+
+https://github.com/zhanghai/Untracker
