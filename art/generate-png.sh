@@ -29,3 +29,4 @@ rm launcher_icon-web.svg
 
 inkscape -o banner-xhdpi.png --export-area=0:0:320:180 -w 320 -h 180 banner.svg
 inkscape -o banner-play.png --export-area=0:0:320:180 -w 1280 -h 720 banner.svg
+inkscape -o feature_graphic.png --export-area=0:11.875:320:168.125 -w 1024 -h 500 banner.svg

@@ -24,3 +24,4 @@ cp launcher_icon-play.png ../fastlane/metadata/android/en-US/images/icon.png
 
 cp banner-xhdpi.png ../app/src/main/res/drawable-xhdpi/banner.png
 cp banner-play.png ../fastlane/metadata/android/en-US/images/tvBanner.png
+cp feature_graphic.png ../fastlane/metadata/android/en-US/images/featureGraphic.png

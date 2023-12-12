@@ -22,7 +22,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.828427"
-     inkscape:cx="163.34167"
+     inkscape:cx="163.51845"
      inkscape:cy="90.156119"
      inkscape:document-units="px"
      inkscape:current-layer="layer"
@@ -31,7 +31,7 @@
      inkscape:pagecheckerboard="false"
      showborder="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1011"
+     inkscape:window-height="1131"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -248,7 +248,7 @@
        y="0" />
     <g
        id="icon"
-       transform="matrix(1.2515556,0,0,1.2515511,-157.50511,-23.105476)">
+       transform="matrix(1.2515556,0,0,1.2515511,-166.39432,-23.105476)">
       <path
          id="shield-edge-bottom"
          style="fill:#185abc;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -269,14 +269,14 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42px;line-height:1;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#000000;fill-opacity:1;stroke:none"
-       x="113.572"
-       y="105.75"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48px;line-height:1;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#000000;fill-opacity:1;stroke:none"
+       x="99.795197"
+       y="108"
        id="text"><tspan
          sodipodi:role="line"
-         x="113.572"
-         y="105.75"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:42px;line-height:1;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Condensed';fill:#ffffff;fill-opacity:1"
+         x="99.795197"
+         y="108"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:48px;line-height:1;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Condensed';fill:#ffffff;fill-opacity:1"
          id="tspan"
          inkscape:label="tspan">Untracker</tspan></text>
   </g>
