@@ -12,7 +12,7 @@ This is not an officially supported Google product.
 
 [<img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="240">](https://play.google.com/store/apps/details?id=me.zhanghai.android.untracker) [<img alt="Get it on F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" width="240">](https://f-droid.org/packages/me.zhanghai.android.untracker)
 
-[Get it on Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.untracker) [Get the APK](https://github.com/zhanghai/Untracker/releases/latest/download/app-release-universal.apk)
+[Get the APK](https://github.com/zhanghai/Untracker/releases/latest/download/app-release-universal.apk)
 
 ## Preview
 
