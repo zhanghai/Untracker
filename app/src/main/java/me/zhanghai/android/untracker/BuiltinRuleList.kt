@@ -56,7 +56,13 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, '.+\\.amazon\\.(ae|ca|cn|co\\.jp|co\\.uk|com|com\\.au|com\\.be|com\\.br|com\\.mx|com\\.tr|de|eg|es|fr|in|it|nl|pl|sa|se|sg)')) {
-                                return $.setEncodedQuery(url, null);
+                                url = $.setEncodedQuery(url, null);
+                                const path = $.getEncodedPath(url);
+                                const newPath = path.replace(/\/ref=.+$/i, '');
+                                if (newPath !== path) {
+                                    url = $.setEncodedPath(url, newPath);
+                                }
+                                return url;
                             }
                         """
                             .trimIndent()
