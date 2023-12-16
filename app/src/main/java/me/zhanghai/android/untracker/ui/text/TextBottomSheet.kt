@@ -124,14 +124,16 @@ fun TextBottomSheet(
     val untrackedTextStateful by untrackedTextStatefulFlow.collectAsStateWithLifecycle()
     var modifiedText by rememberSaveable { mutableStateOf<String?>(null) }
     val currentText = modifiedText ?: untrackedTextStateful.value
+    // There's a bug on Android 10 that window insets can't be retrieved in a popup window, so we
+    // need to retrieve it outside ModalBottomSheet.
+    val windowInsets = WindowInsets.safeDrawing
     // TODO: b/292204649, b/306769089
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
-        windowInsets =
-            WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+        windowInsets = windowInsets.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
     ) {
-        Column(modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)) {
+        Column(modifier = Modifier.windowInsetsPadding(windowInsets)) {
             Text(
                 text = stringResource(R.string.text_original),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
