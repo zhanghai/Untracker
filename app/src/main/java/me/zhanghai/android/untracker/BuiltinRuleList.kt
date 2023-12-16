@@ -55,7 +55,7 @@ val BuiltinRuleList =
                     description = "Remove tracking for Amazon",
                     script =
                         """
-                            if ($.matches(url, '.+\\.amazon\\.com')) {
+                            if ($.matches(url, '.+\\.amazon\\.(ae|ca|cn|co\\.jp|co\\.uk|com|com\\.au|com\\.be|com\\.br|com\\.mx|com\\.tr|de|eg|es|fr|in|it|nl|pl|sa|se|sg)')) {
                                 return $.setEncodedQuery(url, null);
                             }
                         """
