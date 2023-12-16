@@ -24,7 +24,7 @@
     <style name="Base.Theme.Untracker" parent="Platform.Theme.Untracker" />
     <style name="Theme.Untracker" parent="Base.Theme.Untracker" />
 
-    <style name="Platform.V21.Theme.Untracker.Translucent" parent="Theme.Untracker">
+    <style name="Platform.Theme.Untracker.Translucent.V21" parent="Theme.Untracker">
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
@@ -35,7 +35,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <style name="Platform.Theme.Untracker.Translucent" parent="Platform.V21.Theme.Untracker.Translucent" />
+    <style name="Platform.Theme.Untracker.Translucent" parent="Platform.Theme.Untracker.Translucent.V21" />
     <style name="Base.Theme.Untracker.Translucent" parent="Platform.Theme.Untracker.Translucent" />
     <style name="Theme.Untracker.Translucent" parent="Base.Theme.Untracker.Translucent" />
 </resources>
