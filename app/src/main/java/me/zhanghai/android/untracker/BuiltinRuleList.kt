@@ -29,7 +29,7 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, 'a\\.co|b23\\.tv|u\\.jd\\.com|([cm]\\.)?tb\\.cn|xhslink\\.com')
+                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|u\\.jd\\.com|([cm]\\.)?tb\\.cn|xhslink\\.com')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                 return $.followRedirect(url);
                             }
