@@ -47,7 +47,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -78,6 +77,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.Untracker
+import me.zhanghai.android.untracker.compat.ModalBottomSheetCompat
 import me.zhanghai.android.untracker.ui.component.UndecoratedTextField
 import me.zhanghai.android.untracker.util.Stateful
 
@@ -127,8 +127,8 @@ fun TextBottomSheet(
     // There's a bug on Android 10 that window insets can't be retrieved in a popup window, so we
     // need to retrieve it outside ModalBottomSheet.
     val windowInsets = WindowInsets.safeDrawing
-    // TODO: b/292204649, b/306769089
-    ModalBottomSheet(
+    // TODO: b/292204649
+    ModalBottomSheetCompat(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         windowInsets = windowInsets.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
