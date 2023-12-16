@@ -68,7 +68,7 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, '.+\\.bilibili\\.com')) {
-                                url = $.retainQueryParameters(url, 'p|start_progress|t');
+                                url = $.retainQueryParameters(url, 'business_id|business_type|itemsId|lottery_id|p|start_progress|t');
                                 return $.removeQueryParameters(url, 'p', '1');
                             }
                         """
@@ -122,6 +122,30 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, 'www\\.google\\.com', '/search')) {
                                 return $.retainQueryParameters(url, 'q|tbm');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "bcd9fcb8-bf1c-41f8-b18d-b248507e43c7",
+                    name = "Instagram",
+                    description = "Remove tracking for Instagram",
+                    script =
+                        """
+                            if ($.matches(url, 'www\\.instagram\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "465d579e-bc3b-4c5b-bac3-9b84c67c7554",
+                    name = "Netflix",
+                    description = "Remove tracking for Netflix",
+                    script =
+                        """
+                            if ($.matches(url, 'www\\.netflix\\.com')) {
+                                return $.setEncodedQuery(url, null);
                             }
                         """
                             .trimIndent()
