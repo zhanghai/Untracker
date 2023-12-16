@@ -10,6 +10,8 @@
 
 [<img alt="下载应用，请到 Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/zh-cn_badge_web_generic.png" width="240">](https://play.google.com/store/apps/details?id=me.zhanghai.android.untracker) [<img alt="下载应用，请到 F-Droid" src="https://fdroid.gitlab.io/artwork/badge/get-it-on-zh-cn.png" width="240">](https://f-droid.org/packages/me.zhanghai.android.untracker)
 
+（注：这个应用仍在被 Google Play 审核。）
+
 [下载 APK](https://github.com/zhanghai/Untracker/releases/latest/download/app-release-universal.apk)
 
 ## 预览
