@@ -97,7 +97,7 @@ val BuiltinRuleList =
                             if ($.matches(url, '.+\\.bilibili\\.com', '/video/BV[0-9A-Za-z]+/?')) {
                                 const bvPath = $.getEncodedPath(url);
                                 const bvCode = /^\/video\/BV([0-9A-Za-z]+)\/?/.exec(bvPath)[1];
-                                function avToBv(bv) {
+                                function bvToAv(bv) {
                                     const table = 'fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF'.split('');
                                     const tr = {};
                                     table.forEach((c, i) => tr[c] = i);
@@ -108,7 +108,7 @@ val BuiltinRuleList =
                                     s.forEach((n, i) => r += BigInt(tr[bv[n - 2]]) * BigInt(58 ** i));
                                     return (r - add) ^ xor;
                                 }
-                                const avCode = avToBv(bvCode);
+                                const avCode = bvToAv(bvCode);
                                 const avPath = '/video/av' + avCode + '/';
                                 return $.setEncodedPath(url, avPath);
                             }
