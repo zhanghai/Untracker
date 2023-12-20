@@ -123,6 +123,8 @@ private interface IBuiltins {
     fun retainQueryParameters(url: String, keyPattern: String?, valuePattern: String?): String
 
     fun followRedirect(url: String): String
+
+    fun get(url: String): String
 }
 
 @Keep
@@ -260,6 +262,12 @@ private class Builtins : IBuiltins {
             val httpUrl = request.url.resolve(location) ?: return@let url
             httpUrl.toString()
         }
+    }
+
+    @Throws(IOException::class)
+    override fun get(url: String): String {
+        val request = Request.Builder().url(url).build()
+        return okHttpClient.newCall(request).execute().body!!.string()
     }
 
     companion object {

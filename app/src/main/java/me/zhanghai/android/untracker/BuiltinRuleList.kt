@@ -31,8 +31,16 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|u\\.jd\\.com|([cm]\\.)?tb\\.cn|xhslink\\.com')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
-                                return $.followRedirect(url);
+                                url = $.followRedirect(url);
                             }
+                            if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
+                                const body = $.get(url);
+                                const groups = /var url = '([^']+)';/.exec(body);
+                                if (groups) {
+                                    url = groups[1];
+                                }
+                            }
+                            return url;
                         """
                             .trimIndent()
                 ),
@@ -145,6 +153,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "c68c4cbf-9ae5-41f6-89ba-6e3f31ffb6a2",
+                    name = "JD",
+                    description = "Remove tracking for JD",
+                    script =
+                        """
+                            if ($.matches(url, '.+\\.jd\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "465d579e-bc3b-4c5b-bac3-9b84c67c7554",
                     name = "Netflix",
                     description = "Remove tracking for Netflix",
@@ -169,6 +189,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "4244faaa-b50e-47f1-87a5-ac994c32b94f",
+                    name = "SMZDM",
+                    description = "Remove tracking for SMZDM",
+                    script =
+                        """
+                            if ($.matches(url, '.+\\.smzdm\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "5ed9b3ef-f4de-44c8-bd34-5c8da6e330af",
                     name = "Stack Exchange",
                     description = "Remove tracking for Stack Exchange sites",
@@ -176,6 +208,18 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, '(.+\\.stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com', '/[aq]/[0-9]+/[0-9]+/?')) {
                                 return $.setEncodedPath(url, $.getEncodedPath(url).replace(/\/[0-9]+\/?$/i, ''));
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "9cb803b3-ed57-46ad-b604-8adb8c515c07",
+                    name = "Taobao",
+                    description = "Remove tracking for Taobao",
+                    script =
+                        """
+                            if ($.matches(url, '.+\\.taobao\\.com')) {
+                                return $.retainQueryParameters(url, 'id');
                             }
                         """
                             .trimIndent()
