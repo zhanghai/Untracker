@@ -159,7 +159,7 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, '.+\\.jd\\.com')) {
-                                return $.setEncodedQuery(url, null);
+                                return $.setEncodedQuery(url, 'id|shopId|skuIds|suitId|wareId');
                             }
                         """
                             .trimIndent()
