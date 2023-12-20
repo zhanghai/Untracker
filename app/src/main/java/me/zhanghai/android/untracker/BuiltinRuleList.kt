@@ -215,10 +215,10 @@ val BuiltinRuleList =
                 Rule(
                     id = "9cb803b3-ed57-46ad-b604-8adb8c515c07",
                     name = "Taobao",
-                    description = "Remove tracking for Taobao",
+                    description = "Remove tracking for Taobao (and Tmall)",
                     script =
                         """
-                            if ($.matches(url, '.+\\.taobao\\.com')) {
+                            if ($.matches(url, '.+\\.(taobao|tmall)\\.com')) {
                                 return $.retainQueryParameters(url, 'id');
                             }
                         """
