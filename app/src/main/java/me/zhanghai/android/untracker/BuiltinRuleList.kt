@@ -29,18 +29,24 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|dwz\\.cn|u\\.jd\\.com|t\\.cn|([cm]\\.)?tb\\.cn|url\\.cn|xhslink\\.com')
+                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|dwz\\.cn|u\\.jd\\.com|t\\.cn|url\\.cn|xhslink\\.com')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
-                                url = $.followRedirect(url);
-                            }
-                            if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
-                                const body = $.get(url);
-                                const groups = /var url = '([^']+)';/.exec(body);
+                                const response = $.fetch(url, { redirect: 'manual' });
+                                if ([301, 302, 303, 307, 308].includes(response.status)) {
+                                    const headers = response.headers;
+                                    for (name in headers) {
+                                        if (name.toLowerCase() === 'location') {
+                                            return headers[name];
+                                        }
+                                    }
+                                }
+                            } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
+                                const response = $.fetch(url);
+                                const groups = /var url = '([^']+)';/.exec(response.body);
                                 if (groups) {
-                                    url = groups[1];
+                                    return groups[1];
                                 }
                             }
-                            return url;
                         """
                             .trimIndent()
                 ),

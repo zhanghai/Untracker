@@ -23,9 +23,19 @@ import androidx.annotation.Keep
 import androidx.core.util.PatternsCompat
 import app.cash.quickjs.QuickJs
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import me.zhanghai.android.untracker.repository.RuleListRepository
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 import java.net.URI
 
@@ -122,9 +132,7 @@ private interface IBuiltins {
 
     fun retainQueryParameters(url: String, keyPattern: String?, valuePattern: String?): String
 
-    fun followRedirect(url: String): String
-
-    fun get(url: String): String
+    fun fetch(argumentsJson: String): String
 }
 
 @Keep
@@ -248,26 +256,73 @@ private class Builtins : IBuiltins {
     }
 
     @Throws(IOException::class)
-    override fun followRedirect(url: String): String {
-        // Websites like a.co may only accept GET, but not HEAD.
-        // val request = Request.Builder().url(url).head().build()
-        // okHttpClient.newCall(request).execute().request.url.toString()
-        val client = okHttpClient.newBuilder().followRedirects(false).build()
-        val request = Request.Builder().url(url).build()
-        return client.newCall(request).execute().let {
-            if (!it.isRedirect) {
-                return@let url
-            }
-            val location = it.header("Location") ?: return@let url
-            val httpUrl = request.url.resolve(location) ?: return@let url
-            httpUrl.toString()
+    override fun fetch(argumentsJson: String): String {
+        val arguments = Json.parseToJsonElement(argumentsJson).jsonArray
+        val resource = arguments[0]
+        val url: String
+        val options: JsonObject?
+        if (resource is JsonPrimitive) {
+            url = resource.content
+            options = arguments.getOrNull(1)?.jsonObject
+        } else {
+            val request = resource.jsonObject
+            url = request["url"]!!.jsonPrimitive.content
+            options = request
         }
-    }
+        val method = options?.get("method")?.jsonPrimitive?.content?.uppercase() ?: "GET"
+        val headers =
+            options?.get("headers")?.jsonObject?.mapValues { it.value.jsonPrimitive.content }
+        val body = options?.get("body")?.jsonPrimitive?.content
+        val redirect =
+            options?.get("redirect")?.jsonPrimitive?.content?.let {
+                require(it in listOf("follow", "error", "manual"))
+            } ?: "follow"
 
-    @Throws(IOException::class)
-    override fun get(url: String): String {
-        val request = Request.Builder().url(url).build()
-        return okHttpClient.newCall(request).execute().body!!.string()
+        val client =
+            if (redirect == "follow") {
+                okHttpClient
+            } else {
+                okHttpClient.newBuilder().followRedirects(false).build()
+            }
+        val request =
+            Request.Builder()
+                .url(url)
+                .apply {
+                    var contentType: MediaType? = null
+                    headers?.forEach { (name, value) ->
+                        if (name.equals("Content-Type", true)) {
+                            if (contentType != null) {
+                                throw IOException("fetch: Duplicate Content-Type in headers")
+                            }
+                            contentType = value.toMediaType()
+                        } else {
+                            header(name, value)
+                        }
+                    }
+                    val requestBody = body?.toRequestBody(contentType)
+                    method(method, requestBody)
+                }
+                .build()
+        val response = client.newCall(request).execute()
+        if (redirect == "error" && response.isRedirect) {
+            throw IOException("fetch: Request was redirected")
+        }
+
+        val responseJson = buildJsonObject {
+            put("body", JsonPrimitive(response.body?.string()))
+            put(
+                "headers",
+                buildJsonObject {
+                    response.headers.forEach { (name, value) -> put(name, JsonPrimitive(value)) }
+                }
+            )
+            put("ok", JsonPrimitive(response.isSuccessful))
+            put("redirected", JsonPrimitive(response.priorResponse != null))
+            put("status", JsonPrimitive(response.code))
+            put("statusText", JsonPrimitive(response.message))
+            put("url", JsonPrimitive(response.request.url.toString()))
+        }
+        return responseJson.toString()
     }
 
     companion object {
@@ -288,6 +343,10 @@ private class Builtins : IBuiltins {
                 const retainQueryParameters = $.retainQueryParameters.bind($);
                 $.retainQueryParameters = function (url, keyPattern, valuePattern) {
                     return retainQueryParameters(url, defined(keyPattern), defined(valuePattern));
+                };
+                const fetch = $.fetch.bind($);
+                $.fetch = function (resource, options) {
+                    return JSON.parse(fetch(JSON.stringify(Array.from(arguments))));
                 };
             })();
         """
