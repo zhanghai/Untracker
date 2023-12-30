@@ -26,6 +26,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -271,7 +272,10 @@ private class Builtins : IBuiltins {
         }
         val method = options?.get("method")?.jsonPrimitive?.content?.uppercase() ?: "GET"
         val headers =
-            options?.get("headers")?.jsonObject?.mapValues { it.value.jsonPrimitive.content }
+            options?.get("headers")?.jsonArray?.map {
+                val nameAndValue = it.jsonArray
+                nameAndValue[0].jsonPrimitive.content to nameAndValue[1].jsonPrimitive.content
+            }
         val body = options?.get("body")?.jsonPrimitive?.content
         val redirect =
             options?.get("redirect")?.jsonPrimitive?.content?.let {
@@ -312,8 +316,15 @@ private class Builtins : IBuiltins {
             put("body", JsonPrimitive(response.body?.string()))
             put(
                 "headers",
-                buildJsonObject {
-                    response.headers.forEach { (name, value) -> put(name, JsonPrimitive(value)) }
+                buildJsonArray {
+                    response.headers.forEach { (name, value) ->
+                        add(
+                            buildJsonArray {
+                                add(JsonPrimitive(name))
+                                add(JsonPrimitive(value))
+                            }
+                        )
+                    }
                 }
             )
             put("ok", JsonPrimitive(response.isSuccessful))

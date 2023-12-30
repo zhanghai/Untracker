@@ -33,10 +33,9 @@ val BuiltinRuleList =
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                 const response = $.fetch(url, { redirect: 'manual' });
                                 if ([301, 302, 303, 307, 308].includes(response.status)) {
-                                    const headers = response.headers;
-                                    for (name in headers) {
+                                    for ([name, value] of response.headers) {
                                         if (name.toLowerCase() === 'location') {
-                                            return headers[name];
+                                            return value;
                                         }
                                     }
                                 }
