@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.zhanghai.android.untracker.ui.theme
+package me.zhanghai.android.untracker.ui.content
 
 import android.app.Activity
 import android.graphics.drawable.ColorDrawable

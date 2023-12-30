@@ -22,7 +22,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import me.zhanghai.android.untracker.ui.content.UntrackerApp
+import me.zhanghai.android.untracker.ui.content.UntrackerContent
 import me.zhanghai.android.untracker.ui.text.TextBottomSheet
 
 class TextActivity : ComponentActivity() {
@@ -63,7 +63,7 @@ class TextActivity : ComponentActivity() {
         }
 
         setContent {
-            UntrackerApp {
+            UntrackerContent {
                 TextBottomSheet(
                     text = text,
                     onShareText = onShareText,

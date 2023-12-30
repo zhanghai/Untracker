@@ -17,10 +17,9 @@
 package me.zhanghai.android.untracker.ui.content
 
 import androidx.compose.runtime.Composable
-import me.zhanghai.android.untracker.ui.theme.UntrackerTheme
 import me.zhanghai.compose.preference.ProvidePreferenceTheme
 
 @Composable
-fun UntrackerApp(content: @Composable () -> Unit) {
+fun UntrackerContent(content: @Composable () -> Unit) {
     UntrackerTheme { ProvidePreferenceTheme(content = content) }
 }
