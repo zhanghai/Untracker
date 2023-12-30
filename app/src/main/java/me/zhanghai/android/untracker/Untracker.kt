@@ -340,20 +340,17 @@ private class Builtins : IBuiltins {
         val INIT_SCRIPT =
             """
             (function () {
-                function defined(value) {
-                    return value !== undefined ? value : null;
-                }
                 const matches = $.matches.bind($);
                 $.matches = function (url, hostPattern, encodedPathPattern, encodedQueryPattern, encodedFragmentPattern) {
-                    return matches(url, defined(hostPattern), defined(encodedPathPattern), defined(encodedQueryPattern), defined(encodedFragmentPattern));
+                    return matches(url, hostPattern, encodedPathPattern, encodedQueryPattern, encodedFragmentPattern);
                 };
                 const removeQueryParameters = $.removeQueryParameters.bind($);
                 $.removeQueryParameters = function (url, keyPattern, valuePattern) {
-                    return removeQueryParameters(url, defined(keyPattern), defined(valuePattern));
+                    return removeQueryParameters(url, keyPattern, valuePattern);
                 };
                 const retainQueryParameters = $.retainQueryParameters.bind($);
                 $.retainQueryParameters = function (url, keyPattern, valuePattern) {
-                    return retainQueryParameters(url, defined(keyPattern), defined(valuePattern));
+                    return retainQueryParameters(url, keyPattern, valuePattern);
                 };
                 const fetch = $.fetch.bind($);
                 $.fetch = function (resource, options) {
