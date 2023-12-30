@@ -36,6 +36,7 @@
     <string name="main_rules">Rules</string>
     <string name="main_rules_builtin">Built-in</string>
     <string name="main_rules_custom">Custom</string>
+    <string name="main_rules_empty">Press “+” to add a rule</string>
     <string name="main_about">About</string>
     <string name="main_about_version_title">Version</string>
     <string name="main_about_version_summary">%1$s (%2$d)</string>

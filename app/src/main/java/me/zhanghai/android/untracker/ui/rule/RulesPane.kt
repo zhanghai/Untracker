@@ -16,30 +16,40 @@
 
 package me.zhanghai.android.untracker.ui.rule
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -51,6 +61,7 @@ import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.RuleList
 import me.zhanghai.android.untracker.repository.RuleListRepository
 import me.zhanghai.android.untracker.ui.component.NavigationItemInfo
+import me.zhanghai.android.untracker.ui.component.TopAppBarContainer
 import me.zhanghai.android.untracker.util.Stateful
 import me.zhanghai.android.untracker.util.asInsets
 import me.zhanghai.android.untracker.util.copy
@@ -77,8 +88,10 @@ fun NavGraphBuilder.rulesPane(
     }
 }
 
+private val tabTextResourceIds = listOf(R.string.main_rules_builtin, R.string.main_rules_custom)
+
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 fun RulesPane(
     contentPadding: PaddingValues,
     navigateToRuleScreen: (String) -> Unit,
@@ -91,7 +104,7 @@ fun RulesPane(
             RuleListRepository.getBuiltinRuleListFlow()
                 .map { Stateful.Success(it) as Stateful<RuleList> }
                 .catch { emit(Stateful.Failure(null, it)) }
-                .stateInUi(coroutineScope, Stateful.Loading(null))
+                .stateInUi(coroutineScope, Stateful.Loading<RuleList>(null))
         }
     val builtinRuleListStateful by builtinRuleListStatefulFlow.collectAsStateWithLifecycle()
     val setBuiltinRuleList: (RuleList) -> Unit = { ruleList ->
@@ -103,70 +116,128 @@ fun RulesPane(
             RuleListRepository.getCustomRuleListFlow()
                 .map { Stateful.Success(it) as Stateful<RuleList> }
                 .catch { emit(Stateful.Failure(null, it)) }
-                .stateInUi(coroutineScope, Stateful.Loading(null))
+                .stateInUi(coroutineScope, Stateful.Loading<RuleList>(null))
         }
     val customRuleListStateful by customRuleListStatefulFlow.collectAsStateWithLifecycle()
     val setCustomRuleList: (RuleList) -> Unit = { ruleList ->
         coroutineScope.launch { RuleListRepository.setCustomRuleList(ruleList) }
     }
 
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    Column(modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection)) {
-        TopAppBar(
-            title = { Text(text = stringResource(RulesPaneInfo.labelResourceId)) },
-            modifier = Modifier.fillMaxWidth(),
-            actions = {
-                IconButton(onClick = navigateToAddRuleScreen) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
-                        contentDescription = stringResource(R.string.add)
-                    )
-                }
-            },
-            windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
-            scrollBehavior = scrollBehavior
-        )
-        val builtinRuleList = builtinRuleListStateful.value
-        val customRuleList = customRuleListStateful.value
-        val viewPadding = contentPadding.copy(top = 0.dp)
-        if (builtinRuleList != null && customRuleList != null) {
-            RuleList(
-                builtinRuleList = builtinRuleList,
-                onBuiltinRuleListChange = setBuiltinRuleList,
-                customRuleList = customRuleList,
-                onCustomRuleListChange = setCustomRuleList,
-                onRuleClick = { navigateToRuleScreen(it) },
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = viewPadding
-            )
-        } else {
-            Box(modifier = Modifier.fillMaxSize().padding(viewPadding)) {
-                @Suppress("NAME_SHADOWING") val builtinRuleListStateful = builtinRuleListStateful
-                @Suppress("NAME_SHADOWING") val customRuleListStateful = customRuleListStateful
-                when {
-                    builtinRuleListStateful is Stateful.Failure ||
-                        customRuleListStateful is Stateful.Failure -> {
-                        val throwable =
-                            if (builtinRuleListStateful is Stateful.Failure) {
-                                builtinRuleListStateful.throwable
-                            } else {
-                                customRuleListStateful as Stateful.Failure
-                                customRuleListStateful.throwable
+    Column(modifier = Modifier.fillMaxSize()) {
+        val pagerState = rememberPagerState { tabTextResourceIds.size }
+        val scrollBehaviors =
+            List(tabTextResourceIds.size) { TopAppBarDefaults.pinnedScrollBehavior() }
+        TopAppBarContainer(scrollBehavior = scrollBehaviors[pagerState.currentPage]) {
+            Column {
+                TopAppBar(
+                    title = { Text(text = stringResource(RulesPaneInfo.labelResourceId)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(1)
+                                    navigateToAddRuleScreen()
+                                }
                             }
-                        Text(
-                            text = throwable.toString(),
-                            modifier = Modifier.align(Alignment.Center).padding(16.dp),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Add,
+                                contentDescription = stringResource(R.string.add)
+                            )
+                        }
+                    },
+                    windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Unspecified)
+                )
+                PrimaryTabRow(
+                    selectedTabIndex = pagerState.currentPage,
+                    containerColor = Color.Unspecified,
+                    contentColor = LocalContentColor.current,
+                    divider = {}
+                ) {
+                    tabTextResourceIds.forEachIndexed { index, textResourceId ->
+                        Tab(
+                            selected = index == pagerState.currentPage,
+                            onClick = {
+                                coroutineScope.launch { pagerState.animateScrollToPage(index) }
+                            },
+                            text = {
+                                Text(
+                                    text = stringResource(textResourceId),
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
+                            selectedContentColor = TabRowDefaults.primaryContentColor,
+                            unselectedContentColor = LocalContentColor.current
                         )
                     }
-                    builtinRuleListStateful is Stateful.Loading ||
-                        customRuleListStateful is Stateful.Loading -> {
+                }
+            }
+        }
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize(),
+            beyondBoundsPageCount = 1
+        ) { page ->
+            val (ruleListStateful, onRuleListChange) =
+                when (page) {
+                    0 -> builtinRuleListStateful to setBuiltinRuleList
+                    1 -> customRuleListStateful to setCustomRuleList
+                    else -> error(page)
+                }
+            RulesTab(
+                ruleListStateful = ruleListStateful,
+                onRuleListChange = onRuleListChange,
+                onRuleClick = { navigateToRuleScreen(it) },
+                contentPadding = contentPadding.copy(top = 0.dp),
+                scrollBehavior = scrollBehaviors[page]
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun RulesTab(
+    ruleListStateful: Stateful<RuleList>,
+    onRuleListChange: (RuleList) -> Unit,
+    onRuleClick: (String) -> Unit,
+    contentPadding: PaddingValues,
+    scrollBehavior: TopAppBarScrollBehavior
+) {
+    Column(modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection)) {
+        val ruleList = ruleListStateful.value
+        if (ruleList?.rules?.isNotEmpty() == true) {
+            RuleList(
+                ruleList = ruleList,
+                onRuleListChange = onRuleListChange,
+                onRuleClick = onRuleClick,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = contentPadding
+            )
+        } else {
+            Box(modifier = Modifier.fillMaxSize().padding(contentPadding)) {
+                when (ruleListStateful) {
+                    is Stateful.Loading -> {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center).padding(16.dp)
                         )
                     }
-                    else -> error("$builtinRuleListStateful $customRuleListStateful")
+                    else -> {
+                        Text(
+                            text =
+                                if (ruleListStateful is Stateful.Failure) {
+                                    ruleListStateful.throwable.toString()
+                                } else {
+                                    stringResource(R.string.main_rules_empty)
+                                },
+                            modifier = Modifier.align(Alignment.Center).padding(16.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
                 }
             }
         }

@@ -211,7 +211,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                             text = ruleListsStateful.throwable.toString(),
                             modifier = Modifier.align(Alignment.Center).padding(16.dp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                 }

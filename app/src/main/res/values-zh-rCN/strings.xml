@@ -36,6 +36,7 @@
     <string name="main_rules">规则</string>
     <string name="main_rules_builtin">内置</string>
     <string name="main_rules_custom">自定义</string>
+    <string name="main_rules_empty">按“+”以添加规则</string>
     <string name="main_about">关于</string>
     <string name="main_about_version_title">版本</string>
     <string name="main_about_version_summary">%1$s（%2$d）</string>
