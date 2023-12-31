@@ -50,6 +50,7 @@
     <string name="rule_name">Name</string>
     <string name="rule_description">Description</string>
     <string name="rule_script">Script</string>
+    <string name="rule_script_supporting_text">See also &lt;a href="https://github.com/zhanghai/Untracker/blob/master/app/src/main/java/me/zhanghai/android/untracker/Untracker.kt">script engine source&lt;/a></string>
 
     <string name="licenses_title">Open source licenses</string>
 

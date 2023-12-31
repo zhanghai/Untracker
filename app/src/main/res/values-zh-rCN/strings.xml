@@ -48,6 +48,7 @@
     <string name="rule_name">名称</string>
     <string name="rule_description">描述</string>
     <string name="rule_script">脚本</string>
+    <string name="rule_script_supporting_text">参见&lt;a href="https://github.com/zhanghai/Untracker/blob/master/app/src/main/java/me/zhanghai/android/untracker/Untracker.kt">脚本引擎源代码&lt;/a></string>
 
     <string name="licenses_title">开源许可证</string>
 

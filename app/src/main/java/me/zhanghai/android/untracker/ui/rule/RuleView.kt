@@ -29,11 +29,15 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.Rule
+import me.zhanghai.android.untracker.ui.component.MaterialClickableText
+import me.zhanghai.android.untracker.util.htmlToAnnotatedString
 import me.zhanghai.android.untracker.util.plus
 
 @Composable
@@ -73,7 +77,21 @@ fun RuleView(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             readOnly = readOnly,
             textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace),
-            label = { Text(text = stringResource(R.string.rule_script)) }
+            label = { Text(text = stringResource(R.string.rule_script)) },
+            supportingText = {
+                val supportingText =
+                    stringResource(R.string.rule_script_supporting_text).htmlToAnnotatedString()
+                val uriHandler = LocalUriHandler.current
+                MaterialClickableText(
+                    text = supportingText,
+                    onClick = { offset ->
+                        @OptIn(ExperimentalTextApi::class)
+                        supportingText.getUrlAnnotations(offset, offset).firstOrNull()?.let {
+                            uriHandler.openUri(it.item.url)
+                        }
+                    }
+                )
+            }
         )
     }
 }

@@ -16,9 +16,6 @@
 
 package me.zhanghai.android.untracker.ui.about
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,6 +39,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -115,16 +113,13 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
             ) {
                 clipboardManager.setText(AnnotatedString(version))
             }
-            val githubUri = Uri.parse(stringResource(R.string.main_about_github_uri))
+            val uriHandler = LocalUriHandler.current
+            val githubUri = stringResource(R.string.main_about_github_uri)
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_github_title)) },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                try {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, githubUri))
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                }
+                uriHandler.openUri(githubUri)
             }
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_licenses)) },
