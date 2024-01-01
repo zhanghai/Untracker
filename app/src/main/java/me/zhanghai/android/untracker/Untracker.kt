@@ -353,7 +353,7 @@ private class Builtins : IBuiltins {
                     return retainQueryParameters(url, keyPattern, valuePattern);
                 };
                 const fetch = $.fetch.bind($);
-                $.fetch = function (resource, options) {
+                $.fetch = function () {
                     return JSON.parse(fetch(JSON.stringify(Array.from(arguments))));
                 };
             })();
