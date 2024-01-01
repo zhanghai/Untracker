@@ -25,7 +25,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.CircularProgressIndicator
@@ -146,7 +146,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                 navigationIcon = {
                     IconButton(onClick = onPopBackStack) {
                         Icon(
-                            imageVector = Icons.Outlined.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = stringResource(R.string.navigate_up)
                         )
                     }
