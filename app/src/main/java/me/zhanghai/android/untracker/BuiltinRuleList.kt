@@ -29,7 +29,7 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|dwz\\.cn|u\\.jd\\.com|t\\.cn|url\\.cn|xhslink\\.com')
+                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|dwz\\.cn|u\\.jd\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                 const response = $.fetch(url, { redirect: 'manual' });
                                 if ([301, 302, 303, 307, 308].includes(response.status)) {
@@ -228,6 +228,18 @@ val BuiltinRuleList =
                             }
                         """
                             .trimIndent()
+                ),
+                Rule(
+                    id = "8420b788-c6ee-46a6-ab3b-da04d6299beb",
+                    name = "TikTok",
+                    description = "Remove tracking for TikTok",
+                    script =
+                    """
+                            if ($.matches(url, '.+\\.tiktok\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                        .trimIndent()
                 ),
                 Rule(
                     id = "7a6a2ddb-a0a4-43fe-a97f-7cb74cd29ad5",
