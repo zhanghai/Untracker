@@ -29,7 +29,8 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|dwz\\.cn|u\\.jd\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                                    || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                 const response = $.fetch(url, { redirect: 'manual' });
                                 if ([301, 302, 303, 307, 308].includes(response.status)) {
@@ -134,6 +135,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "c112da1e-384e-42e2-b110-ce6d8edbfe7a",
+                    name = "Douyin",
+                    description = "Remove tracking for Douyin",
+                    script =
+                        """
+                            if ($.matches(url, '.+\\.(douyin|iesdouyin)\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "926090a8-a98a-4168-b6a1-b6b801c76955",
                     name = "Google Search",
                     description = "Remove tracking for Google Search",
@@ -165,6 +178,18 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, '.+\\.jd\\.com')) {
                                 return $.retainQueryParameters(url, 'id|shopId|skuIds|suitId|wareId');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "1d0c3aae-c456-4352-972a-8b0b0f6e36c1",
+                    name = "Kuaishou",
+                    description = "Remove tracking for Kuaishou",
+                    script =
+                        """
+                            if ($.matches(url, '(.+\\.)?m\\.chenzhongtech\\.com|m\\.gifshow\\.com|.+\\.kuaishou\\.com')) {
+                                return $.setEncodedQuery(url, null);
                             }
                         """
                             .trimIndent()
@@ -234,12 +259,12 @@ val BuiltinRuleList =
                     name = "TikTok",
                     description = "Remove tracking for TikTok",
                     script =
-                    """
+                        """
                             if ($.matches(url, '.+\\.tiktok\\.com')) {
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                        .trimIndent()
+                            .trimIndent()
                 ),
                 Rule(
                     id = "7a6a2ddb-a0a4-43fe-a97f-7cb74cd29ad5",
