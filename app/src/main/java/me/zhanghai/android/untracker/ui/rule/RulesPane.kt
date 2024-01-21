@@ -148,7 +148,7 @@ fun RulesPane(
                         }
                     },
                     windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Unspecified)
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
                 )
                 PrimaryTabRow(
                     selectedTabIndex = pagerState.currentPage,
