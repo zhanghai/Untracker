@@ -297,7 +297,7 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, 'youtu\\.be|(www\\.)?youtube\\.com')) {
-                                return ${'$'}.retainQueryParameters(url, 't|v');
+                                return $.retainQueryParameters(url, 'index|list|t|v');
                             }
                         """
                             .trimIndent()
