@@ -98,21 +98,23 @@ val BuiltinRuleList =
                     id = "db094a08-e3c4-4bd9-aa98-16df86237f6d",
                     name = "Bilibili BV",
                     description = "Convert BV code for Bilibili",
+                    // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/misc/bvid_desc.md
                     script =
                         """
                             if ($.matches(url, '.+\\.bilibili\\.com', '/video/BV[0-9A-Za-z]+/?')) {
                                 const bvPath = $.getEncodedPath(url);
                                 const bvCode = /^\/video\/BV([0-9A-Za-z]+)\/?/.exec(bvPath)[1];
                                 function bvToAv(bv) {
-                                    const table = 'fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF'.split('');
-                                    const tr = {};
-                                    table.forEach((c, i) => tr[c] = i);
-                                    const s = [11, 10, 3, 8, 4, 6, 2, 9, 5, 7];
-                                    const xor = 177451812n;
-                                    const add = 100618342136696320n;
-                                    let r = 0n;
-                                    s.forEach((n, i) => r += BigInt(tr[bv[n - 2]]) * BigInt(58 ** i));
-                                    return (r - add) ^ xor;
+                                    const XOR_CODE = 23442827791579n;
+                                    const MASK_CODE = 2251799813685247n;
+                                    const BASE = 58n;
+                                    const data = 'FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf';
+                                    const bvArray = Array.from(bv);
+                                    [bvArray[1], bvArray[7]] = [bvArray[7], bvArray[1]];
+                                    [bvArray[2], bvArray[5]] = [bvArray[5], bvArray[2]];
+                                    bvArray.splice(0, 1);
+                                    const temp = bvArray.reduce((accumulator, bvChar) => accumulator * BASE + BigInt(data.indexOf(bvChar)), 0n);
+                                    return Number((temp & MASK_CODE) ^ XOR_CODE);
                                 }
                                 const avCode = bvToAv(bvCode);
                                 const avPath = '/video/av' + avCode + '/';
