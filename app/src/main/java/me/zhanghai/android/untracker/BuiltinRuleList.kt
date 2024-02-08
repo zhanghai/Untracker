@@ -29,7 +29,7 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, 'a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                            if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
                                     || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
                                     || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                 const response = $.fetch(url, { redirect: 'manual' });
