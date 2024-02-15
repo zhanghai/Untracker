@@ -209,6 +209,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "55662cf5-b43e-491a-b72b-adc1111b8583",
+                    name = "Old Reddit",
+                    description = "Use old Reddit instead of new Reddit",
+                    script =
+                        """
+                            if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com')) {
+                                return $.setHost(url, 'old.reddit.com');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "67035e8c-9418-47e7-9f62-56cd30666772",
                     name = "Reddit",
                     description = "Remove tracking for Reddit",
