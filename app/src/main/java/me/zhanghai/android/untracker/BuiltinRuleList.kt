@@ -215,8 +215,13 @@ val BuiltinRuleList =
                     enabled = false,
                     script =
                         """
-                            if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com')) {
-                                return $.setHost(url, 'old.reddit.com');
+                            if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com|v.redd.it')) {
+                                var newUrl = url;
+                                if ($.matches(url, 'v.redd.it')) {
+                                    const video = $.getEncodedPath(url);
+                                    newUrl = $.setEncodedPath(newUrl, `/video${video}`);
+                                }
+                                return $.setHost(newUrl, 'old.reddit.com');
                             }
                         """
                             .trimIndent()
