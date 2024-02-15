@@ -216,7 +216,7 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com|v.redd.it')) {
-                                var newUrl = url;
+                                var newUrl = $.removeQueryParameters(url);
                                 if ($.matches(url, 'v.redd.it')) {
                                     const video = $.getEncodedPath(url);
                                     newUrl = $.setEncodedPath(newUrl, `/video${video}`);
