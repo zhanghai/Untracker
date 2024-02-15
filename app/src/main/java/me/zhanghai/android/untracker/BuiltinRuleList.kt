@@ -212,6 +212,7 @@ val BuiltinRuleList =
                     id = "55662cf5-b43e-491a-b72b-adc1111b8583",
                     name = "Old Reddit",
                     description = "Use old Reddit instead of new Reddit",
+                    enabled = false,
                     script =
                         """
                             if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com')) {
