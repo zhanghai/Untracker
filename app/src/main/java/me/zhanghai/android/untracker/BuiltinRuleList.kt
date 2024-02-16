@@ -96,6 +96,20 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "26a2a812-cb45-44ad-ba2d-a595d70c50d5",
+                    name = "Amputate - Path",
+                    description = "Remove Google AMP paths\nexample.com/amp/index ==> example.com/index\nexample.com/index.amp ==> example.com/index)",
+                    enabled = true,
+                    script =
+                        """
+                            if ($.matches(url, '.*', '.*amp.*')) {
+                                const path = $.getEncodedPath(url).replace(/[./]amp(?!\w)/, '');
+                                return $.setEncodedPath(url, path);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "7edf803f-c165-46ef-b4d1-b8cbc6b5cb65",
                     name = "Bilibili",
                     description = "Remove tracking for Bilibili",
