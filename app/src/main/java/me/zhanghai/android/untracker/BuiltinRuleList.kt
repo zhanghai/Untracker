@@ -82,6 +82,20 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "78a216da-ed3e-4c7b-8eab-6094ac3d7c56",
+                    name = "Amputate - Host",
+                    description = "Remove Google AMP subdomains\namp.example.com ==> example.com",
+                    enabled = true,
+                    script =
+                        """
+                            if ($.matches(url, '(.+[.])?amp[.].+')) {
+                                const host = $.getHost(url).replace(/(?<!\w)amp[.]/, '');
+                                return $.setHost(url, host);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "7edf803f-c165-46ef-b4d1-b8cbc6b5cb65",
                     name = "Bilibili",
                     description = "Remove tracking for Bilibili",
