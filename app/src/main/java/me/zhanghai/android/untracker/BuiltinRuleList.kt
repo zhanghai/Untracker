@@ -29,24 +29,30 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
-                                    || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
-                                    || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
-                                const response = $.fetch(url, { redirect: 'manual' });
-                                if ([301, 302, 303, 307, 308].includes(response.status)) {
-                                    for ([name, value] of response.headers) {
-                                        if (name.toLowerCase() === 'location') {
-                                            return value;
+                            while (true) {
+                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                                        || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
+                                        || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
+                                    const response = $.fetch(url, { redirect: 'manual' });
+                                    if ([301, 302, 303, 307, 308].includes(response.status)) {
+                                        for ([name, value] of response.headers) {
+                                            if (name.toLowerCase() === 'location') {
+                                                url = value;
+                                                continue;
+                                            }
                                         }
                                     }
+                                } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
+                                    const response = $.fetch(url);
+                                    const groups = /var url = '([^']+)';/.exec(response.body);
+                                    if (groups) {
+                                        url = groups[1];
+                                        continue;
+                                    }
                                 }
-                            } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
-                                const response = $.fetch(url);
-                                const groups = /var url = '([^']+)';/.exec(response.body);
-                                if (groups) {
-                                    return groups[1];
-                                }
+                                break;
                             }
+                            return url;
                         """
                             .trimIndent()
                 ),
