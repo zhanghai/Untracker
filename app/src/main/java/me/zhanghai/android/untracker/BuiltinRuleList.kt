@@ -24,6 +24,20 @@ val BuiltinRuleList =
         rules =
             listOf(
                 Rule(
+                    id = "0db0b0dc-f46f-40a4-8c0d-8a575a09f2a3",
+                    name = "Common redirections",
+                    description = "Remove common redirections",
+                    script =
+                        """
+                            if ($.matches(url, 'www\\.douban\\.com', '/link2/', '.*\\burl=.+')) {
+                                return $.getQueryParameter(url, 'url');
+                            } else if ($.matches(url, 'link\\.zhihu\\.com', '/', '.*\\btarget=.+')) {
+                                return $.getQueryParameter(url, 'target');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "a925a9f0-84bb-46eb-bea2-1bded576d8c9",
                     name = "Common short links",
                     description = "Expand common tracking short links",

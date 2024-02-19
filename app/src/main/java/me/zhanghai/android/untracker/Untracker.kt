@@ -119,6 +119,8 @@ private interface IBuiltins {
 
     fun getEncodedQuery(url: String): String?
 
+    fun getQueryParameter(url: String, key: String): String?
+
     fun getEncodedFragment(url: String): String?
 
     fun setHost(url: String, host: String): String
@@ -183,6 +185,9 @@ private class Builtins : IBuiltins {
     override fun getEncodedPath(url: String): String = Uri.parse(url).encodedPath!!
 
     override fun getEncodedQuery(url: String): String? = Uri.parse(url).encodedQuery
+
+    override fun getQueryParameter(url: String, key: String): String? =
+        Uri.parse(url).getQueryParameter(key)
 
     override fun getEncodedFragment(url: String): String? = Uri.parse(url).encodedFragment
 
