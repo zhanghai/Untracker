@@ -217,6 +217,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "c722500a-17c8-462a-8a74-0c15fefe1b3e",
+                    name = "NetEase Cloud Music",
+                    description = "Remove tracking for NetEase Cloud Music",
+                    script =
+                        """
+                            if ($.matches(url, 'y\\.music\\.163\\.com')) {
+                                return $.retainQueryParameters(url, 'id');
+                            }
+                        """
+                        .trimIndent()
+                ),
+                Rule(
                     id = "465d579e-bc3b-4c5b-bac3-9b84c67c7554",
                     name = "Netflix",
                     description = "Remove tracking for Netflix",
