@@ -226,7 +226,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'id');
                             }
                         """
-                        .trimIndent()
+                            .trimIndent()
                 ),
                 Rule(
                     id = "465d579e-bc3b-4c5b-bac3-9b84c67c7554",
@@ -241,31 +241,28 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "67035e8c-9418-47e7-9f62-56cd30666772",
+                    name = "Reddit",
+                    description = "Remove tracking for Reddit",
+                    script =
+                        """
+                            if ($.matches(url, '(.+\\.)?reddit\\.com')) {
+                                return $.retainQueryParameters(url, 'context');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "55662cf5-b43e-491a-b72b-adc1111b8583",
                     name = "Old Reddit",
                     description = "Use old Reddit instead of new Reddit",
                     enabled = false,
                     script =
                         """
-                            if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com|v.redd.it')) {
-                                var newUrl = $.removeQueryParameters(url);
-                                if ($.matches(url, 'v.redd.it')) {
-                                    const video = $.getEncodedPath(url);
-                                    newUrl = $.setEncodedPath(newUrl, `/video${video}`);
-                                }
-                                return $.setHost(newUrl, 'old.reddit.com');
-                            }
-                        """
-                            .trimIndent()
-                ),
-                Rule(
-                    id = "67035e8c-9418-47e7-9f62-56cd30666772",
-                    name = "Reddit",
-                    description = "Remove tracking for Reddit",
-                    script =
-                        """
-                            if ($.matches(url, 'www\\.reddit\\.com')) {
-                                return $.retainQueryParameters(url, 'context');
+                            if ($.matches(url, '(www\\.)?reddit\\.com')) {
+                                return $.setHost(url, 'old.reddit.com');
+                            } else if ($.matches(url, 'v\\.redd\\.it', '/[^/]+/?')) {
+                                return $.setEncodedPath($.setHost(url, 'old.reddit.com'), '/video' + $.getEncodedPath(url));
                             }
                         """
                             .trimIndent()
