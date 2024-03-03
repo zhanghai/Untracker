@@ -85,7 +85,7 @@ val BuiltinRuleList =
                     id = "78a216da-ed3e-4c7b-8eab-6094ac3d7c56",
                     name = "Amputate - Host",
                     description = "Remove Google AMP subdomains\namp.example.com ==> example.com",
-                    enabled = true,
+                    enabled = false,
                     script =
                         """
                             if ($.matches(url, '(.+[.])?amp[.].+')) {
@@ -99,7 +99,7 @@ val BuiltinRuleList =
                     id = "26a2a812-cb45-44ad-ba2d-a595d70c50d5",
                     name = "Amputate - Path",
                     description = "Remove Google AMP paths\nexample.com/amp/index ==> example.com/index\nexample.com/index.amp ==> example.com/index)",
-                    enabled = true,
+                    enabled = false,
                     script =
                         """
                             if ($.matches(url, '.*', '.*amp.*')) {
