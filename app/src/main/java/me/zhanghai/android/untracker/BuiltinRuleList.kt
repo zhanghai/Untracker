@@ -241,6 +241,24 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "55662cf5-b43e-491a-b72b-adc1111b8583",
+                    name = "Old Reddit",
+                    description = "Use old Reddit instead of new Reddit",
+                    enabled = false,
+                    script =
+                        """
+                            if ($.matches(url, '(www[.])?(?<!old[.])reddit[.]com|v.redd.it')) {
+                                var newUrl = $.removeQueryParameters(url);
+                                if ($.matches(url, 'v.redd.it')) {
+                                    const video = $.getEncodedPath(url);
+                                    newUrl = $.setEncodedPath(newUrl, `/video${video}`);
+                                }
+                                return $.setHost(newUrl, 'old.reddit.com');
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "67035e8c-9418-47e7-9f62-56cd30666772",
                     name = "Reddit",
                     description = "Remove tracking for Reddit",
