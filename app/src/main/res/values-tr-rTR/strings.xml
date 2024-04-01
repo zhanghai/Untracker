@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2023 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="add">Ekle</string>
+    <string name="cancel">İptal et</string>
+    <string name="confirm">Kabul et</string>
+    <string name="copy">Kopyala</string>
+    <string name="delete">Sil</string>
+    <string name="navigate_up">Yukarıya kaydır</string>
+    <string name="save">Kaydet</string>
+    <string name="share">Paylaş</string>
+
+    <string name="app_name">Untracker</string>
+
+    <string name="main_home">Anasayfa</string>
+    <string name="main_home_share_title">Paylaşırken izlemeyi kaldır</string>
+    <string name="main_home_share_text">İzleme bilgilerini kaldırmak ve tekrar kopyalamak veya paylaşmak için paylaşım sayfasındaki "Untracker" bağlantılarını paylaşabilirsiniz.</string>
+    <string name="main_home_select_title">İzlemeyi kaldırmak için seç</string>
+    <string name="main_home_select_text">İzleme bilgilerini kaldırmak ve değiştirmek için metni seçebilir ve seçim araç çubuğundaki "İzlemeyi Kaldır" seçeneğine tıklayabilirsiniz.</string>
+    <string name="main_rules">Kurallar</string>
+    <string name="main_rules_builtin">Dahili</string>
+    <string name="main_rules_custom">Özel</string>
+    <string name="main_rules_empty">Kural eklemek için "+" tuşuna basın</string>
+    <string name="main_about">Hakkında</string>
+    <string name="main_about_version_title">Sürüm</string>
+    <string name="main_about_version_summary">%1$s (%2$d)</string>
+    <string name="main_about_github_title">GitHub üzerinde görüntüle</string>
+    <string name="main_about_github_uri" translatable="false">https://github.com/zhanghai/Untracker</string>
+    <string name="main_about_licenses" translatable="false">@string/licenses_title</string>
+
+    <string name="rule_view">Kuralı görüntüle</string>
+    <string name="rule_edit">Kuralı düzenle</string>
+    <string name="rule_add">Kural ekle</string>
+    <string name="rule_name">Ad</string>
+    <string name="rule_description">Açıklama</string>
+    <string name="rule_script">Script</string>
+    <string name="rule_script_supporting_text">Ayrıca bkz. &lt;a href="https://github.com/zhanghai/Untracker/blob/master/app/src/main/java/me/zhanghai/android/untracker/Untracker.kt">komut dosyası motoru kaynağı&lt;/a></string>
+
+    <string name="licenses_title">Açık kaynak lisansları</string>
+
+    <string name="text_original">Oriinal</string>
+    <string name="text_untracked">İzlenmemiş</string>
+    <string name="text_processing">İşleniyor…</string>
+    <string name="text_error_format">Hata: %1$s</string>
+</resources>
