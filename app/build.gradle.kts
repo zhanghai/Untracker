@@ -73,7 +73,7 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
-    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.04.00"))
     implementation("androidx.compose.animation:animation-graphics")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material3:material3")
