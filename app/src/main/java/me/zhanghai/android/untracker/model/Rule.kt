@@ -17,8 +17,8 @@
 package me.zhanghai.android.untracker.model
 
 import androidx.compose.runtime.Immutable
-import kotlinx.serialization.Serializable
 import java.util.UUID
+import kotlinx.serialization.Serializable
 
 @Immutable
 @Serializable

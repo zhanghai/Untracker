@@ -22,6 +22,8 @@ import android.text.util.Linkify
 import androidx.annotation.Keep
 import androidx.core.util.PatternsCompat
 import app.cash.quickjs.QuickJs
+import java.io.IOException
+import java.net.URI
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -37,8 +39,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
-import java.net.URI
 
 object Untracker {
     fun untrack(text: String): String {

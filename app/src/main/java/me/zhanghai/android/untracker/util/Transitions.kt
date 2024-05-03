@@ -198,7 +198,7 @@ class PathEasing(path: Path) : Easing {
         xValues = FloatArray(numPoints)
         yValues = FloatArray(numPoints)
 
-        for (i in 0 ..< numPoints) {
+        for (i in 0..<numPoints) {
             val distance = i * pathLength / (numPoints - 1)
             val position = pathMeasure.getPosition(distance)
             xValues[i] = position.x
