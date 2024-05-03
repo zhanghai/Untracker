@@ -25,19 +25,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.Rule
-import me.zhanghai.android.untracker.ui.component.MaterialClickableText
-import me.zhanghai.android.untracker.util.htmlToAnnotatedString
 import me.zhanghai.android.untracker.util.plus
 
 @Composable
@@ -80,17 +81,14 @@ fun RuleView(
             label = { Text(text = stringResource(R.string.rule_script)) },
             supportingText = {
                 val supportingText =
-                    stringResource(R.string.rule_script_supporting_text).htmlToAnnotatedString()
-                val uriHandler = LocalUriHandler.current
-                MaterialClickableText(
-                    text = supportingText,
-                    onClick = { offset ->
-                        @OptIn(ExperimentalTextApi::class)
-                        supportingText.getUrlAnnotations(offset, offset).firstOrNull()?.let {
-                            uriHandler.openUri(it.item.url)
-                        }
-                    }
-                )
+                    AnnotatedString.fromHtml(
+                        stringResource(R.string.rule_script_supporting_text),
+                        SpanStyle(
+                            color = MaterialTheme.colorScheme.secondary,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    )
+                Text(text = supportingText)
             }
         )
     }

@@ -16,7 +16,6 @@
 
 package me.zhanghai.android.untracker.ui.rule
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -91,7 +90,7 @@ fun NavGraphBuilder.rulesPane(
 private val tabTextResourceIds = listOf(R.string.main_rules_builtin, R.string.main_rules_custom)
 
 @Composable
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 fun RulesPane(
     contentPadding: PaddingValues,
     navigateToRuleScreen: (String) -> Unit,
@@ -179,7 +178,7 @@ fun RulesPane(
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
-            beyondBoundsPageCount = 1
+            beyondViewportPageCount = 1
         ) { page ->
             val (ruleListStateful, onRuleListChange) =
                 when (page) {

@@ -24,16 +24,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
@@ -45,8 +40,9 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -77,7 +73,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.Untracker
-import me.zhanghai.android.untracker.compat.ModalBottomSheetCompat
 import me.zhanghai.android.untracker.ui.component.UndecoratedTextField
 import me.zhanghai.android.untracker.util.Stateful
 
@@ -124,16 +119,8 @@ fun TextBottomSheet(
     val untrackedTextStateful by untrackedTextStatefulFlow.collectAsStateWithLifecycle()
     var modifiedText by rememberSaveable { mutableStateOf<String?>(null) }
     val currentText = modifiedText ?: untrackedTextStateful.value
-    // There's a bug on Android 10 that window insets can't be retrieved in a popup window, so we
-    // need to retrieve it outside ModalBottomSheet.
-    val windowInsets = WindowInsets.safeDrawing
-    // TODO: b/292204649
-    ModalBottomSheetCompat(
-        onDismissRequest = onDismiss,
-        sheetState = sheetState,
-        windowInsets = windowInsets.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
-    ) {
-        Column(modifier = Modifier.windowInsetsPadding(windowInsets)) {
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
+        Column {
             Text(
                 text = stringResource(R.string.text_original),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
@@ -205,9 +192,7 @@ fun TextBottomSheet(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CompositionLocalProvider(
-                    LocalMinimumInteractiveComponentEnforcement provides false
-                ) {
+                CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 40.dp) {
                     if (currentText != null) {
                         val clipboardManager = LocalClipboardManager.current
                         OutlinedButton(
