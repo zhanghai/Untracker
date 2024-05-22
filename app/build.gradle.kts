@@ -17,6 +17,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.compose")
     kotlin("plugin.serialization")
     id("com.mikepenz.aboutlibraries.plugin")
 }
@@ -76,7 +77,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.compose.animation:animation-graphics")
     implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.compose.material3:material3:1.3.0-alpha06")
+    implementation("androidx.compose.material3:material3:1.3.0-beta01")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")

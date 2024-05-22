@@ -28,6 +28,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -83,12 +84,18 @@ fun RuleView(
                 val supportingText =
                     AnnotatedString.fromHtml(
                         stringResource(R.string.rule_script_supporting_text),
-                        SpanStyle(
-                            color = MaterialTheme.colorScheme.secondary,
-                            textDecoration = TextDecoration.Underline
-                        )
                     )
-                Text(text = supportingText)
+                Text(
+                    text = supportingText,
+                    linkStyles =
+                        TextDefaults.linkStyles(
+                            linkStyle =
+                                SpanStyle(
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    textDecoration = TextDecoration.Underline
+                                )
+                        )
+                )
             }
         )
     }
