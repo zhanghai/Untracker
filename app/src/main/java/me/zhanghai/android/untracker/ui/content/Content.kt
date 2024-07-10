@@ -20,6 +20,6 @@ import androidx.compose.runtime.Composable
 import me.zhanghai.compose.preference.ProvidePreferenceTheme
 
 @Composable
-fun UntrackerContent(content: @Composable () -> Unit) {
-    UntrackerTheme { ProvidePreferenceTheme(content = content) }
+fun Content(content: @Composable () -> Unit) {
+    AppTheme { ProvidePreferenceTheme(content = content) }
 }

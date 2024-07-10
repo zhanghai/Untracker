@@ -19,13 +19,13 @@ package me.zhanghai.android.untracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import me.zhanghai.android.untracker.ui.content.UntrackerContent
+import me.zhanghai.android.untracker.ui.content.Content
 import me.zhanghai.android.untracker.ui.main.MainApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent { UntrackerContent { MainApp() } }
+        setContent { Content { MainApp() } }
     }
 }
