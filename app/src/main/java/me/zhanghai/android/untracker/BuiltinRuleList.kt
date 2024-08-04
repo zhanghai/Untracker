@@ -334,7 +334,7 @@ val BuiltinRuleList =
                     script =
                         """
                             if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
-                                return $.setEncodedQuery(url, null);
+                                return $.retainQueryParameters(url, 'xsec_token');
                             }
                         """
                             .trimIndent()
