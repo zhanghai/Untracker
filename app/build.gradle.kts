@@ -71,12 +71,12 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
 
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.08.00"))
     implementation("androidx.compose.animation:animation-graphics")
     implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.compose.material3:material3:1.3.0-beta04")
+    implementation("androidx.compose.material3:material3:1.3.0-rc01")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -89,7 +89,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     implementation("com.github.zhanghai.quickjs-java:quickjs-android:0.9.3")
-    implementation("com.mikepenz:aboutlibraries-core:10.9.2")
+    implementation("com.mikepenz:aboutlibraries-core:11.2.3")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("me.zhanghai.compose.preference:library:1.0.0")
 }
