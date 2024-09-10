@@ -91,5 +91,5 @@ dependencies {
     implementation("com.github.zhanghai.quickjs-java:quickjs-android:0.9.3")
     implementation("com.mikepenz:aboutlibraries-core:11.2.3")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("me.zhanghai.compose.preference:library:1.1.0")
+    implementation("me.zhanghai.compose.preference:library:1.1.1")
 }
