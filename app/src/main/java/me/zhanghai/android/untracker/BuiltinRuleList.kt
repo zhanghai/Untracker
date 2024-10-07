@@ -145,6 +145,30 @@ val BuiltinRuleList =
                     enabled = false
                 ),
                 Rule(
+                    id = "",
+                    name = "Discord Attachment",
+                    description = "Remove Discord attachment tracking",
+                    script =
+                        """
+                            if ($.matches(url, '(media|cdn)\\.discordapp\\.(com|net)')) {
+    return $.setEncodedQuery(url, null);
+}
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "",
+                    name = "Discord CDN Replacement",
+                    description = "Replace media link from MEDIA to CDN from Discord media.",
+                    script =
+                        """
+                            if ($.matches(url, 'media\\.discordapp\\.net')) {
+    return $.setHost(url, 'cdn\.discordapp\.com');
+}
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "ad21dada-9f09-4adf-9db2-d1575ca8b4a4",
                     name = "Douban",
                     description = "Remove tracking for Douban",
