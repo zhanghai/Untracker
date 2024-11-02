@@ -102,7 +102,7 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
             val version =
                 stringResource(
                     R.string.main_about_version_summary,
-                    packageInfo.versionName,
+                    packageInfo.versionName.orEmpty(),
                     packageInfo.versionCode
                 )
             val clipboardManager = LocalClipboardManager.current

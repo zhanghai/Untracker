@@ -24,13 +24,13 @@ plugins {
 
 android {
     namespace = "me.zhanghai.android.untracker"
-    buildToolsVersion = "34.0.0"
-    compileSdk = 34
+    buildToolsVersion = "35.0.0"
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "me.zhanghai.android.untracker"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 5
         versionName = "1.0.4"
 
