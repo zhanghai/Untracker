@@ -68,13 +68,19 @@ fun AppTheme(
             val insetsController = WindowCompat.getInsetsController(window, view)
             val lightSystemBars = !(windowIsTranslucent || darkTheme)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                window.statusBarColor = Color.Transparent.toArgb()
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    @Suppress("DEPRECATION")
+                    window.statusBarColor = Color.Transparent.toArgb()
+                }
                 insetsController.isAppearanceLightStatusBars = lightSystemBars
             }
             // android:windowLightNavigationBar is API 27 despite that
             // View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR is API 26.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                window.navigationBarColor = Color.Transparent.toArgb()
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    @Suppress("DEPRECATION")
+                    window.navigationBarColor = Color.Transparent.toArgb()
+                }
                 insetsController.isAppearanceLightNavigationBars = lightSystemBars
             }
         }
