@@ -347,7 +347,7 @@ val BuiltinRuleList =
                     description = "Remove tracking for Youtube",
                     script =
                         """
-                            if ($.matches(url, 'youtu\\.be|(www\\.)?youtube\\.com')) {
+                            if ($.matches(url, 'youtu\\.be|((music|www)\\.)?youtube\\.com')) {
                                 return $.retainQueryParameters(url, 'index|list|t|v');
                             }
                         """
