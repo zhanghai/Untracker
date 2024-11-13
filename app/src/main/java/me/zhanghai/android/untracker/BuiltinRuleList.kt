@@ -31,6 +31,8 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, 'www\\.douban\\.com', '/link2/', '.*\\burl=.+')) {
                                 return $.getQueryParameter(url, 'url');
+                            } else if ($.matches(url, 'search\\.app', '', '.*\\blink=.+')) {
+                                return $.getQueryParameter(url, 'link');
                             } else if ($.matches(url, 'link\\.zhihu\\.com', '/', '.*\\btarget=.+')) {
                                 return $.getQueryParameter(url, 'target');
                             }
