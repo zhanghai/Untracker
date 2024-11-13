@@ -282,6 +282,18 @@ val BuiltinRuleList =
                             .trimIndent()
                 ),
                 Rule(
+                    id = "8cbda6f2-d71d-4ee3-8ee0-05b245861c0d",
+                    name = "Spotify",
+                    description = "Remove tracking for Spotify",
+                    script =
+                        """
+                            if ($.matches(url, '(open\\.)?spotify\\.com')) {
+                                return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
                     id = "5ed9b3ef-f4de-44c8-bd34-5c8da6e330af",
                     name = "Stack Exchange",
                     description = "Remove tracking for Stack Exchange sites",
