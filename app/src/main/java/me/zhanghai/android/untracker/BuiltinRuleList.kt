@@ -46,7 +46,7 @@ val BuiltinRuleList =
                     script =
                         """
                             while (true) {
-                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
                                         || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
                                         || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                     const response = $.fetch(url, { redirect: 'manual' });
