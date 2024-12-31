@@ -1,0 +1,2 @@
+- Fixed occasional animation issue upon tab switching.
+- Improved built-in rules.
