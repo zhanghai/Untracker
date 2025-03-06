@@ -95,8 +95,9 @@ val BuiltinRuleList =
                                 url = $.setEncodedQuery(url, null);
                                 const path = $.getEncodedPath(url);
                                 const newPath = path.replace(/\/ref=.+$/i, '');
-                                if (newPath !== path) {
-                                    url = $.setEncodedPath(url, newPath);
+                                const newPath2 = newPath.replace(/.*\/(?:dp|gp\/product)\/([A-Z0-9]{10}).*/, "/dp/$1")
+                                if (newPath2 !== path) {
+                                    url = $.setEncodedPath(url, newPath2);
                                 }
                                 return url;
                             }
