@@ -16,7 +16,7 @@
 
 package me.zhanghai.android.untracker.ui.text
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -58,7 +58,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -86,10 +85,10 @@ fun TextBottomSheet(
 ) {
     val view = LocalView.current
     if (!view.isInEditMode) {
-        val context = LocalContext.current
+        val activity = LocalActivity.current!!
         val darkTheme = isSystemInDarkTheme()
         SideEffect {
-            val window = (context as Activity).window
+            val window = activity.window
             val insetsController = WindowCompat.getInsetsController(window, view)
             insetsController.isAppearanceLightNavigationBars = !darkTheme
         }

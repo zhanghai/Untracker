@@ -24,13 +24,13 @@ plugins {
 
 android {
     namespace = "me.zhanghai.android.untracker"
-    buildToolsVersion = "35.0.0"
-    compileSdk = 35
+    buildToolsVersion = "36.0.0"
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "me.zhanghai.android.untracker"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 7
         versionName = "1.0.6"
 
@@ -73,7 +73,7 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
-    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
+    implementation(platform("androidx.compose:compose-bom:2025.05.01"))
     implementation("androidx.compose.animation:animation-graphics")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material3:material3")
@@ -83,12 +83,12 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation("androidx.activity:activity-compose:1.9.3")
-    implementation("androidx.core:core-ktx:1.15.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
-    implementation("androidx.navigation:navigation-compose:2.8.5")
+    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.0")
+    implementation("androidx.navigation:navigation-compose:2.9.0")
 
-    implementation("com.github.zhanghai.quickjs-java:quickjs-android:0.9.3")
+    implementation("com.github.zhanghai.quickjs-java:quickjs-android:547f5b1597")
     implementation("com.mikepenz:aboutlibraries-core:11.2.3")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("me.zhanghai.compose.preference:library:1.1.1")

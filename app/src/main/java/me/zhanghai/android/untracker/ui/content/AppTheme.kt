@@ -16,9 +16,8 @@
 
 package me.zhanghai.android.untracker.ui.content
 
-import android.app.Activity
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -27,23 +26,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalView
 import androidx.core.content.res.use
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.WindowCompat
 
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    val context = LocalContext.current
+    val activity = LocalActivity.current!!
     val colorScheme =
         when {
             dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+                if (darkTheme) {
+                    dynamicDarkColorScheme(activity)
+                } else {
+                    dynamicLightColorScheme(activity)
+                }
             }
             darkTheme -> darkColorScheme()
             else -> lightColorScheme()
@@ -51,20 +54,20 @@ fun AppTheme(
 
     if (!LocalInspectionMode.current) {
         val view = LocalView.current
-        LaunchedEffect(context, view) {
-            val window = (context as Activity).window
+        LaunchedEffect(activity, view) {
+            val window = activity.window
             WindowCompat.setDecorFitsSystemWindows(window, false)
             val windowIsTranslucent =
-                context.obtainStyledAttributes(intArrayOf(android.R.attr.windowIsTranslucent)).use {
-                    it.getBoolean(0, false)
-                }
+                activity
+                    .obtainStyledAttributes(intArrayOf(android.R.attr.windowIsTranslucent))
+                    .use { it.getBoolean(0, false) }
             val windowBackgroundColor =
                 if (windowIsTranslucent) {
                     Color.Transparent.toArgb()
                 } else {
                     colorScheme.background.toArgb()
                 }
-            window.setBackgroundDrawable(ColorDrawable(windowBackgroundColor))
+            window.setBackgroundDrawable(windowBackgroundColor.toDrawable())
             val insetsController = WindowCompat.getInsetsController(window, view)
             val lightSystemBars = !(windowIsTranslucent || darkTheme)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
