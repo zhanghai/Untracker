@@ -46,16 +46,16 @@ val BuiltinRuleList =
                     script =
                         """
                             while (true) {
-                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|pin\\.it|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
                                         || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
+                                        || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
                                         || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                     const response = $.fetch(url, { redirect: 'manual' });
                                     if ([301, 302, 303, 307, 308].includes(response.status)) {
-                                        for ([name, value] of response.headers) {
-                                            if (name.toLowerCase() === 'location') {
-                                                url = value;
-                                                continue;
-                                            }
+                                        const location = response.headers.find(it => it[0].toLowerCase() === 'location')?.[1];
+                                        if (location) {
+                                            url = location;
+                                            continue;
                                         }
                                     }
                                 } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
@@ -94,8 +94,8 @@ val BuiltinRuleList =
                             if ($.matches(url, '.+\\.amazon\\.(ae|ca|cn|co\\.jp|co\\.uk|com|com\\.au|com\\.be|com\\.br|com\\.mx|com\\.tr|de|eg|es|fr|in|it|nl|pl|sa|se|sg)')) {
                                 url = $.setEncodedQuery(url, null);
                                 const path = $.getEncodedPath(url);
-                                const newPath = path.replace(/\/ref=.+$/i, '');
-                                if (newPath !== path) {
+                                const newPath = path.replace(/(?<=\/)ref=.+$/i, '');
+                                if (path !== newPath) {
                                     url = $.setEncodedPath(url, newPath);
                                 }
                                 return url;
@@ -238,6 +238,24 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, 'www\\.netflix\\.com')) {
                                 return $.setEncodedQuery(url, null);
+                            }
+                        """
+                            .trimIndent()
+                ),
+                Rule(
+                    id = "21065dad-2c4c-4431-acd7-32825e831c32",
+                    name = "Pinterest",
+                    description = "Remove tracking for Pinterest",
+                    script =
+                        """
+                            if ($.matches(url, 'www\\.pinterest\\.com')) {
+                                url = $.setEncodedQuery(url, null);
+                                const path = $.getEncodedPath(url);
+                                const newPath = path.replace(/(?<=\/)sent\/?$/i, '');
+                                if (path !== newPath) {
+                                    url = $.setEncodedPath(url, newPath);
+                                }
+                                return url;
                             }
                         """
                             .trimIndent()
