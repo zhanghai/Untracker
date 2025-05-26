@@ -48,6 +48,7 @@ val BuiltinRuleList =
                             while (true) {
                                 if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|pin\\.it|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
                                         || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
+                                        || $.matches(url, 'www\\.instagram\\.com', '/share/reel/.+')
                                         || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
                                         || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
                                     const response = $.fetch(url, { redirect: 'manual' });
