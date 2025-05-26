@@ -50,7 +50,8 @@ val BuiltinRuleList =
                                         || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
                                         || $.matches(url, 'www\\.instagram\\.com', '/share/reel/.+')
                                         || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
-                                        || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')) {
+                                        || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')
+                                        || $.matches(url, 'search.app', '.+')) {
                                     const response = $.fetch(url, { redirect: 'manual' });
                                     if ([301, 302, 303, 307, 308].includes(response.status)) {
                                         const location = response.headers.find(it => it[0].toLowerCase() === 'location')?.[1];
