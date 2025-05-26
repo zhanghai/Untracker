@@ -1,0 +1,2 @@
+- Fixed issue when displaying long links.
+- Added and improved built-in rules.
