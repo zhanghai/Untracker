@@ -31,7 +31,7 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, 'www\\.douban\\.com', '/link2/', '.*\\burl=.+')) {
                                 return $.getQueryParameter(url, 'url');
-                            } else if ($.matches(url, 'search\\.app', '', '.*\\blink=.+')) {
+                            } else if ($.matches(url, 'search\\.app', '/', '.*\\blink=.+')) {
                                 return $.getQueryParameter(url, 'link');
                             } else if ($.matches(url, 'link\\.zhihu\\.com', '/', '.*\\btarget=.+')) {
                                 return $.getQueryParameter(url, 'target');
@@ -51,7 +51,7 @@ val BuiltinRuleList =
                                         || $.matches(url, 'www\\.instagram\\.com', '/share/reel/.+')
                                         || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
                                         || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')
-                                        || $.matches(url, 'search.app', '.+')) {
+                                        || $.matches(url, 'search.app', '/.+')) {
                                     const response = $.fetch(url, { redirect: 'manual' });
                                     if ([301, 302, 303, 307, 308].includes(response.status)) {
                                         const location = response.headers.find(it => it[0].toLowerCase() === 'location')?.[1];
