@@ -1,3 +1,5 @@
+import com.mikepenz.aboutlibraries.plugin.DuplicateMode
+
 /*
  * Copyright 2023 Google LLC
  *
@@ -51,7 +53,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("release")
         }
@@ -63,11 +65,7 @@ android {
     kotlinOptions { jvmTarget = JavaVersion.VERSION_1_8.toString() }
     buildFeatures { compose = true }
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
-    bundle {
-        language {
-            enableSplit = false
-        }
-    }
+    bundle { language { enableSplit = false } }
 }
 
 dependencies {
@@ -93,3 +91,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("me.zhanghai.compose.preference:library:1.1.1")
 }
+
+aboutLibraries { library { duplicationMode = DuplicateMode.MERGE } }
