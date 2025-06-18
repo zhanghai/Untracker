@@ -17,22 +17,22 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateMode
  */
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("plugin.compose")
-    kotlin("plugin.serialization")
-    id("com.mikepenz.aboutlibraries.plugin")
+    alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.plugin.compose)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 android {
     namespace = "me.zhanghai.android.untracker"
-    buildToolsVersion = "36.0.0"
-    compileSdk = 36
+    buildToolsVersion = libs.versions.android.buildTools.get()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "me.zhanghai.android.untracker"
-        minSdk = 21
-        targetSdk = 36
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 8
         versionName = "1.0.7"
 
@@ -69,27 +69,27 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation(platform("androidx.compose:compose-bom:2025.06.01"))
-    implementation("androidx.compose.animation:animation-graphics")
-    implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.animation.graphics)
+    implementation(libs.compose.material.materialIconsExtended)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.ui.toolingPreview)
+    debugImplementation(libs.compose.ui.testManifest)
+    debugImplementation(libs.compose.ui.tooling)
 
-    implementation("androidx.activity:activity-compose:1.10.1")
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.1")
-    implementation("androidx.navigation:navigation-compose:2.9.0")
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.navigation.compose)
 
-    implementation("com.github.zhanghai.quickjs-java:quickjs-android:547f5b1597")
-    implementation("com.mikepenz:aboutlibraries-core:12.2.3")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("me.zhanghai.compose.preference:library:1.1.1")
+    implementation(libs.aboutLibraries.core)
+    implementation(libs.composePreference)
+    implementation(libs.quickjs.android)
+    implementation(libs.okhttp3)
 }
 
 aboutLibraries { library { duplicationMode = DuplicateMode.MERGE } }

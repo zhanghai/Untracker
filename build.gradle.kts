@@ -16,10 +16,9 @@
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.10.1" apply false
-    val kotlinVersion = "2.1.21"
-    kotlin("android") version kotlinVersion apply false
-    kotlin("plugin.compose") version kotlinVersion apply false
-    kotlin("plugin.serialization") version kotlinVersion apply false
-    id("com.mikepenz.aboutlibraries.plugin") version "12.2.3" apply false
+    alias(libs.plugins.aboutLibraries).apply(false)
+    alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.kotlin.android).apply(false)
+    alias(libs.plugins.kotlin.plugin.compose).apply(false)
+    alias(libs.plugins.kotlin.plugin.serialization).apply(false)
 }

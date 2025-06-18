@@ -1,0 +1,46 @@
+[versions]
+aboutLibraries = "12.2.3"
+android-buildTools = "36.0.0"
+android-compileSdk = "36"
+android-gradlePlugin = "8.10.1"
+android-minSdk = "21"
+android-targetSdk = "36"
+androidx-activity = "1.10.1"
+androidx-core = "1.16.0"
+androidx-lifecycle = "2.9.1"
+androidx-navigation = "2.9.0"
+compose = "2025.06.01"
+composePreference = "1.1.1"
+kotlin = "2.1.21"
+kotlinx-serialization = "1.8.1"
+mavenPublish = "0.32.0"
+okhttp3 = "4.12.0"
+quickjs = "547f5b1597"
+
+[libraries]
+aboutLibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", version.ref = "aboutLibraries" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
+androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
+compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
+compose-material-materialIconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-ui-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-toolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+composePreference = { group = "me.zhanghai.compose.preference", name = "library", version.ref = "composePreference" }
+kotlinx-serialization-json = { group="org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+quickjs-android = { group = "com.github.zhanghai.quickjs-java", name = "quickjs-android", version.ref = "quickjs" }
+
+[plugins]
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
+android-application = { id = "com.android.application", version.ref = "android-gradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
