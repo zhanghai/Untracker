@@ -75,8 +75,6 @@ dependencies {
     implementation(libs.compose.animation.graphics)
     implementation(libs.compose.material.materialIconsExtended)
     implementation(libs.compose.material3)
-    implementation(libs.compose.ui.ui)
-    implementation(libs.compose.ui.graphics)
     implementation(libs.compose.ui.toolingPreview)
     debugImplementation(libs.compose.ui.testManifest)
     debugImplementation(libs.compose.ui.tooling)
