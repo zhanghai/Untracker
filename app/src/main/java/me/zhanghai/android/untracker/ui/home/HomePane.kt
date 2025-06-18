@@ -50,7 +50,7 @@ val HomePaneInfo: NavigationItemInfo =
     NavigationItemInfo(
         route = "home",
         iconResourceId = R.drawable.home_icon_animated_24dp,
-        labelResourceId = R.string.main_home
+        labelResourceId = R.string.main_home,
     )
 
 fun NavGraphBuilder.homePane(contentPadding: PaddingValues) {
@@ -66,7 +66,7 @@ fun HomePane(contentPadding: PaddingValues) {
             title = { Text(text = stringResource(HomePaneInfo.labelResourceId)) },
             modifier = Modifier.fillMaxWidth(),
             windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
-            scrollBehavior = scrollBehavior
+            scrollBehavior = scrollBehavior,
         )
         Column(
             modifier =
@@ -80,19 +80,19 @@ fun HomePane(contentPadding: PaddingValues) {
                         imageVector = shareIllustration(),
                         contentDescription = null,
                         modifier = Modifier.fillMaxWidth(),
-                        contentScale = ContentScale.FillWidth
+                        contentScale = ContentScale.FillWidth,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = stringResource(R.string.main_home_share_title),
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = stringResource(R.string.main_home_share_text),
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
             }
@@ -103,19 +103,19 @@ fun HomePane(contentPadding: PaddingValues) {
                         imageVector = selectIllustration(),
                         contentDescription = null,
                         modifier = Modifier.fillMaxWidth(),
-                        contentScale = ContentScale.FillWidth
+                        contentScale = ContentScale.FillWidth,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = stringResource(R.string.main_home_select_title),
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleLarge
+                        style = MaterialTheme.typography.titleLarge,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = stringResource(R.string.main_home_select_text),
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
             }

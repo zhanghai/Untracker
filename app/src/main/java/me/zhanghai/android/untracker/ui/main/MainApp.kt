@@ -42,12 +42,12 @@ fun MainApp() {
         enterTransition = { activityEnter() },
         exitTransition = { activityExit() },
         popEnterTransition = { activityPopEnter() },
-        popExitTransition = { activityPopExit() }
+        popExitTransition = { activityPopExit() },
     ) {
         mainScreen(
             { navController.navigateToRuleScreen(it) },
             navController::navigateToAddRuleScreen,
-            navController::navigateToLicensesScreen
+            navController::navigateToLicensesScreen,
         )
         ruleScreen(navController::popBackStack)
         addRuleScreen(navController::popBackStack)

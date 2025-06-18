@@ -88,7 +88,7 @@ fun AddRuleScreen(onPopBackStack: () -> Unit) {
                     IconButton(onClick = onPopBackStack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = stringResource(R.string.navigate_up)
+                            contentDescription = stringResource(R.string.navigate_up),
                         )
                     }
                 },
@@ -96,7 +96,7 @@ fun AddRuleScreen(onPopBackStack: () -> Unit) {
                     IconButton(onClick = { addRule(rule) { onPopBackStack() } }) {
                         Icon(
                             imageVector = Icons.Outlined.Check,
-                            contentDescription = stringResource(R.string.save)
+                            contentDescription = stringResource(R.string.save),
                         )
                     }
                 },
@@ -104,19 +104,19 @@ fun AddRuleScreen(onPopBackStack: () -> Unit) {
                     WindowInsets.safeDrawing.only(
                         WindowInsetsSides.Horizontal + WindowInsetsSides.Top
                     ),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
         },
         containerColor = Color.Transparent,
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
-        contentWindowInsets = WindowInsets.safeDrawing
+        contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPadding ->
         RuleView(
             rule = rule,
             onRuleChange = { rule = it },
             readOnly = false,
             modifier = Modifier.fillMaxSize(),
-            contentPadding = contentPadding
+            contentPadding = contentPadding,
         )
     }
 }

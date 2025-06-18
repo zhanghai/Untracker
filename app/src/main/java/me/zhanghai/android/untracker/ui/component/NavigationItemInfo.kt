@@ -24,5 +24,5 @@ import androidx.compose.runtime.Immutable
 data class NavigationItemInfo(
     val route: String,
     @DrawableRes val iconResourceId: Int,
-    @StringRes val labelResourceId: Int
+    @StringRes val labelResourceId: Int,
 )

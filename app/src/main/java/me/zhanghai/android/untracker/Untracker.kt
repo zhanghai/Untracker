@@ -110,7 +110,7 @@ private interface IBuiltins {
         hostPattern: String?,
         encodedPathPattern: String?,
         encodedQueryPattern: String?,
-        encodedFragmentPattern: String?
+        encodedFragmentPattern: String?,
     ): Boolean
 
     fun getHost(url: String): String
@@ -145,7 +145,7 @@ private class Builtins : IBuiltins {
         hostPattern: String?,
         encodedPathPattern: String?,
         encodedQueryPattern: String?,
-        encodedFragmentPattern: String?
+        encodedFragmentPattern: String?,
     ): Boolean {
         val uri = Uri.parse(url)
         if (
@@ -227,20 +227,20 @@ private class Builtins : IBuiltins {
     override fun removeQueryParameters(
         url: String,
         keyPattern: String?,
-        valuePattern: String?
+        valuePattern: String?,
     ): String = removeQueryParameters(url, keyPattern, valuePattern, false)
 
     override fun retainQueryParameters(
         url: String,
         keyPattern: String?,
-        valuePattern: String?
+        valuePattern: String?,
     ): String = removeQueryParameters(url, keyPattern, valuePattern, true)
 
     private fun removeQueryParameters(
         url: String,
         keyPattern: String?,
         valuePattern: String?,
-        invertMatch: Boolean
+        invertMatch: Boolean,
     ): String {
         val uri = Uri.parse(url)
         return uri.buildUpon()
@@ -330,7 +330,7 @@ private class Builtins : IBuiltins {
                             }
                         )
                     }
-                }
+                },
             )
             put("ok", JsonPrimitive(response.isSuccessful))
             put("redirected", JsonPrimitive(response.priorResponse != null))

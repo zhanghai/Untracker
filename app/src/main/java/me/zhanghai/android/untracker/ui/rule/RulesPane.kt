@@ -70,19 +70,19 @@ val RulesPaneInfo: NavigationItemInfo =
     NavigationItemInfo(
         route = "rules",
         iconResourceId = R.drawable.rules_icon_animated_24dp,
-        labelResourceId = R.string.main_rules
+        labelResourceId = R.string.main_rules,
     )
 
 fun NavGraphBuilder.rulesPane(
     contentPadding: PaddingValues,
     navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit
+    navigateToAddRuleScreen: () -> Unit,
 ) {
     composable(RulesPaneInfo.route) {
         RulesPane(
             contentPadding = contentPadding,
             navigateToRuleScreen = navigateToRuleScreen,
-            navigateToAddRuleScreen = navigateToAddRuleScreen
+            navigateToAddRuleScreen = navigateToAddRuleScreen,
         )
     }
 }
@@ -94,7 +94,7 @@ private val tabTextResourceIds = listOf(R.string.main_rules_builtin, R.string.ma
 fun RulesPane(
     contentPadding: PaddingValues,
     navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit
+    navigateToAddRuleScreen: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val builtinRuleListStatefulFlow =
@@ -142,18 +142,18 @@ fun RulesPane(
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Add,
-                                contentDescription = stringResource(R.string.add)
+                                contentDescription = stringResource(R.string.add),
                             )
                         }
                     },
                     windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
                 )
                 PrimaryTabRow(
                     selectedTabIndex = pagerState.currentPage,
                     containerColor = Color.Unspecified,
                     contentColor = LocalContentColor.current,
-                    divider = {}
+                    divider = {},
                 ) {
                     tabTextResourceIds.forEachIndexed { index, textResourceId ->
                         Tab(
@@ -165,11 +165,11 @@ fun RulesPane(
                                 Text(
                                     text = stringResource(textResourceId),
                                     maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis
+                                    overflow = TextOverflow.Ellipsis,
                                 )
                             },
                             selectedContentColor = TabRowDefaults.primaryContentColor,
-                            unselectedContentColor = LocalContentColor.current
+                            unselectedContentColor = LocalContentColor.current,
                         )
                     }
                 }
@@ -178,7 +178,7 @@ fun RulesPane(
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
-            beyondViewportPageCount = 1
+            beyondViewportPageCount = 1,
         ) { page ->
             val (ruleListStateful, onRuleListChange) =
                 when (page) {
@@ -191,7 +191,7 @@ fun RulesPane(
                 onRuleListChange = onRuleListChange,
                 onRuleClick = { navigateToRuleScreen(it) },
                 contentPadding = contentPadding.copy(top = 0.dp),
-                scrollBehavior = scrollBehaviors[page]
+                scrollBehavior = scrollBehaviors[page],
             )
         }
     }
@@ -204,7 +204,7 @@ private fun RulesTab(
     onRuleListChange: (RuleList) -> Unit,
     onRuleClick: (String) -> Unit,
     contentPadding: PaddingValues,
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
 ) {
     Column(modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection)) {
         val ruleList = ruleListStateful.value
@@ -214,7 +214,7 @@ private fun RulesTab(
                 onRuleListChange = onRuleListChange,
                 onRuleClick = onRuleClick,
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = contentPadding
+                contentPadding = contentPadding,
             )
         } else {
             Box(modifier = Modifier.fillMaxSize().padding(contentPadding)) {
@@ -234,7 +234,7 @@ private fun RulesTab(
                                 },
                             modifier = Modifier.align(Alignment.Center).padding(16.dp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     }
                 }

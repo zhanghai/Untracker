@@ -56,7 +56,8 @@ fun lightColorScheme(): ColorScheme =
         surfaceContainerHighest = Palette.Neutral90,
         surfaceContainerLow = Palette.Neutral96,
         surfaceContainerLowest = Palette.Neutral100,
-        surfaceDim = Palette.Neutral87)
+        surfaceDim = Palette.Neutral87,
+    )
 
 fun darkColorScheme(): ColorScheme =
     ColorScheme(
@@ -95,4 +96,5 @@ fun darkColorScheme(): ColorScheme =
         surfaceContainerHighest = Palette.Neutral22,
         surfaceContainerLow = Palette.Neutral10,
         surfaceContainerLowest = Palette.Neutral4,
-        surfaceDim = Palette.Neutral6)
+        surfaceDim = Palette.Neutral6,
+    )

@@ -78,7 +78,7 @@ fun LicensesScreen(onPopBackStack: () -> Unit) {
                     IconButton(onClick = onPopBackStack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = stringResource(R.string.navigate_up)
+                            contentDescription = stringResource(R.string.navigate_up),
                         )
                     }
                 },
@@ -86,12 +86,12 @@ fun LicensesScreen(onPopBackStack: () -> Unit) {
                     WindowInsets.safeDrawing.only(
                         WindowInsetsSides.Horizontal + WindowInsetsSides.Top
                     ),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
         },
         containerColor = Color.Transparent,
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
-        contentWindowInsets = WindowInsets.safeDrawing
+        contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPadding ->
         val context = LocalContext.current
         val librariesStateful by
@@ -107,7 +107,7 @@ fun LicensesScreen(onPopBackStack: () -> Unit) {
             LibraryList(
                 libraries = libraries,
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = contentPadding
+                contentPadding = contentPadding,
             )
         } else {
             Box(modifier = Modifier.fillMaxSize().padding(contentPadding)) {

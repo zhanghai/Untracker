@@ -48,7 +48,7 @@ fun RuleView(
     onRuleChange: ((Rule) -> Unit),
     readOnly: Boolean,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues()
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     Column(
         modifier =
@@ -62,7 +62,7 @@ fun RuleView(
             onValueChange = { onRuleChange(rule.copy(name = it)) },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             readOnly = readOnly,
-            label = { Text(text = stringResource(R.string.rule_name)) }
+            label = { Text(text = stringResource(R.string.rule_name)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
@@ -70,7 +70,7 @@ fun RuleView(
             onValueChange = { onRuleChange(rule.copy(description = it)) },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             readOnly = readOnly,
-            label = { Text(text = stringResource(R.string.rule_description)) }
+            label = { Text(text = stringResource(R.string.rule_description)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
@@ -88,12 +88,12 @@ fun RuleView(
                             style =
                                 SpanStyle(
                                     color = MaterialTheme.colorScheme.secondary,
-                                    textDecoration = TextDecoration.Underline
+                                    textDecoration = TextDecoration.Underline,
                                 )
-                        )
+                        ),
                     )
                 Text(text = supportingText)
-            }
+            },
         )
     }
 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 fun TopAppBarContainer(
     scrollBehavior: TopAppBarScrollBehavior,
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val heightOffsetLimit = with(LocalDensity.current) { -64.0.dp.toPx() }
     SideEffect {
@@ -32,17 +32,18 @@ fun TopAppBarContainer(
             scrollBehavior.state.heightOffsetLimit = heightOffsetLimit
         }
     }
-    val colorTransitionFraction by remember(scrollBehavior) {
-        // derivedStateOf to prevent redundant recompositions when the content scrolls.
-        derivedStateOf {
-            val overlappingFraction = scrollBehavior.state.overlappedFraction
-            if (overlappingFraction > 0.01f) 1f else 0f
+    val colorTransitionFraction by
+        remember(scrollBehavior) {
+            // derivedStateOf to prevent redundant recompositions when the content scrolls.
+            derivedStateOf {
+                val overlappingFraction = scrollBehavior.state.overlappedFraction
+                if (overlappingFraction > 0.01f) 1f else 0f
+            }
         }
-    }
     val color by
         animateColorAsState(
             targetValue = colors.containerColor(colorTransitionFraction),
-            animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+            animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
         )
     Surface(color = color, content = content)
 }
@@ -52,5 +53,5 @@ private fun TopAppBarColors.containerColor(colorTransitionFraction: Float): Colo
     lerp(
         containerColor,
         scrolledContainerColor,
-        FastOutLinearInEasing.transform(colorTransitionFraction)
+        FastOutLinearInEasing.transform(colorTransitionFraction),
     )

@@ -56,14 +56,14 @@ val AboutPaneInfo: NavigationItemInfo =
     NavigationItemInfo(
         route = "about",
         iconResourceId = R.drawable.about_icon_animated_24dp,
-        labelResourceId = R.string.main_about
+        labelResourceId = R.string.main_about,
     )
 
 fun NavGraphBuilder.aboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Unit) {
     composable(AboutPaneInfo.route) {
         AboutPane(
             contentPadding = contentPadding,
-            navigateToLicensesScreen = navigateToLicensesScreen
+            navigateToLicensesScreen = navigateToLicensesScreen,
         )
     }
 }
@@ -77,7 +77,7 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
             title = { Text(text = stringResource(AboutPaneInfo.labelResourceId)) },
             modifier = Modifier.fillMaxWidth(),
             windowInsets = contentPadding.copy(bottom = 0.dp).asInsets(),
-            scrollBehavior = scrollBehavior
+            scrollBehavior = scrollBehavior,
         )
         Column(
             modifier =
@@ -91,7 +91,7 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
                 modifier = Modifier.fillMaxWidth().height(162.dp).padding(horizontal = 16.dp),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.FillHeight,
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
             )
             val context = LocalContext.current
             val packageInfo =
@@ -103,13 +103,13 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
                 stringResource(
                     R.string.main_about_version_summary,
                     packageInfo.versionName.orEmpty(),
-                    packageInfo.versionCode
+                    packageInfo.versionCode,
                 )
             val clipboardManager = LocalClipboardManager.current
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_version_title)) },
                 modifier = Modifier.fillMaxWidth(),
-                summary = { Text(text = version) }
+                summary = { Text(text = version) },
             ) {
                 clipboardManager.setText(AnnotatedString(version))
             }
@@ -117,14 +117,14 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
             val githubUri = stringResource(R.string.main_about_github_uri)
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_github_title)) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 uriHandler.openUri(githubUri)
             }
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_licenses)) },
                 modifier = Modifier.fillMaxWidth(),
-                onClick = navigateToLicensesScreen
+                onClick = navigateToLicensesScreen,
             )
         }
     }

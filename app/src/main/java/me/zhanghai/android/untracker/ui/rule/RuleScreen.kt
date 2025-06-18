@@ -89,7 +89,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
             @Suppress("USELESS_CAST")
             combine(
                     RuleListRepository.getBuiltinRuleListFlow(),
-                    RuleListRepository.getCustomRuleListFlow()
+                    RuleListRepository.getCustomRuleListFlow(),
                 ) { builtinRuleList, customRuleList ->
                     builtinRuleList to customRuleList
                 }
@@ -147,7 +147,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                     IconButton(onClick = onPopBackStack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = stringResource(R.string.navigate_up)
+                            contentDescription = stringResource(R.string.navigate_up),
                         )
                     }
                 },
@@ -156,7 +156,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                         IconButton(onClick = { removeCustomRule(ruleId) { onPopBackStack() } }) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
-                                contentDescription = stringResource(R.string.delete)
+                                contentDescription = stringResource(R.string.delete),
                             )
                         }
                         IconButton(
@@ -171,7 +171,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Check,
-                                contentDescription = stringResource(R.string.save)
+                                contentDescription = stringResource(R.string.save),
                             )
                         }
                     }
@@ -180,12 +180,12 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                     WindowInsets.safeDrawing.only(
                         WindowInsetsSides.Horizontal + WindowInsetsSides.Top
                     ),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
         },
         containerColor = Color.Transparent,
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
-        contentWindowInsets = WindowInsets.safeDrawing
+        contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPadding ->
         if (currentRule != null) {
             RuleView(
@@ -193,7 +193,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                 onRuleChange = { editingRule = it },
                 readOnly = isBuiltin,
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = contentPadding
+                contentPadding = contentPadding,
             )
         } else {
             Box(modifier = Modifier.fillMaxSize().padding(contentPadding)) {
@@ -211,7 +211,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                             text = ruleListsStateful.throwable.toString(),
                             modifier = Modifier.align(Alignment.Center).padding(16.dp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     }
                 }

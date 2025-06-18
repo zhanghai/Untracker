@@ -27,5 +27,5 @@ data class Rule(
     val name: String = "",
     val description: String = "",
     val script: String = "",
-    val enabled: Boolean = true
+    val enabled: Boolean = true,
 )

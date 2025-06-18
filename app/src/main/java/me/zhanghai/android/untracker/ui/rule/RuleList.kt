@@ -33,7 +33,7 @@ fun RuleList(
     onRuleListChange: (RuleList) -> Unit,
     onRuleClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues()
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     LazyColumn(modifier = modifier, contentPadding = contentPadding) {
         items(ruleList.rules, { it.id }) { rule ->
@@ -50,7 +50,7 @@ fun RuleList(
                     )
                 },
                 onRuleClick = onRuleClick,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
@@ -61,14 +61,14 @@ private fun RuleItem(
     rule: Rule,
     onRuleChange: (Rule) -> Unit,
     onRuleClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TwoTargetSwitchPreference(
         value = rule.enabled,
         onValueChange = { onRuleChange(rule.copy(enabled = it)) },
         title = { Text(text = rule.name) },
         modifier = modifier,
-        summary = { Text(text = rule.description) }
+        summary = { Text(text = rule.description) },
     ) {
         onRuleClick(rule.id)
     }

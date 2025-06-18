@@ -25,5 +25,5 @@ import androidx.navigation.NavController
 @Immutable
 data class ScreenInfo(
     val route: String,
-    val composable: @Composable AnimatedContentScope.(NavBackStackEntry, NavController) -> Unit
+    val composable: @Composable AnimatedContentScope.(NavBackStackEntry, NavController) -> Unit,
 )

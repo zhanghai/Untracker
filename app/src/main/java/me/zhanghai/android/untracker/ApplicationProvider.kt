@@ -36,7 +36,7 @@ class ApplicationProvider : ContentProvider() {
         projection: Array<String?>?,
         selection: String?,
         selectionArgs: Array<String?>?,
-        sortOrder: String?
+        sortOrder: String?,
     ): Cursor? {
         throw UnsupportedOperationException()
     }
@@ -57,7 +57,7 @@ class ApplicationProvider : ContentProvider() {
         uri: Uri,
         values: ContentValues?,
         selection: String?,
-        selectionArgs: Array<String?>?
+        selectionArgs: Array<String?>?,
     ): Int {
         throw UnsupportedOperationException()
     }

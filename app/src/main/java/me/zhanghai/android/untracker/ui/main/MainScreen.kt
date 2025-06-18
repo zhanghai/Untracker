@@ -61,13 +61,13 @@ val MainScreenRoute = "main"
 fun NavGraphBuilder.mainScreen(
     navigateToRuleScreen: (String) -> Unit,
     navigateToAddRuleScreen: () -> Unit,
-    navigateToLicensesScreen: () -> Unit
+    navigateToLicensesScreen: () -> Unit,
 ) {
     composable(MainScreenRoute) {
         MainScreen(
             navigateToRuleScreen = navigateToRuleScreen,
             navigateToAddRuleScreen = navigateToAddRuleScreen,
-            navigateToLicensesScreen = navigateToLicensesScreen
+            navigateToLicensesScreen = navigateToLicensesScreen,
         )
     }
 }
@@ -77,7 +77,7 @@ fun NavGraphBuilder.mainScreen(
 fun MainScreen(
     navigateToRuleScreen: (String) -> Unit,
     navigateToAddRuleScreen: () -> Unit,
-    navigateToLicensesScreen: () -> Unit
+    navigateToLicensesScreen: () -> Unit,
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -113,25 +113,25 @@ fun MainScreen(
                                         AnimatedImageVector.animatedVectorResource(
                                             navigationItem.iconResourceId
                                         ),
-                                        selected
+                                        selected,
                                     ),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                         },
                         label = {
                             Text(
                                 text = stringResource(navigationItem.labelResourceId),
                                 overflow = TextOverflow.Ellipsis,
-                                maxLines = 1
+                                maxLines = 1,
                             )
-                        }
+                        },
                     )
                 }
             }
         },
         containerColor = Color.Transparent,
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
-        contentWindowInsets = WindowInsets.safeDrawing
+        contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPadding ->
         NavHost(
             navController = navController,
@@ -140,7 +140,7 @@ fun MainScreen(
             enterTransition = { fadeThroughEnter() },
             exitTransition = { fadeThroughExit() },
             popEnterTransition = { fadeThroughPopEnter() },
-            popExitTransition = { fadeThroughPopExit() }
+            popExitTransition = { fadeThroughPopExit() },
         ) {
             homePane(contentPadding)
             rulesPane(contentPadding, navigateToRuleScreen, navigateToAddRuleScreen)

@@ -45,7 +45,7 @@ fun UndecoratedTextField(
     singleLine: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val textColor = textStyle.color.takeOrElse { LocalContentColor.current }
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
@@ -63,6 +63,6 @@ fun UndecoratedTextField(
         interactionSource = interactionSource,
         singleLine = singleLine,
         maxLines = maxLines,
-        minLines = minLines
+        minLines = minLines,
     )
 }

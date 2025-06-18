@@ -22,7 +22,7 @@ import me.zhanghai.compose.preference.Preference
 fun LibraryList(
     libraries: StableLibraries,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues()
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     LazyColumn(modifier = modifier, contentPadding = contentPadding) {
         items(libraries.libraries, { it.library.uniqueId }) { library ->
@@ -37,7 +37,7 @@ fun LibraryItem(library: StableLibrary, modifier: Modifier = Modifier) {
     Preference(
         title = { Text(text = library.library.name) },
         modifier = modifier,
-        summary = library.library.authorName?.let { { Text(text = it) } }
+        summary = library.library.authorName?.let { { Text(text = it) } },
     ) {
         openDialog = true
     }
@@ -53,7 +53,7 @@ fun LibraryItem(library: StableLibrary, modifier: Modifier = Modifier) {
             text =
                 library.library.licenses.firstOrNull()?.licenseContent?.let {
                     { Text(text = it, modifier = Modifier.verticalScroll(rememberScrollState())) }
-                }
+                },
         )
     }
 }

@@ -37,7 +37,7 @@ val BuiltinRuleList =
                                 return $.getQueryParameter(url, 'target');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "a925a9f0-84bb-46eb-bea2-1bded576d8c9",
@@ -72,20 +72,20 @@ val BuiltinRuleList =
                             }
                             return url;
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "19d74b86-5ac0-4218-8ec8-ee89e4d237f1",
                     name = "Common analytics",
                     description = "Remove tracking for common analytics",
-                    script = """return $.removeQueryParameters(url, '[isu]tm_.*|ref');"""
+                    script = """return $.removeQueryParameters(url, '[isu]tm_.*|ref');""",
                 ),
                 Rule(
                     id = "87af5849-1e81-42bd-984e-e30a1ec08db4",
                     name = "Common ads",
                     description = "Remove tracking for common ads",
                     script =
-                        """return $.removeQueryParameters(url, '(fb|g|tt|wicked|y)cl(id|source|src)|[gw]braid');"""
+                        """return $.removeQueryParameters(url, '(fb|g|tt|wicked|y)cl(id|source|src)|[gw]braid');""",
                 ),
                 Rule(
                     id = "3805dd66-b341-4da3-b5ba-f3acc69ed189",
@@ -103,7 +103,7 @@ val BuiltinRuleList =
                                 return url;
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "7edf803f-c165-46ef-b4d1-b8cbc6b5cb65",
@@ -116,7 +116,7 @@ val BuiltinRuleList =
                                 return $.removeQueryParameters(url, 'p', '1');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "db094a08-e3c4-4bd9-aa98-16df86237f6d",
@@ -146,7 +146,7 @@ val BuiltinRuleList =
                             }
                         """
                             .trimIndent(),
-                    enabled = false
+                    enabled = false,
                 ),
                 Rule(
                     id = "ad21dada-9f09-4adf-9db2-d1575ca8b4a4",
@@ -158,7 +158,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "c112da1e-384e-42e2-b110-ce6d8edbfe7a",
@@ -170,7 +170,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "926090a8-a98a-4168-b6a1-b6b801c76955",
@@ -182,7 +182,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'q|tbm');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "bcd9fcb8-bf1c-41f8-b18d-b248507e43c7",
@@ -194,7 +194,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "c68c4cbf-9ae5-41f6-89ba-6e3f31ffb6a2",
@@ -206,7 +206,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'id|shopId|skuIds|suitId|wareId');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "1d0c3aae-c456-4352-972a-8b0b0f6e36c1",
@@ -218,7 +218,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "c722500a-17c8-462a-8a74-0c15fefe1b3e",
@@ -230,7 +230,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'id');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "465d579e-bc3b-4c5b-bac3-9b84c67c7554",
@@ -242,7 +242,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "21065dad-2c4c-4431-acd7-32825e831c32",
@@ -260,7 +260,7 @@ val BuiltinRuleList =
                                 return url;
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "67035e8c-9418-47e7-9f62-56cd30666772",
@@ -272,7 +272,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'context');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "55662cf5-b43e-491a-b72b-adc1111b8583",
@@ -287,7 +287,7 @@ val BuiltinRuleList =
                                 return $.setEncodedPath($.setHost(url, 'old.reddit.com'), '/video' + $.getEncodedPath(url));
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "4244faaa-b50e-47f1-87a5-ac994c32b94f",
@@ -299,7 +299,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "8cbda6f2-d71d-4ee3-8ee0-05b245861c0d",
@@ -311,7 +311,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "5ed9b3ef-f4de-44c8-bd34-5c8da6e330af",
@@ -323,7 +323,7 @@ val BuiltinRuleList =
                                 return $.setEncodedPath(url, $.getEncodedPath(url).replace(/\/[0-9]+\/?$/i, ''));
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "9cb803b3-ed57-46ad-b604-8adb8c515c07",
@@ -335,7 +335,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'id');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "8420b788-c6ee-46a6-ab3b-da04d6299beb",
@@ -347,7 +347,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "7a6a2ddb-a0a4-43fe-a97f-7cb74cd29ad5",
@@ -359,7 +359,7 @@ val BuiltinRuleList =
                                 return $.setEncodedQuery(url, null);
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "84c837db-f1c0-4738-b0ea-0f3d091885d7",
@@ -371,7 +371,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'xsec_token');
                             }
                         """
-                            .trimIndent()
+                            .trimIndent(),
                 ),
                 Rule(
                     id = "88a68140-7653-4923-991d-19d1a98cd5e3",
@@ -383,7 +383,7 @@ val BuiltinRuleList =
                                 return $.retainQueryParameters(url, 'index|list|t|v');
                             }
                         """
-                            .trimIndent()
-                )
+                            .trimIndent(),
+                ),
             )
     )

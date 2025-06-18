@@ -15,7 +15,7 @@ fun shareIllustration(): ImageVector =
             defaultWidth = 480.dp,
             defaultHeight = 270.dp,
             viewportWidth = 240f,
-            viewportHeight = 135f
+            viewportHeight = 135f,
         )
         .apply {
             path(fill = SolidColor(MaterialTheme.colorScheme.scrim.copy(alpha = 0.32f))) {
@@ -45,7 +45,7 @@ fun selectIllustration(): ImageVector =
             defaultWidth = 480.dp,
             defaultHeight = 270.dp,
             viewportWidth = 240f,
-            viewportHeight = 135f
+            viewportHeight = 135f,
         )
         .apply {
             path(fill = SolidColor(MaterialTheme.colorScheme.scrim.copy(alpha = 0.32f))) {

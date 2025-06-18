@@ -81,7 +81,7 @@ fun TextBottomSheet(
     text: String,
     onShareText: (String) -> Unit,
     onSetProcessedText: ((String) -> Unit)?,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -124,7 +124,7 @@ fun TextBottomSheet(
                 text = stringResource(R.string.text_original),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
             SelectionContainer(
@@ -136,7 +136,7 @@ fun TextBottomSheet(
                 Text(
                     text = text,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -144,7 +144,7 @@ fun TextBottomSheet(
                 text = stringResource(R.string.text_untracked),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Box(
@@ -158,7 +158,7 @@ fun TextBottomSheet(
                         value = currentText,
                         onValueChange = { modifiedText = it },
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                        textStyle = MaterialTheme.typography.headlineSmall
+                        textStyle = MaterialTheme.typography.headlineSmall,
                     )
                 } else {
                     val placeholderText =
@@ -170,7 +170,7 @@ fun TextBottomSheet(
                             is Stateful.Failure ->
                                 stringResource(
                                     R.string.text_error_format,
-                                    untrackedTextStateful.throwable.toString()
+                                    untrackedTextStateful.throwable.toString(),
                                 )
                             else -> error(untrackedTextStateful)
                         }
@@ -178,7 +178,7 @@ fun TextBottomSheet(
                         text = placeholderText,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.headlineSmall
+                        style = MaterialTheme.typography.headlineSmall,
                     )
                 }
             }
@@ -189,7 +189,7 @@ fun TextBottomSheet(
                         .horizontalScroll(rememberScrollState())
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 40.dp) {
                     if (currentText != null) {
@@ -199,12 +199,12 @@ fun TextBottomSheet(
                                 clipboardManager.setText(AnnotatedString(currentText))
                                 dismiss()
                             },
-                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding
+                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.ContentCopy,
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.IconSize)
+                                modifier = Modifier.size(ButtonDefaults.IconSize),
                             )
                             Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
                             Text(stringResource(R.string.copy))
@@ -215,12 +215,12 @@ fun TextBottomSheet(
                                 onShareText(currentText)
                                 dismiss()
                             },
-                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding
+                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Share,
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.IconSize)
+                                modifier = Modifier.size(ButtonDefaults.IconSize),
                             )
                             Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
                             Text(stringResource(R.string.share))
@@ -232,12 +232,12 @@ fun TextBottomSheet(
                                     onSetProcessedText(currentText)
                                     dismiss()
                                 },
-                                contentPadding = ButtonDefaults.ButtonWithIconContentPadding
+                                contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                             ) {
                                 Icon(
                                     imageVector = Icons.Outlined.Check,
                                     contentDescription = null,
-                                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                                    modifier = Modifier.size(ButtonDefaults.IconSize),
                                 )
                                 Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
                                 Text(stringResource(R.string.confirm))
@@ -246,12 +246,12 @@ fun TextBottomSheet(
                     } else {
                         OutlinedButton(
                             onClick = dismiss,
-                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding
+                            contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Close,
                                 contentDescription = null,
-                                modifier = Modifier.size(ButtonDefaults.IconSize)
+                                modifier = Modifier.size(ButtonDefaults.IconSize),
                             )
                             Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
                             Text(stringResource(R.string.cancel))

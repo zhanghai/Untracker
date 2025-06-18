@@ -68,7 +68,7 @@ class TextActivity : ComponentActivity() {
                     text = text,
                     onShareText = onShareText,
                     onSetProcessedText = onSetProcessedText,
-                    onDismiss = this::finish
+                    onDismiss = this::finish,
                 )
             }
         }
@@ -85,7 +85,7 @@ class TextActivity : ComponentActivity() {
                             }
                         }
                         .putExtra(Intent.EXTRA_TEXT, text),
-                    null
+                    null,
                 )
                 .apply {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && originalIntent != null) {

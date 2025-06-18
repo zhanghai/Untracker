@@ -33,58 +33,27 @@ import me.zhanghai.android.untracker.ui.token.Easings
 
 fun activityEnter(): EnterTransition =
     slideInHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        initialOffsetX = { (0.1f * it).roundToInt() }
-    ) +
-        fadeIn(
-            animationSpec =
-                tween(
-                    delayMillis = 50,
-                    durationMillis = 83,
-                    easing = LinearEasing,
-                )
-        )
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        initialOffsetX = { (0.1f * it).roundToInt() },
+    ) + fadeIn(animationSpec = tween(delayMillis = 50, durationMillis = 83, easing = LinearEasing))
 
 fun activityExit(): ExitTransition =
     slideOutHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        targetOffsetX = { (-0.1f * it).roundToInt() }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        targetOffsetX = { (-0.1f * it).roundToInt() },
     ) + fadeOut(animationSpec = tween(durationMillis = 50, easing = LinearEasing))
 
 fun activityPopEnter(): EnterTransition =
     slideInHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        initialOffsetX = { (-0.1f * it).roundToInt() }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        initialOffsetX = { (-0.1f * it).roundToInt() },
     ) + fadeIn(animationSpec = tween(delayMillis = 83, durationMillis = 50, easing = LinearEasing))
 
 fun activityPopExit(): ExitTransition =
     slideOutHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        targetOffsetX = { (0.1f * it).roundToInt() }
-    ) +
-        fadeOut(
-            animationSpec =
-                tween(
-                    durationMillis = 83,
-                    easing = LinearEasing,
-                )
-        )
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        targetOffsetX = { (0.1f * it).roundToInt() },
+    ) + fadeOut(animationSpec = tween(durationMillis = 83, easing = LinearEasing))
 
 // See also com.google.android.material.transition.MaterialFadeThrough .
 
@@ -94,7 +63,7 @@ fun fadeThroughEnter(): EnterTransition =
             tween(
                 durationMillis = (0.65f * Durations.Long1).roundToInt(),
                 delayMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized
+                easing = Easings.Emphasized,
             )
     )
 
@@ -103,7 +72,7 @@ fun fadeThroughExit(): ExitTransition =
         animationSpec =
             tween(
                 durationMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized
+                easing = Easings.Emphasized,
             )
     )
 
@@ -113,7 +82,7 @@ fun fadeThroughPopEnter(): EnterTransition =
             tween(
                 durationMillis = (0.65f * Durations.Long1).roundToInt(),
                 delayMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized
+                easing = Easings.Emphasized,
             )
     )
 
@@ -122,7 +91,7 @@ fun fadeThroughPopExit(): ExitTransition =
         animationSpec =
             tween(
                 durationMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized
+                easing = Easings.Emphasized,
             )
     )
 
@@ -130,40 +99,24 @@ fun fadeThroughPopExit(): ExitTransition =
 
 fun sharedAxisXEnter(): EnterTransition =
     slideInHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        initialOffsetX = { it }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        initialOffsetX = { it },
     ) + fadeThroughEnter()
 
 fun sharedAxisXExit(): ExitTransition =
     slideOutHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        targetOffsetX = { -it }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        targetOffsetX = { -it },
     ) + fadeThroughExit()
 
 fun sharedAxisXPopEnter(): EnterTransition =
     slideInHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        initialOffsetX = { -it }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        initialOffsetX = { -it },
     ) + fadeThroughPopEnter()
 
 fun sharedAxisXPopExit(): ExitTransition =
     slideOutHorizontally(
-        animationSpec =
-            tween(
-                durationMillis = Durations.Long1,
-                easing = Easings.Emphasized
-            ),
-        targetOffsetX = { it }
+        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+        targetOffsetX = { it },
     ) + fadeThroughPopExit()
