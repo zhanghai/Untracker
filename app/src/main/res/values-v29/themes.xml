@@ -18,13 +18,9 @@
 
 <resources>
     <style name="Platform.Theme.Untracker.V29" parent="Platform.Theme.Untracker.V27">
-        <item name="android:forceDarkAllowed">false</item>
-
-        <!--
-            Without this line of code, Android will probably mask the system bar
-            不加这行代码的话，Android 可能会在系统栏加遮罩（荣耀机型复现）
-        -->
         <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:forceDarkAllowed">false</item>
     </style>
     <style name="Platform.Theme.Untracker" parent="Platform.Theme.Untracker.V29" />
 </resources>
