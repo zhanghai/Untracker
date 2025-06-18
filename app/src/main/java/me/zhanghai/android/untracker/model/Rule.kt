@@ -17,8 +17,8 @@
 package me.zhanghai.android.untracker.model
 
 import androidx.compose.runtime.Immutable
-import java.util.UUID
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 @Immutable
 @Serializable
@@ -27,5 +27,12 @@ data class Rule(
     val name: String = "",
     val description: String = "",
     val script: String = "",
-    val enabled: Boolean = true
+    val enabled: Boolean = true,
+    val zhCNValue: I18nStrings? = null
+)
+
+@Serializable
+data class I18nStrings(
+    val localeName: String? = null,
+    val localeDescription: String? = null,
 )

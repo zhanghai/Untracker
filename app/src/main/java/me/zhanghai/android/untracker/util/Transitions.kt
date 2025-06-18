@@ -24,9 +24,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import kotlin.math.roundToInt
 import me.zhanghai.android.untracker.ui.token.Durations
 import me.zhanghai.android.untracker.ui.token.Easings
+import kotlin.math.roundToInt
 
 // See also android:Animation.Activity .
 // Modified to be fade through to account for missing expand transition.

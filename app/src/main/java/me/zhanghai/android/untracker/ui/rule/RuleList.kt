@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import me.zhanghai.android.untracker.model.Rule
 import me.zhanghai.android.untracker.model.RuleList
 import me.zhanghai.compose.preference.TwoTargetSwitchPreference
+import java.util.Locale
 
 @Composable
 fun RuleList(
@@ -35,22 +36,18 @@ fun RuleList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues()
 ) {
+    val locale = Locale.getDefault()
     LazyColumn(modifier = modifier, contentPadding = contentPadding) {
         items(ruleList.rules, { it.id }) { rule ->
             RuleItem(
-                rule = rule,
-                onRuleChange = { newRule ->
+                rule = rule, onRuleChange = { newRule ->
                     onRuleListChange(
                         ruleList.copy(
-                            rules =
-                                ruleList.rules.map { oldRule ->
-                                    if (oldRule.id == newRule.id) newRule else oldRule
-                                }
-                        )
+                            rules = ruleList.rules.map { oldRule ->
+                                if (oldRule.id == newRule.id) newRule else oldRule
+                            })
                     )
-                },
-                onRuleClick = onRuleClick,
-                modifier = Modifier.fillMaxWidth()
+                }, onRuleClick = onRuleClick, locale = locale, modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -61,15 +58,36 @@ private fun RuleItem(
     rule: Rule,
     onRuleChange: (Rule) -> Unit,
     onRuleClick: (String) -> Unit,
+    locale: Locale,
     modifier: Modifier = Modifier
 ) {
+    val (localeName, localeDescription) = localeItem(locale, rule)
+
     TwoTargetSwitchPreference(
         value = rule.enabled,
         onValueChange = { onRuleChange(rule.copy(enabled = it)) },
-        title = { Text(text = rule.name) },
+        title = { Text(text = localeName) },
         modifier = modifier,
-        summary = { Text(text = rule.description) }
-    ) {
+        summary = { Text(text = localeDescription) }) {
         onRuleClick(rule.id)
     }
 }
+
+fun localeItem(locale: Locale, rule: Rule): Pair<String, String> {
+    val (itemName, itemDescription) = when (formatLocaleName(locale)) {
+        formatLocaleName(Locale.CHINA, Locale.SIMPLIFIED_CHINESE) ->
+            Pair(
+                rule.zhCNValue?.localeName ?: rule.name,
+                rule.zhCNValue?.localeDescription ?: rule.description
+            )
+
+        else ->
+            Pair(rule.name, rule.description)
+    }
+    return Pair(itemName, itemDescription)
+}
+
+fun formatLocaleName(locale: Locale): String = locale.displayCountry + locale.displayLanguage
+
+fun formatLocaleName(country: Locale, language: Locale): String =
+    country.displayCountry + language.displayLanguage
