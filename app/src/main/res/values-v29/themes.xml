@@ -18,6 +18,8 @@
 
 <resources>
     <style name="Platform.Theme.Untracker.V29" parent="Platform.Theme.Untracker.V27">
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
         <item name="android:forceDarkAllowed">false</item>
     </style>
     <style name="Platform.Theme.Untracker" parent="Platform.Theme.Untracker.V29" />
