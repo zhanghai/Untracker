@@ -198,8 +198,8 @@ val BuiltinRuleList =
                 ),
                 Rule(
                     id = "c68c4cbf-9ae5-41f6-89ba-6e3f31ffb6a2",
-                    name = "JD",
-                    description = "Remove tracking for JD",
+                    name = "JD.com",
+                    description = "Remove tracking for JD.com",
                     script =
                         """
                             if ($.matches(url, '.+\\.jd\\.com')) {
@@ -363,8 +363,8 @@ val BuiltinRuleList =
                 ),
                 Rule(
                     id = "84c837db-f1c0-4738-b0ea-0f3d091885d7",
-                    name = "Xiaohongshu",
-                    description = "Remove tracking for Xiaohongshu",
+                    name = "rednote",
+                    description = "Remove tracking for rednote",
                     script =
                         """
                             if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
