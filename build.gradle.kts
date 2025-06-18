@@ -21,5 +21,5 @@ plugins {
     kotlin("android") version kotlinVersion apply false
     kotlin("plugin.compose") version kotlinVersion apply false
     kotlin("plugin.serialization") version kotlinVersion apply false
-    id("com.mikepenz.aboutlibraries.plugin") version "12.2.1" apply false
+    id("com.mikepenz.aboutlibraries.plugin") version "12.2.3" apply false
 }
