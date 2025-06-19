@@ -6,6 +6,7 @@ android-gradlePlugin = "8.10.1"
 android-minSdk = "21"
 android-targetSdk = "36"
 androidx-activity = "1.10.1"
+androidx-browser = "1.8.0"
 androidx-core = "1.16.0"
 androidx-lifecycle = "2.9.1"
 androidx-navigation = "2.9.0"
@@ -20,6 +21,7 @@ quickjs = "547f5b1597"
 [libraries]
 aboutLibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", version.ref = "aboutLibraries" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity" }
+androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
