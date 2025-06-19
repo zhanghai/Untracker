@@ -73,9 +73,7 @@ fun LibraryItem(library: StableLibrary) {
                 RenderUniqueID(library.library.uniqueId)
                 RenderDevelopers(library.library.developers)
                 RenderDescription(library.library.description)
-                if (licenses.isNotEmpty() || version != null) RenderVersionAndLicenses(
-                    licenses, version
-                )
+                RenderVersionAndLicenses(licenses, version)
             }
         }
     }
@@ -159,7 +157,7 @@ private fun RenderDescription(description: String?) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RenderVersionAndLicenses(licenses: ImmutableSet<License>, version: String?) {
-    FlowRow(
+    if (licenses.isNotEmpty() || version != null) FlowRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
