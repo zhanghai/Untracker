@@ -39,7 +39,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.mikepenz.aboutlibraries.entity.Developer
-import com.mikepenz.aboutlibraries.entity.Library
+import com.mikepenz.aboutlibraries.entity.License
+import kotlinx.collections.immutable.ImmutableSet
 
 @Composable
 fun LibraryList(
@@ -59,12 +60,11 @@ fun LibraryList(
 @Composable
 fun LibraryItem(library: StableLibrary) {
     val version = library.library.artifactVersion
+    val licenses = library.library.licenses
     var openDialog by rememberSaveable { mutableStateOf(false) }
     Box(
         modifier = Modifier.clickable(onClick = {
-            if (library.library.licenses.isNotEmpty() || library.library.website != null) {
-                openDialog = true
-            }
+            if (licenses.isNotEmpty()) openDialog = true
         })
     ) {
         Box(modifier = Modifier.padding(16.dp, 12.dp, 16.dp, 16.dp)) {
@@ -73,7 +73,9 @@ fun LibraryItem(library: StableLibrary) {
                 RenderUniqueID(library.library.uniqueId)
                 RenderDevelopers(library.library.developers)
                 RenderDescription(library.library.description)
-                RenderVersionAndLicenses(library.library, version)
+                if (licenses.isNotEmpty() || version != null) RenderVersionAndLicenses(
+                    licenses, version
+                )
             }
         }
     }
@@ -86,10 +88,9 @@ fun LibraryItem(library: StableLibrary) {
                 }
             },
             title = { Text(text = library.library.name) },
-            text =
-                library.library.licenses.firstOrNull()?.licenseContent?.let {
-                    { Text(text = it, modifier = Modifier.verticalScroll(rememberScrollState())) }
-                },
+            text = library.library.licenses.firstOrNull()?.licenseContent?.let {
+                { Text(text = it, modifier = Modifier.verticalScroll(rememberScrollState())) }
+            },
         )
     }
 }
@@ -157,7 +158,7 @@ private fun RenderDescription(description: String?) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun RenderVersionAndLicenses(library: Library, version: String?) {
+private fun RenderVersionAndLicenses(licenses: ImmutableSet<License>, version: String?) {
     FlowRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -165,21 +166,19 @@ private fun RenderVersionAndLicenses(library: Library, version: String?) {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(7.dp),
     ) {
-        Card(
+        if (version != null) Card(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
             shape = RoundedCornerShape(4.dp)
         ) {
             Text(
-                text = if (version.toString().first()
-                        .isDigit()
-                ) "v${version.toString()}" else version.toString(),
+                text = if (version.first().isDigit()) "v$version" else version,
                 modifier = Modifier.padding(8.dp, 3.dp, 8.dp, 3.dp),
                 style = typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
             )
         }
-        if (library.licenses.isNotEmpty()) library.licenses.forEach {
+        if (licenses.isNotEmpty()) licenses.forEach { license ->
             Card(
                 colors = CardDefaults.cardColors(
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -188,7 +187,7 @@ private fun RenderVersionAndLicenses(library: Library, version: String?) {
             ) {
                 Text(
                     modifier = Modifier.padding(8.dp, 3.dp, 8.dp, 3.dp),
-                    text = it.name,
+                    text = license.name,
                     style = typography.labelSmall
                 )
             }
@@ -196,7 +195,7 @@ private fun RenderVersionAndLicenses(library: Library, version: String?) {
     }
 }
 
-private fun Context.openUrlWithChromeCustomTab(url: String){
+private fun Context.openUrlWithChromeCustomTab(url: String) {
     val intent = CustomTabsIntent.Builder().build()
     intent.launchUrl(this, url.toUri())
 }
