@@ -56,7 +56,7 @@ import me.zhanghai.android.untracker.util.fadeThroughExit
 import me.zhanghai.android.untracker.util.fadeThroughPopEnter
 import me.zhanghai.android.untracker.util.fadeThroughPopExit
 
-val MainScreenRoute = "main"
+const val MainScreenRoute = "main"
 
 fun NavGraphBuilder.mainScreen(
     navigateToRuleScreen: (String) -> Unit,

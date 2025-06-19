@@ -6,20 +6,20 @@
 package me.zhanghai.android.untracker.ui.token
 
 object Durations {
-    val Short1 = 50
-    val Short2 = 100
-    val Short3 = 150
-    val Short4 = 200
-    val Medium1 = 250
-    val Medium2 = 300
-    val Medium3 = 350
-    val Medium4 = 400
-    val Long1 = 450
-    val Long2 = 500
-    val Long3 = 550
-    val Long4 = 600
-    val ExtraLong1 = 700
-    val ExtraLong2 = 800
-    val ExtraLong3 = 900
-    val ExtraLong4 = 1000
+    const val Short1 = 50
+    const val Short2 = 100
+    const val Short3 = 150
+    const val Short4 = 200
+    const val Medium1 = 250
+    const val Medium2 = 300
+    const val Medium3 = 350
+    const val Medium4 = 400
+    const val Long1 = 450
+    const val Long2 = 500
+    const val Long3 = 550
+    const val Long4 = 600
+    const val ExtraLong1 = 700
+    const val ExtraLong2 = 800
+    const val ExtraLong3 = 900
+    const val ExtraLong4 = 1000
 }
