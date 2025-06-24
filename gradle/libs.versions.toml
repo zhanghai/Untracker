@@ -10,10 +10,9 @@ androidx-core = "1.16.0"
 androidx-lifecycle = "2.9.1"
 androidx-navigation = "2.9.0"
 compose = "2025.06.01"
-composePreference = "1.1.1"
-kotlin = "2.1.21"
+composePreference = "2.0.0"
+kotlin = "2.2.0"
 kotlinx-serialization = "1.8.1"
-mavenPublish = "0.32.0"
 okhttp3 = "4.12.0"
 quickjs = "547f5b1597"
 
@@ -30,7 +29,7 @@ compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-toolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-composePreference = { group = "me.zhanghai.compose.preference", name = "library", version.ref = "composePreference" }
+composePreference = { group = "me.zhanghai.compose.preference", name = "preference", version.ref = "composePreference" }
 kotlinx-serialization-json = { group="org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
 quickjs-android = { group = "com.github.zhanghai.quickjs-java", name = "quickjs-android", version.ref = "quickjs" }
@@ -41,4 +40,3 @@ android-application = { id = "com.android.application", version.ref = "android-g
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
