@@ -290,6 +290,18 @@ val BuiltinRuleList =
                             .trimIndent(),
                 ),
                 Rule(
+                    id = "84c837db-f1c0-4738-b0ea-0f3d091885d7",
+                    name = "rednote",
+                    description = "Remove tracking for rednote",
+                    script =
+                        """
+                            if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
+                                return $.retainQueryParameters(url, 'xsec_token');
+                            }
+                        """
+                            .trimIndent(),
+                ),
+                Rule(
                     id = "4244faaa-b50e-47f1-87a5-ac994c32b94f",
                     name = "SMZDM",
                     description = "Remove tracking for SMZDM",
@@ -357,18 +369,6 @@ val BuiltinRuleList =
                         """
                             if ($.matches(url, '(twitter|x)\\.com')) {
                                 return $.setEncodedQuery(url, null);
-                            }
-                        """
-                            .trimIndent(),
-                ),
-                Rule(
-                    id = "84c837db-f1c0-4738-b0ea-0f3d091885d7",
-                    name = "rednote",
-                    description = "Remove tracking for rednote",
-                    script =
-                        """
-                            if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
-                                return $.retainQueryParameters(url, 'xsec_token');
                             }
                         """
                             .trimIndent(),
