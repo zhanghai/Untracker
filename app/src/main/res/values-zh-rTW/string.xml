@@ -26,16 +26,16 @@
     <string name="save">儲存</string>
     <string name="share">分享</string>
 
-    <string name="app_name">Untracker</string>
+    <string name="app_name">移除追蹤</string>
 
     <string name="main_home">首頁</string>
     <string name="main_home_share_title">在分享時移除追蹤</string>
     <string name="main_home_share_text">您可以將連結分享給“Untracker”以移除追蹤訊息並複製或再次分享。</string>
     <string name="main_home_select_title">選擇以移除追蹤</string>
-    <string name="main_home_select_text">您可以選擇文字並點擊選擇工具欄中的“Untracker”以移除追蹤訊息並替換。</string>
+    <string name="main_home_select_text">您可以選擇文字並點擊選擇工具欄中的“移除追蹤”以移除追蹤訊息並替換。</string>
     <string name="main_rules">規則</string>
     <string name="main_rules_builtin">內建</string>
-    <string name="main_rules_custom">自定義</string>
+    <string name="main_rules_custom">自訂</string>
     <string name="main_rules_empty">按“+”以新增規則</string>
     <string name="main_about">關於</string>
     <string name="main_about_version_title">版本</string>
