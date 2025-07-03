@@ -32,11 +32,11 @@
     <string name="main_home_share_title">Untrack when sharing</string>
     <string name="main_home_share_text">You may share links to “Untracker” in the sharesheet to remove tracking information and copy or share again.</string>
     <string name="main_home_select_title">Select to untrack</string>
-    <string name="main_home_select_text">You may select text and click “Untrack” in the selection toolbar to remove tracking information and replace.</string>
+    <string name="main_home_select_text">You may select text and tap “Untrack” in the selection toolbar to remove tracking information and replace.</string>
     <string name="main_rules">Rules</string>
     <string name="main_rules_builtin">Built-in</string>
     <string name="main_rules_custom">Custom</string>
-    <string name="main_rules_empty">Press “+” to add a rule</string>
+    <string name="main_rules_empty">Tap “+” to add a rule</string>
     <string name="main_about">About</string>
     <string name="main_about_version_title">Version</string>
     <string name="main_about_version_summary">%1$s (%2$d)</string>
