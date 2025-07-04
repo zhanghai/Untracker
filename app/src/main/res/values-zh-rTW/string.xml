@@ -31,7 +31,7 @@
     <string name="main_home">首頁</string>
     <string name="main_home_share_title">在分享時移除追蹤</string>
     <string name="main_home_share_text">您可以將連結分享給“移除追蹤”以移除追蹤資訊並複製或再次分享。</string>
-    <string name="main_home_select_title">選擇以移除追蹤</string>
+    <string name="main_home_select_title">選取以移除追蹤</string>
     <string name="main_home_select_text">您可以選擇文字並點擊選擇工具欄中的“移除追蹤”以移除追蹤訊息並替換。</string>
     <string name="main_rules">規則</string>
     <string name="main_rules_builtin">內建</string>
