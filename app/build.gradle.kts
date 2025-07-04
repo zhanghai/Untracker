@@ -33,8 +33,8 @@ android {
         applicationId = "me.zhanghai.android.untracker"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 8
-        versionName = "1.0.7"
+        versionCode = 9
+        versionName = "1.0.8"
 
         vectorDrawables { useSupportLibrary = true }
     }
