@@ -22,6 +22,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import kotlin.math.roundToInt
@@ -32,28 +33,32 @@ import me.zhanghai.android.untracker.ui.token.Easings
 // Modified to be fade through to account for missing expand transition.
 
 fun activityEnter(): EnterTransition =
-    slideInHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        initialOffsetX = { (0.1f * it).roundToInt() },
-    ) + fadeIn(animationSpec = tween(delayMillis = 50, durationMillis = 83, easing = LinearEasing))
+    fadeIn(animationSpec = tween(delayMillis = 50, durationMillis = 83, easing = LinearEasing)) +
+        slideInHorizontally(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            initialOffsetX = { (0.1f * it).roundToInt() },
+        )
 
 fun activityExit(): ExitTransition =
-    slideOutHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        targetOffsetX = { (-0.1f * it).roundToInt() },
-    ) + fadeOut(animationSpec = tween(durationMillis = 50, easing = LinearEasing))
+    fadeOut(animationSpec = tween(durationMillis = 50, easing = LinearEasing)) +
+        slideOutHorizontally(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            targetOffsetX = { (-0.1f * it).roundToInt() },
+        )
 
 fun activityPopEnter(): EnterTransition =
-    slideInHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        initialOffsetX = { (-0.1f * it).roundToInt() },
-    ) + fadeIn(animationSpec = tween(delayMillis = 83, durationMillis = 50, easing = LinearEasing))
+    fadeIn(animationSpec = tween(delayMillis = 83, durationMillis = 50, easing = LinearEasing)) +
+        slideInHorizontally(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            initialOffsetX = { (-0.1f * it).roundToInt() },
+        )
 
 fun activityPopExit(): ExitTransition =
-    slideOutHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        targetOffsetX = { (0.1f * it).roundToInt() },
-    ) + fadeOut(animationSpec = tween(durationMillis = 83, easing = LinearEasing))
+    fadeOut(animationSpec = tween(durationMillis = 83, easing = LinearEasing)) +
+        slideOutHorizontally(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            targetOffsetX = { (0.1f * it).roundToInt() },
+        )
 
 // See also com.google.android.material.transition.MaterialFadeThrough .
 
@@ -65,7 +70,11 @@ fun fadeThroughEnter(): EnterTransition =
                 delayMillis = (0.35f * Durations.Long1).roundToInt(),
                 easing = Easings.Emphasized,
             )
-    )
+    ) +
+        scaleIn(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            initialScale = 0.92f,
+        )
 
 fun fadeThroughExit(): ExitTransition =
     fadeOut(
@@ -84,7 +93,11 @@ fun fadeThroughPopEnter(): EnterTransition =
                 delayMillis = (0.35f * Durations.Long1).roundToInt(),
                 easing = Easings.Emphasized,
             )
-    )
+    ) +
+        scaleIn(
+            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
+            initialScale = 0.92f,
+        )
 
 fun fadeThroughPopExit(): ExitTransition =
     fadeOut(
