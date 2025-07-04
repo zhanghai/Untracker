@@ -51,10 +51,10 @@ import me.zhanghai.android.untracker.ui.home.HomePaneInfo
 import me.zhanghai.android.untracker.ui.home.homePane
 import me.zhanghai.android.untracker.ui.rule.RulesPaneInfo
 import me.zhanghai.android.untracker.ui.rule.rulesPane
-import me.zhanghai.android.untracker.util.fragmentEnter
-import me.zhanghai.android.untracker.util.fragmentExit
-import me.zhanghai.android.untracker.util.fragmentPopEnter
-import me.zhanghai.android.untracker.util.fragmentPopExit
+import me.zhanghai.android.untracker.util.topLevelEnter
+import me.zhanghai.android.untracker.util.topLevelExit
+import me.zhanghai.android.untracker.util.topLevelPopEnter
+import me.zhanghai.android.untracker.util.topLevelPopExit
 
 val MainScreenRoute = "main"
 
@@ -137,10 +137,10 @@ fun MainScreen(
             navController = navController,
             startDestination = HomePaneInfo.route,
             modifier = Modifier.fillMaxSize(),
-            enterTransition = { fragmentEnter() },
-            exitTransition = { fragmentExit() },
-            popEnterTransition = { fragmentPopEnter() },
-            popExitTransition = { fragmentPopExit() },
+            enterTransition = { topLevelEnter() },
+            exitTransition = { topLevelExit() },
+            popEnterTransition = { topLevelPopEnter() },
+            popExitTransition = { topLevelPopExit() },
         ) {
             homePane(contentPadding)
             rulesPane(contentPadding, navigateToRuleScreen, navigateToAddRuleScreen)
