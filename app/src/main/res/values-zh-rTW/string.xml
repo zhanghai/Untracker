@@ -46,7 +46,7 @@
     <string name="rule_edit">編輯規則</string>
     <string name="rule_add">新增規則</string>
     <string name="rule_name">名稱</string>
-    <string name="rule_description">描述</string>
+    <string name="rule_description">說明</string>
     <string name="rule_script">腳本</string>
     <string name="rule_script_supporting_text">參考&lt;a href="https://github.com/zhanghai/Untracker/blob/master/app/src/main/java/me/zhanghai/android/untracker/Untracker.kt">腳本引擎原始碼&lt;/a></string>
 
