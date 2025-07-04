@@ -60,6 +60,32 @@ fun activityPopExit(): ExitTransition =
             targetOffsetX = { (0.1f * it).roundToInt() },
         )
 
+// There is no specification for top level transition right now . See also
+// https://m3.material.io/styles/motion/transitions/applying-transitions#ab8885f6-5517-419d-80de-bea50cd10467
+// .
+// This is made the same as fade through with linear easing, android:integer/config_shortAnimTime
+// duration and no scaling for now.
+
+fun fragmentEnter(): EnterTransition =
+    fadeIn(
+        animationSpec =
+            tween(
+                durationMillis = (0.65f * Durations.Short4).roundToInt(),
+                delayMillis = (0.35f * Durations.Short4).roundToInt(),
+                easing = LinearEasing,
+            )
+    )
+
+fun fragmentExit(): ExitTransition =
+    fadeOut(
+        animationSpec =
+            tween(durationMillis = (0.35f * Durations.Short4).roundToInt(), easing = LinearEasing)
+    )
+
+fun fragmentPopEnter(): EnterTransition = fragmentEnter()
+
+fun fragmentPopExit(): ExitTransition = fragmentExit()
+
 // See also com.google.android.material.transition.MaterialFadeThrough .
 
 fun fadeThroughEnter(): EnterTransition =
@@ -85,28 +111,9 @@ fun fadeThroughExit(): ExitTransition =
             )
     )
 
-fun fadeThroughPopEnter(): EnterTransition =
-    fadeIn(
-        animationSpec =
-            tween(
-                durationMillis = (0.65f * Durations.Long1).roundToInt(),
-                delayMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized,
-            )
-    ) +
-        scaleIn(
-            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-            initialScale = 0.92f,
-        )
+fun fadeThroughPopEnter(): EnterTransition = fadeThroughEnter()
 
-fun fadeThroughPopExit(): ExitTransition =
-    fadeOut(
-        animationSpec =
-            tween(
-                durationMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized,
-            )
-    )
+fun fadeThroughPopExit(): ExitTransition = fadeThroughExit()
 
 // See also com.google.android.material.transition.MaterialSharedAxis .
 
