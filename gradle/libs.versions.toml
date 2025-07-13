@@ -2,7 +2,7 @@
 aboutLibraries = "12.2.4"
 android-buildTools = "36.0.0"
 android-compileSdk = "36"
-android-gradlePlugin = "8.11.0"
+android-gradlePlugin = "8.11.1"
 android-minSdk = "21"
 android-targetSdk = "36"
 androidx-activity = "1.10.1"
@@ -13,7 +13,7 @@ compose = "2025.06.01"
 composePreference = "2.0.0"
 kotlin = "2.2.0"
 kotlinx-serialization = "1.9.0"
-okhttp3 = "4.12.0"
+okhttp3 = "5.1.0"
 quickjs = "547f5b1597"
 
 [libraries]
