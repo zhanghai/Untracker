@@ -63,8 +63,8 @@ fun activityPopExit(): ExitTransition =
 // There is no specification for top level transition right now . See also
 // https://m3.material.io/styles/motion/transitions/applying-transitions#ab8885f6-5517-419d-80de-bea50cd10467
 // .
-// This is made the same as fade through just with android:integer/config_shortAnimTime duration and
-// no scaling for now.
+// This is made the same as fade through just with no scaling, android:integer/config_shortAnimTime
+// duration, and linear easing for now.
 
 fun topLevelEnter(): EnterTransition =
     fadeIn(
@@ -72,7 +72,7 @@ fun topLevelEnter(): EnterTransition =
             tween(
                 durationMillis = (0.65f * Durations.Short4).roundToInt(),
                 delayMillis = (0.35f * Durations.Short4).roundToInt(),
-                easing = Easings.Emphasized,
+                easing = Easings.Linear,
             )
     )
 
@@ -81,7 +81,7 @@ fun topLevelExit(): ExitTransition =
         animationSpec =
             tween(
                 durationMillis = (0.35f * Durations.Short4).roundToInt(),
-                easing = Easings.Emphasized,
+                easing = Easings.Linear,
             )
     )
 
