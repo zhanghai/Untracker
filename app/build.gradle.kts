@@ -17,7 +17,7 @@ import com.mikepenz.aboutlibraries.plugin.DuplicateMode
  */
 
 plugins {
-    alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.aboutLibraries.android)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.plugin.compose)
@@ -89,5 +89,3 @@ dependencies {
     implementation(libs.quickjs.android)
     implementation(libs.okhttp3)
 }
-
-aboutLibraries { library { duplicationMode = DuplicateMode.MERGE } }
