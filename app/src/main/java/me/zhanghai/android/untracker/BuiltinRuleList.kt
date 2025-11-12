@@ -198,6 +198,18 @@ val BuiltinRuleList =
                             .trimIndent(),
                 ),
                 Rule(
+                    id="d9e8bc3b-2357-4975-8a8e-780b8baab5a5",
+                    name="Threads",
+                    description = "Remove tracking for Threads",
+                    script =
+                        """
+                            if ($.matches(url, 'www\.threads\.com')) {
+                                return $.removeQueryParameters(url, 'xmt|slof');
+                            }
+                        """
+                            .trimIndent(),
+                ),
+                Rule(
                     id = "c68c4cbf-9ae5-41f6-89ba-6e3f31ffb6a2",
                     name = "JD.com",
                     description = "Remove tracking for JD.com",
