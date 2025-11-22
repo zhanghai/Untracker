@@ -351,6 +351,18 @@ val BuiltinRuleList =
                             .trimIndent(),
                 ),
                 Rule(
+                    id = "2bce062c-7336-4ab9-bfde-7a1f9b686365",
+                    name = "Threads",
+                    description = "Remove tracking for Threads",
+                    script =
+                        """
+                            if ($.matches(url, 'www\\.threads\\.com')) {
+                                return $.removeQueryParameters(url, 'slof|xmt');
+                            }
+                        """
+                            .trimIndent(),
+                ),
+                Rule(
                     id = "8420b788-c6ee-46a6-ab3b-da04d6299beb",
                     name = "TikTok",
                     description = "Remove tracking for TikTok",
