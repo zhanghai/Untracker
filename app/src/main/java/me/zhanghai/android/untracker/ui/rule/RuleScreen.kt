@@ -52,37 +52,31 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
 import kotlinx.coroutines.CompletionHandler
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.Rule
 import me.zhanghai.android.untracker.model.RuleList
 import me.zhanghai.android.untracker.repository.RuleListRepository
+import me.zhanghai.android.untracker.ui.component.Navigator
+import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
 import me.zhanghai.android.untracker.util.Stateful
 import me.zhanghai.android.untracker.util.stateInUi
 
-private const val RuleIdArg = "ruleId"
+@Serializable data class RuleScreenKey(val ruleId: String) : MainAppScreenKey
 
-fun NavGraphBuilder.ruleScreen(onPopBackStack: () -> Unit) {
-    composable("rule/{$RuleIdArg}") { navBackStackEntry ->
-        val ruleId = navBackStackEntry.arguments!!.getString(RuleIdArg)!!
-        RuleScreen(ruleId = ruleId, onPopBackStack = onPopBackStack)
-    }
-}
-
-fun NavController.navigateToRuleScreen(ruleId: String) {
-    navigate("rule/$ruleId")
+fun EntryProviderScope<MainAppScreenKey>.ruleScreenEntry(navigator: Navigator<MainAppScreenKey>) {
+    entry<RuleScreenKey> { RuleScreen(it.ruleId, navigator) }
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
+fun RuleScreen(ruleId: String, navigator: Navigator<MainAppScreenKey>) {
     val coroutineScope = rememberCoroutineScope()
     val ruleListsStatefulFlow =
         remember(coroutineScope) {
@@ -144,7 +138,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                 },
                 modifier = Modifier.fillMaxWidth(),
                 navigationIcon = {
-                    IconButton(onClick = onPopBackStack) {
+                    IconButton(onClick = { navigator.navigateBack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = stringResource(R.string.navigate_up),
@@ -153,7 +147,9 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                 },
                 actions = {
                     if (!isBuiltin) {
-                        IconButton(onClick = { removeCustomRule(ruleId) { onPopBackStack() } }) {
+                        IconButton(
+                            onClick = { removeCustomRule(ruleId) { navigator.navigateBack() } }
+                        ) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
                                 contentDescription = stringResource(R.string.delete),
@@ -163,9 +159,9 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                             onClick = {
                                 @Suppress("NAME_SHADOWING") val editingRule = editingRule
                                 if (editingRule != null) {
-                                    setCustomRule(editingRule) { onPopBackStack() }
+                                    setCustomRule(editingRule) { navigator.navigateBack() }
                                 } else {
-                                    onPopBackStack()
+                                    navigator.navigateBack()
                                 }
                             }
                         ) {
@@ -204,7 +200,7 @@ fun RuleScreen(ruleId: String, onPopBackStack: () -> Unit) {
                         )
                     }
                     is Stateful.Success -> {
-                        LaunchedEffect(null) { onPopBackStack() }
+                        LaunchedEffect(null) { navigator.navigateBack() }
                     }
                     is Stateful.Failure -> {
                         Text(

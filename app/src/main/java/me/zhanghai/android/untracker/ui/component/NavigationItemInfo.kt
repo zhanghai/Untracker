@@ -19,10 +19,11 @@ package me.zhanghai.android.untracker.ui.component
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
+import androidx.navigation3.runtime.NavKey
 
 @Immutable
-data class NavigationItemInfo(
-    val route: String,
+data class NavigationItemInfo<T : NavKey>(
+    val key: T,
     @DrawableRes val iconResourceId: Int,
     @StringRes val labelResourceId: Int,
 )

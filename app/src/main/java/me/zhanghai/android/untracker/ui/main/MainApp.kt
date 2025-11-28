@@ -16,41 +16,44 @@
 
 package me.zhanghai.android.untracker.ui.main
 
+import androidx.compose.animation.ContentTransform
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
-import me.zhanghai.android.untracker.ui.license.licensesScreen
-import me.zhanghai.android.untracker.ui.license.navigateToLicensesScreen
-import me.zhanghai.android.untracker.ui.rule.addRuleScreen
-import me.zhanghai.android.untracker.ui.rule.navigateToAddRuleScreen
-import me.zhanghai.android.untracker.ui.rule.navigateToRuleScreen
-import me.zhanghai.android.untracker.ui.rule.ruleScreen
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import me.zhanghai.android.untracker.ui.component.ScreenNavigator
+import me.zhanghai.android.untracker.ui.license.licensesScreenEntry
+import me.zhanghai.android.untracker.ui.rule.addRuleScreenEntry
+import me.zhanghai.android.untracker.ui.rule.ruleScreenEntry
 import me.zhanghai.android.untracker.util.activityEnter
 import me.zhanghai.android.untracker.util.activityExit
 import me.zhanghai.android.untracker.util.activityPopEnter
 import me.zhanghai.android.untracker.util.activityPopExit
 
+interface MainAppScreenKey : NavKey
+
 @Composable
 fun MainApp() {
-    val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = MainScreenRoute,
+    @Suppress("UNCHECKED_CAST")
+    val backStack = rememberNavBackStack(MainScreenKey) as NavBackStack<MainAppScreenKey>
+    val navigator = remember { ScreenNavigator(backStack) }
+    NavDisplay(
+        backStack = backStack,
         modifier = Modifier.fillMaxSize(),
-        enterTransition = { activityEnter() },
-        exitTransition = { activityExit() },
-        popEnterTransition = { activityPopEnter() },
-        popExitTransition = { activityPopExit() },
-    ) {
-        mainScreen(
-            { navController.navigateToRuleScreen(it) },
-            navController::navigateToAddRuleScreen,
-            navController::navigateToLicensesScreen,
-        )
-        ruleScreen(navController::popBackStack)
-        addRuleScreen(navController::popBackStack)
-        licensesScreen(navController::popBackStack)
-    }
+        transitionSpec = { ContentTransform(activityEnter(), activityExit()) },
+        popTransitionSpec = { ContentTransform(activityPopEnter(), activityPopExit()) },
+        predictivePopTransitionSpec = { ContentTransform(activityPopEnter(), activityPopExit()) },
+        entryProvider =
+            entryProvider {
+                mainScreenEntry(navigator)
+                ruleScreenEntry(navigator)
+                addRuleScreenEntry(navigator)
+                licensesScreenEntry(navigator)
+            },
+    )
 }

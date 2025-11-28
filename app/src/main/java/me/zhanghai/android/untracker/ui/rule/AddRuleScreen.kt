@@ -44,26 +44,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
 import kotlinx.coroutines.CompletionHandler
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.Rule
 import me.zhanghai.android.untracker.repository.RuleListRepository
+import me.zhanghai.android.untracker.ui.component.Navigator
+import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
 
-fun NavGraphBuilder.addRuleScreen(onPopBackStack: () -> Unit) {
-    composable("addRule") { AddRuleScreen(onPopBackStack = onPopBackStack) }
-}
+@Serializable data object AddRuleScreenKey : MainAppScreenKey
 
-fun NavController.navigateToAddRuleScreen() {
-    navigate("addRule")
+fun EntryProviderScope<MainAppScreenKey>.addRuleScreenEntry(
+    navigator: Navigator<MainAppScreenKey>
+) {
+    entry<AddRuleScreenKey> { AddRuleScreen(navigator) }
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun AddRuleScreen(onPopBackStack: () -> Unit) {
+fun AddRuleScreen(navigator: Navigator<MainAppScreenKey>) {
     var rule by remember { mutableStateOf(Rule()) }
     val coroutineScope = rememberCoroutineScope()
     val addRule: (Rule, CompletionHandler) -> Unit = { newRule, completionHandler ->
@@ -85,7 +86,7 @@ fun AddRuleScreen(onPopBackStack: () -> Unit) {
                 title = { Text(text = stringResource(R.string.rule_add)) },
                 modifier = Modifier.fillMaxWidth(),
                 navigationIcon = {
-                    IconButton(onClick = onPopBackStack) {
+                    IconButton(onClick = { navigator.navigateBack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = stringResource(R.string.navigate_up),
@@ -93,7 +94,7 @@ fun AddRuleScreen(onPopBackStack: () -> Unit) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { addRule(rule) { onPopBackStack() } }) {
+                    IconButton(onClick = { addRule(rule) { navigator.navigateBack() } }) {
                         Icon(
                             imageVector = Icons.Outlined.Check,
                             contentDescription = stringResource(R.string.save),

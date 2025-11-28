@@ -51,51 +51,45 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.model.RuleList
 import me.zhanghai.android.untracker.repository.RuleListRepository
 import me.zhanghai.android.untracker.ui.component.NavigationItemInfo
+import me.zhanghai.android.untracker.ui.component.Navigator
 import me.zhanghai.android.untracker.ui.component.TopAppBarContainer
+import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
+import me.zhanghai.android.untracker.ui.main.MainScreenPaneKey
 import me.zhanghai.android.untracker.util.Stateful
 import me.zhanghai.android.untracker.util.asInsets
 import me.zhanghai.android.untracker.util.copy
 import me.zhanghai.android.untracker.util.stateInUi
 
-val RulesPaneInfo: NavigationItemInfo =
+@Serializable data object RulesPaneKey : MainScreenPaneKey
+
+val RulesPaneInfo: NavigationItemInfo<MainScreenPaneKey> =
     NavigationItemInfo(
-        route = "rules",
+        key = RulesPaneKey,
         iconResourceId = R.drawable.rules_icon_animated_24dp,
         labelResourceId = R.string.main_rules,
     )
 
-fun NavGraphBuilder.rulesPane(
+fun EntryProviderScope<MainScreenPaneKey>.rulesPaneEntry(
     contentPadding: PaddingValues,
-    navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit,
+    navigator: Navigator<MainAppScreenKey>,
 ) {
-    composable(RulesPaneInfo.route) {
-        RulesPane(
-            contentPadding = contentPadding,
-            navigateToRuleScreen = navigateToRuleScreen,
-            navigateToAddRuleScreen = navigateToAddRuleScreen,
-        )
-    }
+    entry<RulesPaneKey> { RulesPane(contentPadding = contentPadding, navigator = navigator) }
 }
 
 private val tabTextResourceIds = listOf(R.string.main_rules_builtin, R.string.main_rules_custom)
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun RulesPane(
-    contentPadding: PaddingValues,
-    navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit,
-) {
+fun RulesPane(contentPadding: PaddingValues, navigator: Navigator<MainAppScreenKey>) {
     val coroutineScope = rememberCoroutineScope()
     val builtinRuleListStatefulFlow =
         remember(coroutineScope) {
@@ -136,7 +130,7 @@ fun RulesPane(
                             onClick = {
                                 coroutineScope.launch {
                                     pagerState.animateScrollToPage(1)
-                                    navigateToAddRuleScreen()
+                                    navigator.navigateTo(AddRuleScreenKey)
                                 }
                             }
                         ) {
@@ -189,7 +183,7 @@ fun RulesPane(
             RulesTab(
                 ruleListStateful = ruleListStateful,
                 onRuleListChange = onRuleListChange,
-                onRuleClick = { navigateToRuleScreen(it) },
+                onRuleClick = { navigator.navigateTo(RuleScreenKey(it)) },
                 contentPadding = contentPadding.copy(top = 0.dp),
                 scrollBehavior = scrollBehaviors[page],
             )

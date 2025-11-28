@@ -16,6 +16,7 @@
 
 package me.zhanghai.android.untracker.ui.main
 
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
@@ -33,58 +34,49 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.ui.about.AboutPaneInfo
-import me.zhanghai.android.untracker.ui.about.aboutPane
+import me.zhanghai.android.untracker.ui.about.aboutPaneEntry
+import me.zhanghai.android.untracker.ui.component.Navigator
+import me.zhanghai.android.untracker.ui.component.PaneNavigator
 import me.zhanghai.android.untracker.ui.home.HomePaneInfo
-import me.zhanghai.android.untracker.ui.home.homePane
+import me.zhanghai.android.untracker.ui.home.HomePaneKey
+import me.zhanghai.android.untracker.ui.home.homePaneEntry
 import me.zhanghai.android.untracker.ui.rule.RulesPaneInfo
-import me.zhanghai.android.untracker.ui.rule.rulesPane
+import me.zhanghai.android.untracker.ui.rule.rulesPaneEntry
 import me.zhanghai.android.untracker.util.topLevelEnter
 import me.zhanghai.android.untracker.util.topLevelExit
 import me.zhanghai.android.untracker.util.topLevelPopEnter
 import me.zhanghai.android.untracker.util.topLevelPopExit
 
-val MainScreenRoute = "main"
+@Serializable data object MainScreenKey : MainAppScreenKey
 
-fun NavGraphBuilder.mainScreen(
-    navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit,
-    navigateToLicensesScreen: () -> Unit,
-) {
-    composable(MainScreenRoute) {
-        MainScreen(
-            navigateToRuleScreen = navigateToRuleScreen,
-            navigateToAddRuleScreen = navigateToAddRuleScreen,
-            navigateToLicensesScreen = navigateToLicensesScreen,
-        )
-    }
+fun EntryProviderScope<MainAppScreenKey>.mainScreenEntry(navigator: Navigator<MainAppScreenKey>) {
+    entry<MainScreenKey> { MainScreen(navigator) }
 }
+
+interface MainScreenPaneKey : NavKey
 
 @Composable
 @OptIn(ExperimentalAnimationGraphicsApi::class)
-fun MainScreen(
-    navigateToRuleScreen: (String) -> Unit,
-    navigateToAddRuleScreen: () -> Unit,
-    navigateToLicensesScreen: () -> Unit,
-) {
-    val navController = rememberNavController()
+fun MainScreen(navigator: Navigator<MainAppScreenKey>) {
+    @Suppress("UNCHECKED_CAST")
+    val paneBackStack = rememberNavBackStack(HomePaneKey) as NavBackStack<MainScreenPaneKey>
+    val paneNavigator = remember { PaneNavigator(paneBackStack) }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentDestination = navBackStackEntry?.destination
             NavigationBar(
                 windowInsets =
                     WindowInsets.safeDrawing.only(
@@ -92,20 +84,10 @@ fun MainScreen(
                     )
             ) {
                 for (navigationItem in listOf(HomePaneInfo, RulesPaneInfo, AboutPaneInfo)) {
-                    val selected =
-                        currentDestination?.hierarchy?.any { it.route == navigationItem.route } ==
-                            true
+                    val selected = paneNavigator.currentKey == navigationItem.key
                     NavigationBarItem(
                         selected = selected,
-                        onClick = {
-                            navController.navigate(navigationItem.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
+                        onClick = { paneNavigator.navigateTo(navigationItem.key) },
                         icon = {
                             Icon(
                                 painter =
@@ -133,18 +115,20 @@ fun MainScreen(
         contentColor = contentColorFor(MaterialTheme.colorScheme.background),
         contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = HomePaneInfo.route,
+        NavDisplay(
+            backStack = paneBackStack,
             modifier = Modifier.fillMaxSize(),
-            enterTransition = { topLevelEnter() },
-            exitTransition = { topLevelExit() },
-            popEnterTransition = { topLevelPopEnter() },
-            popExitTransition = { topLevelPopExit() },
-        ) {
-            homePane(contentPadding)
-            rulesPane(contentPadding, navigateToRuleScreen, navigateToAddRuleScreen)
-            aboutPane(contentPadding, navigateToLicensesScreen)
-        }
+            transitionSpec = { ContentTransform(topLevelEnter(), topLevelExit()) },
+            popTransitionSpec = { ContentTransform(topLevelPopEnter(), topLevelPopExit()) },
+            predictivePopTransitionSpec = {
+                ContentTransform(topLevelPopEnter(), topLevelPopExit())
+            },
+            entryProvider =
+                entryProvider {
+                    homePaneEntry(contentPadding)
+                    rulesPaneEntry(contentPadding, navigator)
+                    aboutPaneEntry(contentPadding, navigator)
+                },
+        )
     }
 }

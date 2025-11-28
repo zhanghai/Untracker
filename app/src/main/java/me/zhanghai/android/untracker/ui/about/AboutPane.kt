@@ -44,33 +44,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.ui.component.NavigationItemInfo
+import me.zhanghai.android.untracker.ui.component.Navigator
+import me.zhanghai.android.untracker.ui.license.LicensesScreenKey
+import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
+import me.zhanghai.android.untracker.ui.main.MainScreenPaneKey
 import me.zhanghai.android.untracker.util.asInsets
 import me.zhanghai.android.untracker.util.copy
 import me.zhanghai.compose.preference.Preference
 
-val AboutPaneInfo: NavigationItemInfo =
+@Serializable data object AboutPaneKey : MainScreenPaneKey
+
+val AboutPaneInfo: NavigationItemInfo<MainScreenPaneKey> =
     NavigationItemInfo(
-        route = "about",
+        key = AboutPaneKey,
         iconResourceId = R.drawable.about_icon_animated_24dp,
         labelResourceId = R.string.main_about,
     )
 
-fun NavGraphBuilder.aboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Unit) {
-    composable(AboutPaneInfo.route) {
-        AboutPane(
-            contentPadding = contentPadding,
-            navigateToLicensesScreen = navigateToLicensesScreen,
-        )
-    }
+fun EntryProviderScope<MainScreenPaneKey>.aboutPaneEntry(
+    contentPadding: PaddingValues,
+    navigator: Navigator<MainAppScreenKey>,
+) {
+    entry<AboutPaneKey> { AboutPane(contentPadding = contentPadding, navigator = navigator) }
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Unit) {
+fun AboutPane(contentPadding: PaddingValues, navigator: Navigator<MainAppScreenKey>) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Column(modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection)) {
         TopAppBar(
@@ -124,7 +128,7 @@ fun AboutPane(contentPadding: PaddingValues, navigateToLicensesScreen: () -> Uni
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_licenses)) },
                 modifier = Modifier.fillMaxWidth(),
-                onClick = navigateToLicensesScreen,
+                onClick = { navigator.navigateTo(LicensesScreenKey) },
             )
         }
     }

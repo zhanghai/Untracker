@@ -38,23 +38,26 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.ui.component.NavigationItemInfo
+import me.zhanghai.android.untracker.ui.main.MainScreenPaneKey
 import me.zhanghai.android.untracker.util.asInsets
 import me.zhanghai.android.untracker.util.copy
 import me.zhanghai.android.untracker.util.plus
 
-val HomePaneInfo: NavigationItemInfo =
+@Serializable data object HomePaneKey : MainScreenPaneKey
+
+val HomePaneInfo: NavigationItemInfo<MainScreenPaneKey> =
     NavigationItemInfo(
-        route = "home",
+        key = HomePaneKey,
         iconResourceId = R.drawable.home_icon_animated_24dp,
         labelResourceId = R.string.main_home,
     )
 
-fun NavGraphBuilder.homePane(contentPadding: PaddingValues) {
-    composable(HomePaneInfo.route) { HomePane(contentPadding = contentPadding) }
+fun EntryProviderScope<MainScreenPaneKey>.homePaneEntry(contentPadding: PaddingValues) {
+    entry<HomePaneKey> { HomePane(contentPadding = contentPadding) }
 }
 
 @Composable

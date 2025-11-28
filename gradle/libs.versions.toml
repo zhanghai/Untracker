@@ -8,7 +8,7 @@ android-targetSdk = "36"
 androidx-activity = "1.12.0"
 androidx-core = "1.17.0"
 androidx-lifecycle = "2.10.0"
-androidx-navigation = "2.9.6"
+androidx-navigation3 = "1.0.0"
 compose = "2025.11.01"
 composePreference = "2.1.0"
 kotlin = "2.2.21"
@@ -21,7 +21,8 @@ aboutLibraries-core = { group = "com.mikepenz", name = "aboutlibraries-core", ve
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "androidx-navigation3" }
+androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "androidx-navigation3" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
 compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
 compose-material-materialIconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }

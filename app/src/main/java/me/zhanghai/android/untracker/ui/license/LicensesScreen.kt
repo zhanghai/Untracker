@@ -46,27 +46,28 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
+import me.zhanghai.android.untracker.ui.component.Navigator
+import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
 import me.zhanghai.android.untracker.util.Stateful
 
-fun NavGraphBuilder.licensesScreen(onPopBackStack: () -> Unit) {
-    composable("licenses") { LicensesScreen(onPopBackStack = onPopBackStack) }
-}
+@Serializable data object LicensesScreenKey : MainAppScreenKey
 
-fun NavController.navigateToLicensesScreen() {
-    navigate("licenses")
+fun EntryProviderScope<MainAppScreenKey>.licensesScreenEntry(
+    navigator: Navigator<MainAppScreenKey>
+) {
+    entry<LicensesScreenKey> { LicensesScreen(navigator) }
 }
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun LicensesScreen(onPopBackStack: () -> Unit) {
+fun LicensesScreen(navigator: Navigator<MainAppScreenKey>) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.fillMaxSize().nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -75,7 +76,7 @@ fun LicensesScreen(onPopBackStack: () -> Unit) {
                 title = { Text(text = stringResource(R.string.licenses_title)) },
                 modifier = Modifier.fillMaxWidth(),
                 navigationIcon = {
-                    IconButton(onClick = onPopBackStack) {
+                    IconButton(onClick = { navigator.navigateBack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = stringResource(R.string.navigate_up),

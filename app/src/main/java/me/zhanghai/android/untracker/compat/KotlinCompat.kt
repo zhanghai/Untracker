@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package me.zhanghai.android.untracker.ui.component
+package me.zhanghai.android.untracker.compat
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
+import kotlin.collections.removeFirst as kotlinRemoveFirst
+import kotlin.collections.removeLast as kotlinRemoveLast
+import kotlin.comparisons.reversed as kotlinReversed
 
-@Immutable
-data class ScreenInfo(
-    val route: String,
-    val composable: @Composable AnimatedContentScope.(NavBackStackEntry, NavController) -> Unit,
-)
+fun <T> Comparator<T>.reversedCompat(): Comparator<T> = kotlinReversed()
+
+fun <T> MutableList<T>.removeFirstCompat(): T = kotlinRemoveFirst()
+
+fun <T> MutableList<T>.removeLastCompat(): T = kotlinRemoveLast()

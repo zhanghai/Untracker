@@ -79,10 +79,7 @@ fun topLevelEnter(): EnterTransition =
 fun topLevelExit(): ExitTransition =
     fadeOut(
         animationSpec =
-            tween(
-                durationMillis = (0.35f * Durations.Short4).roundToInt(),
-                easing = Easings.Linear,
-            )
+            tween(durationMillis = (0.35f * Durations.Short4).roundToInt(), easing = Easings.Linear)
     )
 
 fun topLevelPopEnter(): EnterTransition = topLevelEnter()
