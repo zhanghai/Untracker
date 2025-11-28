@@ -29,13 +29,13 @@ val BuiltinRuleList =
                     description = "Remove common redirections",
                     script =
                         """
-                            if ($.matches(url, 'www\\.douban\\.com', '/link2/', '.*\\burl=.+')) {
-                                return $.getQueryParameter(url, 'url');
-                            } else if ($.matches(url, 'search\\.app', '/', '.*\\blink=.+')) {
-                                return $.getQueryParameter(url, 'link');
-                            } else if ($.matches(url, 'link\\.zhihu\\.com', '/', '.*\\btarget=.+')) {
-                                return $.getQueryParameter(url, 'target');
-                            }
+                        if ($.matches(url, 'www\\.douban\\.com', '/link2/', '.*\\burl=.+')) {
+                            return $.getQueryParameter(url, 'url');
+                        } else if ($.matches(url, 'search\\.app', '/', '.*\\blink=.+')) {
+                            return $.getQueryParameter(url, 'link');
+                        } else if ($.matches(url, 'link\\.zhihu\\.com', '/', '.*\\btarget=.+')) {
+                            return $.getQueryParameter(url, 'target');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -45,33 +45,33 @@ val BuiltinRuleList =
                     description = "Expand common tracking short links",
                     script =
                         """
-                            while (true) {
-                                if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|pin\\.it|share\\.google|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
-                                        || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
-                                        || $.matches(url, 'www\\.google\\.com', '/share\\.google')
-                                        || $.matches(url, 'www\\.instagram\\.com', '/share/reel/.+')
-                                        || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
-                                        || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')
-                                        || $.matches(url, 'search.app', '/.+')) {
-                                    const response = $.fetch(url, { redirect: 'manual' });
-                                    if ([301, 302, 303, 307, 308].includes(response.status)) {
-                                        const location = response.headers.find(it => it[0].toLowerCase() === 'location')?.[1];
-                                        if (location) {
-                                            url = location;
-                                            continue;
-                                        }
-                                    }
-                                } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
-                                    const response = $.fetch(url);
-                                    const groups = /var url = '([^']+)';/.exec(response.body);
-                                    if (groups) {
-                                        url = groups[1];
+                        while (true) {
+                            if ($.matches(url, '163cn\\.tv|a\\.co|amzn\\.(asia|eu|to)|b23\\.tv|bili2233\\.cn|v\\.douyin\\.com|dwz\\.cn|u\\.jd\\.com|v\\.kuaishou\\.com|pin\\.it|share\\.google|t\\.cn|vm\\.tiktok\\.com|url\\.cn|xhslink\\.com')
+                                    || $.matches(url, 'm\\.gifshow\\.com', '/s/.+')
+                                    || $.matches(url, 'www\\.google\\.com', '/share\\.google')
+                                    || $.matches(url, 'www\\.instagram\\.com', '/share/reel/.+')
+                                    || $.matches(url, 'api\\.pinterest\\.com', '/url_shortener/.+')
+                                    || $.matches(url, 'www\\.reddit\\.com', '/r/[^/]+/s/.+')
+                                    || $.matches(url, 'search.app', '/.+')) {
+                                const response = $.fetch(url, { redirect: 'manual' });
+                                if ([301, 302, 303, 307, 308].includes(response.status)) {
+                                    const location = response.headers.find(it => it[0].toLowerCase() === 'location')?.[1];
+                                    if (location) {
+                                        url = location;
                                         continue;
                                     }
                                 }
-                                break;
+                            } else if ($.matches(url, '([cm]\\.)?tb\\.cn')) {
+                                const response = $.fetch(url);
+                                const groups = /var url = '([^']+)';/.exec(response.body);
+                                if (groups) {
+                                    url = groups[1];
+                                    continue;
+                                }
                             }
-                            return url;
+                            break;
+                        }
+                        return url;
                         """
                             .trimIndent(),
                 ),
@@ -94,15 +94,15 @@ val BuiltinRuleList =
                     description = "Remove tracking for Amazon",
                     script =
                         """
-                            if ($.matches(url, '.+\\.amazon\\.(ae|ca|cn|co\\.jp|co\\.uk|com|com\\.au|com\\.be|com\\.br|com\\.mx|com\\.tr|de|eg|es|fr|in|it|nl|pl|sa|se|sg)')) {
-                                url = $.setEncodedQuery(url, null);
-                                const path = $.getEncodedPath(url);
-                                const newPath = path.replace(/(?<=\/)ref=.+$/i, '');
-                                if (path !== newPath) {
-                                    url = $.setEncodedPath(url, newPath);
-                                }
-                                return url;
+                        if ($.matches(url, '.+\\.amazon\\.(ae|ca|cn|co\\.jp|co\\.uk|com|com\\.au|com\\.be|com\\.br|com\\.mx|com\\.tr|de|eg|es|fr|in|it|nl|pl|sa|se|sg)')) {
+                            url = $.setEncodedQuery(url, null);
+                            const path = $.getEncodedPath(url);
+                            const newPath = path.replace(/(?<=\/)ref=.+$/i, '');
+                            if (path !== newPath) {
+                                url = $.setEncodedPath(url, newPath);
                             }
+                            return url;
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -112,10 +112,10 @@ val BuiltinRuleList =
                     description = "Remove tracking for Bilibili",
                     script =
                         """
-                            if ($.matches(url, '.+\\.bilibili\\.com')) {
-                                url = $.retainQueryParameters(url, 'business_id|business_type|itemsId|lottery_id|p|start_progress|t');
-                                return $.removeQueryParameters(url, 'p', '1');
-                            }
+                        if ($.matches(url, '.+\\.bilibili\\.com')) {
+                            url = $.retainQueryParameters(url, 'business_id|business_type|itemsId|lottery_id|p|start_progress|t');
+                            return $.removeQueryParameters(url, 'p', '1');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -126,25 +126,25 @@ val BuiltinRuleList =
                     // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/misc/bvid_desc.md
                     script =
                         """
-                            if ($.matches(url, '.+\\.bilibili\\.com', '/video/BV[0-9A-Za-z]+/?')) {
-                                const bvPath = $.getEncodedPath(url);
-                                const bvCode = /^\/video\/BV([0-9A-Za-z]+)\/?/.exec(bvPath)[1];
-                                function bvToAv(bv) {
-                                    const XOR_CODE = 23442827791579n;
-                                    const MASK_CODE = 2251799813685247n;
-                                    const BASE = 58n;
-                                    const data = 'FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf';
-                                    const bvArray = Array.from(bv);
-                                    [bvArray[1], bvArray[7]] = [bvArray[7], bvArray[1]];
-                                    [bvArray[2], bvArray[5]] = [bvArray[5], bvArray[2]];
-                                    bvArray.splice(0, 1);
-                                    const temp = bvArray.reduce((accumulator, bvChar) => accumulator * BASE + BigInt(data.indexOf(bvChar)), 0n);
-                                    return Number((temp & MASK_CODE) ^ XOR_CODE);
-                                }
-                                const avCode = bvToAv(bvCode);
-                                const avPath = '/video/av' + avCode + '/';
-                                return $.setEncodedPath(url, avPath);
+                        if ($.matches(url, '.+\\.bilibili\\.com', '/video/BV[0-9A-Za-z]+/?')) {
+                            const bvPath = $.getEncodedPath(url);
+                            const bvCode = /^\/video\/BV([0-9A-Za-z]+)\/?/.exec(bvPath)[1];
+                            function bvToAv(bv) {
+                                const XOR_CODE = 23442827791579n;
+                                const MASK_CODE = 2251799813685247n;
+                                const BASE = 58n;
+                                const data = 'FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf';
+                                const bvArray = Array.from(bv);
+                                [bvArray[1], bvArray[7]] = [bvArray[7], bvArray[1]];
+                                [bvArray[2], bvArray[5]] = [bvArray[5], bvArray[2]];
+                                bvArray.splice(0, 1);
+                                const temp = bvArray.reduce((accumulator, bvChar) => accumulator * BASE + BigInt(data.indexOf(bvChar)), 0n);
+                                return Number((temp & MASK_CODE) ^ XOR_CODE);
                             }
+                            const avCode = bvToAv(bvCode);
+                            const avPath = '/video/av' + avCode + '/';
+                            return $.setEncodedPath(url, avPath);
+                        }
                         """
                             .trimIndent(),
                     enabled = false,
@@ -155,9 +155,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Douban",
                     script =
                         """
-                            if ($.matches(url, '.+\\.douban\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '.+\\.douban\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -167,9 +167,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Douyin",
                     script =
                         """
-                            if ($.matches(url, '.+\\.(douyin|iesdouyin)\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '.+\\.(douyin|iesdouyin)\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -179,9 +179,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Google Search",
                     script =
                         """
-                            if ($.matches(url, 'www\\.google\\.com', '/search')) {
-                                return $.retainQueryParameters(url, 'q|tbm');
-                            }
+                        if ($.matches(url, 'www\\.google\\.com', '/search')) {
+                            return $.retainQueryParameters(url, 'q|tbm');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -191,9 +191,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Instagram",
                     script =
                         """
-                            if ($.matches(url, 'www\\.instagram\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, 'www\\.instagram\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -203,9 +203,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for JD.com",
                     script =
                         """
-                            if ($.matches(url, '.+\\.jd\\.com')) {
-                                return $.retainQueryParameters(url, 'id|shopId|skuIds|suitId|wareId');
-                            }
+                        if ($.matches(url, '.+\\.jd\\.com')) {
+                            return $.retainQueryParameters(url, 'id|shopId|skuIds|suitId|wareId');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -215,9 +215,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Kuaishou",
                     script =
                         """
-                            if ($.matches(url, '(.+\\.)?m\\.chenzhongtech\\.com|m\\.gifshow\\.com|.+\\.kuaishou\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '(.+\\.)?m\\.chenzhongtech\\.com|m\\.gifshow\\.com|.+\\.kuaishou\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -227,9 +227,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for NetEase Cloud Music",
                     script =
                         """
-                            if ($.matches(url, 'y\\.music\\.163\\.com')) {
-                                return $.retainQueryParameters(url, 'id');
-                            }
+                        if ($.matches(url, 'y\\.music\\.163\\.com')) {
+                            return $.retainQueryParameters(url, 'id');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -239,9 +239,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Netflix",
                     script =
                         """
-                            if ($.matches(url, 'www\\.netflix\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, 'www\\.netflix\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -251,15 +251,15 @@ val BuiltinRuleList =
                     description = "Remove tracking for Pinterest",
                     script =
                         """
-                            if ($.matches(url, 'www\\.pinterest\\.com')) {
-                                url = $.setEncodedQuery(url, null);
-                                const path = $.getEncodedPath(url);
-                                const newPath = path.replace(/(?<=\/)sent\/?$/i, '');
-                                if (path !== newPath) {
-                                    url = $.setEncodedPath(url, newPath);
-                                }
-                                return url;
+                        if ($.matches(url, 'www\\.pinterest\\.com')) {
+                            url = $.setEncodedQuery(url, null);
+                            const path = $.getEncodedPath(url);
+                            const newPath = path.replace(/(?<=\/)sent\/?$/i, '');
+                            if (path !== newPath) {
+                                url = $.setEncodedPath(url, newPath);
                             }
+                            return url;
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -269,9 +269,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Reddit",
                     script =
                         """
-                            if ($.matches(url, '(.+\\.)?reddit\\.com')) {
-                                return $.retainQueryParameters(url, 'context');
-                            }
+                        if ($.matches(url, '(.+\\.)?reddit\\.com')) {
+                            return $.retainQueryParameters(url, 'context');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -282,11 +282,11 @@ val BuiltinRuleList =
                     enabled = false,
                     script =
                         """
-                            if ($.matches(url, '(www\\.)?reddit\\.com')) {
-                                return $.setHost(url, 'old.reddit.com');
-                            } else if ($.matches(url, 'v\\.redd\\.it', '/[^/]+/?')) {
-                                return $.setEncodedPath($.setHost(url, 'old.reddit.com'), '/video' + $.getEncodedPath(url));
-                            }
+                        if ($.matches(url, '(www\\.)?reddit\\.com')) {
+                            return $.setHost(url, 'old.reddit.com');
+                        } else if ($.matches(url, 'v\\.redd\\.it', '/[^/]+/?')) {
+                            return $.setEncodedPath($.setHost(url, 'old.reddit.com'), '/video' + $.getEncodedPath(url));
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -296,9 +296,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for rednote",
                     script =
                         """
-                            if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
-                                return $.retainQueryParameters(url, 'xsec_token');
-                            }
+                        if ($.matches(url, '.+\\.xiaohongshu\\.com')) {
+                            return $.retainQueryParameters(url, 'xsec_token');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -308,9 +308,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for SMZDM",
                     script =
                         """
-                            if ($.matches(url, '.+\\.smzdm\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '.+\\.smzdm\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -320,9 +320,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Spotify",
                     script =
                         """
-                            if ($.matches(url, '(open\\.)?spotify\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '(open\\.)?spotify\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -332,9 +332,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Stack Exchange sites",
                     script =
                         """
-                            if ($.matches(url, '(.+\\.stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com', '/[aq]/[0-9]+/[0-9]+/?')) {
-                                return $.setEncodedPath(url, $.getEncodedPath(url).replace(/\/[0-9]+\/?$/i, ''));
-                            }
+                        if ($.matches(url, '(.+\\.stackexchange|askubuntu|serverfault|stackoverflow|superuser)\\.com', '/[aq]/[0-9]+/[0-9]+/?')) {
+                            return $.setEncodedPath(url, $.getEncodedPath(url).replace(/\/[0-9]+\/?$/i, ''));
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -344,9 +344,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Taobao (and Tmall)",
                     script =
                         """
-                            if ($.matches(url, '.+\\.(taobao|tmall)\\.com')) {
-                                return $.retainQueryParameters(url, 'id');
-                            }
+                        if ($.matches(url, '.+\\.(taobao|tmall)\\.com')) {
+                            return $.retainQueryParameters(url, 'id');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -356,9 +356,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Threads",
                     script =
                         """
-                            if ($.matches(url, 'www\\.threads\\.com')) {
-                                return $.removeQueryParameters(url, 'slof|xmt');
-                            }
+                        if ($.matches(url, 'www\\.threads\\.com')) {
+                            return $.removeQueryParameters(url, 'slof|xmt');
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -368,9 +368,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for TikTok",
                     script =
                         """
-                            if ($.matches(url, '.+\\.tiktok\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '.+\\.tiktok\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -380,9 +380,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for X (formerly Twitter)",
                     script =
                         """
-                            if ($.matches(url, '(twitter|x)\\.com')) {
-                                return $.setEncodedQuery(url, null);
-                            }
+                        if ($.matches(url, '(twitter|x)\\.com')) {
+                            return $.setEncodedQuery(url, null);
+                        }
                         """
                             .trimIndent(),
                 ),
@@ -392,9 +392,9 @@ val BuiltinRuleList =
                     description = "Remove tracking for Youtube",
                     script =
                         """
-                            if ($.matches(url, 'youtu\\.be|((music|www)\\.)?youtube\\.com')) {
-                                return $.retainQueryParameters(url, 'index|list|t|v');
-                            }
+                        if ($.matches(url, 'youtu\\.be|((music|www)\\.)?youtube\\.com')) {
+                            return $.retainQueryParameters(url, 'index|list|t|v');
+                        }
                         """
                             .trimIndent(),
                 ),

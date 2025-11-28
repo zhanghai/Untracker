@@ -362,7 +362,7 @@ private class Builtins : IBuiltins {
                     return JSON.parse(fetch(JSON.stringify(Array.from(arguments))));
                 };
             })();
-        """
+            """
                 .trimIndent()
 
         private val okHttpClient = OkHttpClient()
