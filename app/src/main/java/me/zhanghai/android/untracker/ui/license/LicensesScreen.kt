@@ -107,7 +107,6 @@ fun LicensesScreen(navigator: Navigator<MainAppScreenKey>) {
         if (libraries != null) {
             LibraryList(
                 libraries = libraries,
-                navigator = navigator,
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = contentPadding,
             )
