@@ -148,7 +148,13 @@ fun RuleScreen(ruleId: String, navigator: Navigator<MainAppScreenKey>) {
                 actions = {
                     if (!isBuiltin) {
                         IconButton(
-                            onClick = { removeCustomRule(ruleId) { navigator.navigateBack() } }
+                            onClick = {
+                                removeCustomRule(ruleId) {
+                                    // Do nothing to prevent navigating back twice due to rule not
+                                    // found after reloading
+                                    // navigator.navigateBack()
+                                }
+                            }
                         ) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
