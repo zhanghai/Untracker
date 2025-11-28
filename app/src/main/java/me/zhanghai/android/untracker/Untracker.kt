@@ -20,6 +20,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.text.util.Linkify
 import androidx.annotation.Keep
+import androidx.core.net.toUri
 import androidx.core.util.PatternsCompat
 import app.cash.quickjs.QuickJs
 import java.io.IOException
@@ -92,7 +93,7 @@ private fun findUrls(text: String): List<UrlInfo> {
         ) {
             val hasScheme = urlWithSchemeRegex.matches(match)
             var url = if (hasScheme) match else "http://$match"
-            val uri = Uri.parse(url)
+            val uri = url.toUri()
             if (!(uri.isHierarchical && uri.isAbsolute)) {
                 continue
             }
@@ -147,7 +148,7 @@ private class Builtins : IBuiltins {
         encodedQueryPattern: String?,
         encodedFragmentPattern: String?,
     ): Boolean {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         if (
             hostPattern != null && !Regex(hostPattern, RegexOption.IGNORE_CASE).matches(uri.host!!)
         ) {
@@ -180,19 +181,19 @@ private class Builtins : IBuiltins {
         return true
     }
 
-    override fun getHost(url: String): String = Uri.parse(url).host!!
+    override fun getHost(url: String): String = url.toUri().host!!
 
-    override fun getEncodedPath(url: String): String = Uri.parse(url).encodedPath!!
+    override fun getEncodedPath(url: String): String = url.toUri().encodedPath!!
 
-    override fun getEncodedQuery(url: String): String? = Uri.parse(url).encodedQuery
+    override fun getEncodedQuery(url: String): String? = url.toUri().encodedQuery
 
     override fun getQueryParameter(url: String, key: String): String? =
-        Uri.parse(url).getQueryParameter(key)
+        url.toUri().getQueryParameter(key)
 
-    override fun getEncodedFragment(url: String): String? = Uri.parse(url).encodedFragment
+    override fun getEncodedFragment(url: String): String? = url.toUri().encodedFragment
 
     override fun setHost(url: String, host: String): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         val encodedAuthority = buildString {
             uri.encodedUserInfo?.let {
                 append(it)
@@ -210,17 +211,17 @@ private class Builtins : IBuiltins {
     }
 
     override fun setEncodedPath(url: String, encodedPath: String): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         return uri.buildUpon().encodedPath(encodedPath).toString()
     }
 
     override fun setEncodedQuery(url: String, encodedQuery: String?): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         return uri.buildUpon().encodedQuery(encodedQuery).toString()
     }
 
     override fun setEncodedFragment(url: String, encodedFragment: String?): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         return uri.buildUpon().encodedFragment(encodedFragment).toString()
     }
 
@@ -242,7 +243,7 @@ private class Builtins : IBuiltins {
         valuePattern: String?,
         invertMatch: Boolean,
     ): String {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         return uri.buildUpon()
             .clearQuery()
             .apply {
