@@ -16,127 +16,103 @@
 
 package me.zhanghai.android.untracker.util
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import kotlin.math.roundToInt
 import me.zhanghai.android.untracker.ui.token.Durations
 import me.zhanghai.android.untracker.ui.token.Easings
 
-// See also android:Animation.Activity .
-// Modified to be fade through to account for missing expand transition.
+// See also
+// https://m3.material.io/styles/motion/transitions/applying-transitions#ab8885f6-5517-419d-80de-bea50cd10467
+// .
+// See also com.google.android.material.transition.MaterialFadeThrough .
+// This is made to use Short4 duration similar to dialog exit transition (
+// https://m3.material.io/styles/motion/easing-and-duration/applying-easing-and-duration#e5b958f0-435d-4e84-aed4-8d1ea395fa5c
+// ), in order to better match
+// the M3 spec video.
 
-fun activityEnter(): EnterTransition =
-    fadeIn(animationSpec = tween(delayMillis = 50, durationMillis = 83, easing = LinearEasing)) +
+fun topLevelTransitionSpec(): ContentTransform =
+    ContentTransform(
+        fadeIn(
+            animationSpec =
+                tween(
+                    durationMillis = (0.65f * Durations.Short4).roundToInt(),
+                    delayMillis = (0.35f * Durations.Short4).roundToInt(),
+                    easing = Easings.Emphasized,
+                )
+        ),
+        fadeOut(
+            animationSpec =
+                tween(
+                    durationMillis = (0.35f * Durations.Short4).roundToInt(),
+                    easing = Easings.Emphasized,
+                )
+        ),
+    )
+
+fun topLevelPopTransitionSpec(): ContentTransform = topLevelTransitionSpec()
+
+// See also
+// https://m3.material.io/styles/motion/transitions/transition-patterns#df9c7d76-1454-47f3-ad1c-268a31f58bad
+// .
+// See also com.google.android.material.transition.MaterialSharedAxis .
+// This is made to use 0.1x distance (instead of a fixed 30dp) for sliding, the same as the fraction
+// used in Android Activity transition.
+
+fun sharedAxisXTransitionSpec(): ContentTransform =
+    ContentTransform(
         slideInHorizontally(
             animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
             initialOffsetX = { (0.1f * it).roundToInt() },
-        )
-
-fun activityExit(): ExitTransition =
-    fadeOut(animationSpec = tween(durationMillis = 50, easing = LinearEasing)) +
+        ) +
+            fadeIn(
+                animationSpec =
+                    tween(
+                        durationMillis = (0.65f * Durations.Long1).roundToInt(),
+                        delayMillis = (0.35f * Durations.Long1).roundToInt(),
+                        easing = Easings.Emphasized,
+                    )
+            ),
         slideOutHorizontally(
             animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
             targetOffsetX = { (-0.1f * it).roundToInt() },
-        )
+        ) +
+            fadeOut(
+                animationSpec =
+                    tween(
+                        durationMillis = (0.35f * Durations.Long1).roundToInt(),
+                        easing = Easings.Emphasized,
+                    )
+            ),
+    )
 
-fun activityPopEnter(): EnterTransition =
-    fadeIn(animationSpec = tween(delayMillis = 83, durationMillis = 50, easing = LinearEasing)) +
+fun sharedAxisXPopTransitionSpec(): ContentTransform =
+    ContentTransform(
         slideInHorizontally(
             animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
             initialOffsetX = { (-0.1f * it).roundToInt() },
-        )
-
-fun activityPopExit(): ExitTransition =
-    fadeOut(animationSpec = tween(durationMillis = 83, easing = LinearEasing)) +
+        ) +
+            fadeIn(
+                animationSpec =
+                    tween(
+                        durationMillis = (0.65f * Durations.Long1).roundToInt(),
+                        delayMillis = (0.35f * Durations.Long1).roundToInt(),
+                        easing = Easings.Emphasized,
+                    )
+            ),
         slideOutHorizontally(
             animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
             targetOffsetX = { (0.1f * it).roundToInt() },
-        )
-
-// There is no specification for top level transition right now . See also
-// https://m3.material.io/styles/motion/transitions/applying-transitions#ab8885f6-5517-419d-80de-bea50cd10467
-// .
-// This is made the same as fade through just with no scaling, android:integer/config_shortAnimTime
-// duration, and linear easing for now.
-
-fun topLevelEnter(): EnterTransition =
-    fadeIn(
-        animationSpec =
-            tween(
-                durationMillis = (0.65f * Durations.Short4).roundToInt(),
-                delayMillis = (0.35f * Durations.Short4).roundToInt(),
-                easing = Easings.Linear,
-            )
+        ) +
+            fadeOut(
+                animationSpec =
+                    tween(
+                        durationMillis = (0.35f * Durations.Long1).roundToInt(),
+                        easing = Easings.Emphasized,
+                    )
+            ),
     )
-
-fun topLevelExit(): ExitTransition =
-    fadeOut(
-        animationSpec =
-            tween(durationMillis = (0.35f * Durations.Short4).roundToInt(), easing = Easings.Linear)
-    )
-
-fun topLevelPopEnter(): EnterTransition = topLevelEnter()
-
-fun topLevelPopExit(): ExitTransition = topLevelExit()
-
-// See also com.google.android.material.transition.MaterialFadeThrough .
-
-fun fadeThroughEnter(): EnterTransition =
-    fadeIn(
-        animationSpec =
-            tween(
-                durationMillis = (0.65f * Durations.Long1).roundToInt(),
-                delayMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized,
-            )
-    ) +
-        scaleIn(
-            animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-            initialScale = 0.92f,
-        )
-
-fun fadeThroughExit(): ExitTransition =
-    fadeOut(
-        animationSpec =
-            tween(
-                durationMillis = (0.35f * Durations.Long1).roundToInt(),
-                easing = Easings.Emphasized,
-            )
-    )
-
-fun fadeThroughPopEnter(): EnterTransition = fadeThroughEnter()
-
-fun fadeThroughPopExit(): ExitTransition = fadeThroughExit()
-
-// See also com.google.android.material.transition.MaterialSharedAxis .
-
-fun sharedAxisXEnter(): EnterTransition =
-    slideInHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        initialOffsetX = { it },
-    ) + fadeThroughEnter()
-
-fun sharedAxisXExit(): ExitTransition =
-    slideOutHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        targetOffsetX = { -it },
-    ) + fadeThroughExit()
-
-fun sharedAxisXPopEnter(): EnterTransition =
-    slideInHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        initialOffsetX = { -it },
-    ) + fadeThroughPopEnter()
-
-fun sharedAxisXPopExit(): ExitTransition =
-    slideOutHorizontally(
-        animationSpec = tween(durationMillis = Durations.Long1, easing = Easings.Emphasized),
-        targetOffsetX = { it },
-    ) + fadeThroughPopExit()

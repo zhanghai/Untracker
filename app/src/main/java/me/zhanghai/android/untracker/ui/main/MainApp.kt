@@ -16,7 +16,6 @@
 
 package me.zhanghai.android.untracker.ui.main
 
-import androidx.compose.animation.ContentTransform
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -30,10 +29,8 @@ import me.zhanghai.android.untracker.ui.component.ScreenNavigator
 import me.zhanghai.android.untracker.ui.license.licensesScreenEntry
 import me.zhanghai.android.untracker.ui.rule.addRuleScreenEntry
 import me.zhanghai.android.untracker.ui.rule.ruleScreenEntry
-import me.zhanghai.android.untracker.util.activityEnter
-import me.zhanghai.android.untracker.util.activityExit
-import me.zhanghai.android.untracker.util.activityPopEnter
-import me.zhanghai.android.untracker.util.activityPopExit
+import me.zhanghai.android.untracker.util.sharedAxisXPopTransitionSpec
+import me.zhanghai.android.untracker.util.sharedAxisXTransitionSpec
 
 interface MainAppScreenKey : NavKey
 
@@ -45,9 +42,9 @@ fun MainApp() {
     NavDisplay(
         backStack = backStack,
         modifier = Modifier.fillMaxSize(),
-        transitionSpec = { ContentTransform(activityEnter(), activityExit()) },
-        popTransitionSpec = { ContentTransform(activityPopEnter(), activityPopExit()) },
-        predictivePopTransitionSpec = { ContentTransform(activityPopEnter(), activityPopExit()) },
+        transitionSpec = { sharedAxisXTransitionSpec() },
+        popTransitionSpec = { sharedAxisXPopTransitionSpec() },
+        predictivePopTransitionSpec = { sharedAxisXPopTransitionSpec() },
         entryProvider =
             entryProvider {
                 mainScreenEntry(navigator)

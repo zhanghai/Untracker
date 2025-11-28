@@ -16,7 +16,6 @@
 
 package me.zhanghai.android.untracker.ui.main
 
-import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
@@ -55,10 +54,8 @@ import me.zhanghai.android.untracker.ui.home.HomePaneKey
 import me.zhanghai.android.untracker.ui.home.homePaneEntry
 import me.zhanghai.android.untracker.ui.rule.RulesPaneInfo
 import me.zhanghai.android.untracker.ui.rule.rulesPaneEntry
-import me.zhanghai.android.untracker.util.topLevelEnter
-import me.zhanghai.android.untracker.util.topLevelExit
-import me.zhanghai.android.untracker.util.topLevelPopEnter
-import me.zhanghai.android.untracker.util.topLevelPopExit
+import me.zhanghai.android.untracker.util.topLevelPopTransitionSpec
+import me.zhanghai.android.untracker.util.topLevelTransitionSpec
 
 @Serializable data object MainScreenKey : MainAppScreenKey
 
@@ -118,11 +115,9 @@ fun MainScreen(navigator: Navigator<MainAppScreenKey>) {
         NavDisplay(
             backStack = paneBackStack,
             modifier = Modifier.fillMaxSize(),
-            transitionSpec = { ContentTransform(topLevelEnter(), topLevelExit()) },
-            popTransitionSpec = { ContentTransform(topLevelPopEnter(), topLevelPopExit()) },
-            predictivePopTransitionSpec = {
-                ContentTransform(topLevelPopEnter(), topLevelPopExit())
-            },
+            transitionSpec = { topLevelTransitionSpec() },
+            popTransitionSpec = { topLevelPopTransitionSpec() },
+            predictivePopTransitionSpec = { topLevelPopTransitionSpec() },
             entryProvider =
                 entryProvider {
                     homePaneEntry(contentPadding)
