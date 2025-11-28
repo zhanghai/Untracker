@@ -25,7 +25,9 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import me.zhanghai.android.untracker.ui.component.OverlaySceneStrategy
 import me.zhanghai.android.untracker.ui.component.ScreenNavigator
+import me.zhanghai.android.untracker.ui.license.libraryDialogEntry
 import me.zhanghai.android.untracker.ui.license.licensesScreenEntry
 import me.zhanghai.android.untracker.ui.rule.addRuleScreenEntry
 import me.zhanghai.android.untracker.ui.rule.ruleScreenEntry
@@ -42,6 +44,7 @@ fun MainApp() {
     NavDisplay(
         backStack = backStack,
         modifier = Modifier.fillMaxSize(),
+        sceneStrategy = remember { OverlaySceneStrategy() },
         transitionSpec = { sharedAxisXTransitionSpec() },
         popTransitionSpec = { sharedAxisXPopTransitionSpec() },
         predictivePopTransitionSpec = { sharedAxisXPopTransitionSpec() },
@@ -51,6 +54,7 @@ fun MainApp() {
                 ruleScreenEntry(navigator)
                 addRuleScreenEntry(navigator)
                 licensesScreenEntry(navigator)
+                libraryDialogEntry(navigator)
             },
     )
 }
