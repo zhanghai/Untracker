@@ -1,6 +1,6 @@
 [versions]
 aboutLibraries = "13.1.0"
-android-buildTools = "36.0.0"
+android-buildTools = "36.1.0"
 android-compileSdk = "36"
 android-gradlePlugin = "8.13.1"
 android-minSdk = "23"
