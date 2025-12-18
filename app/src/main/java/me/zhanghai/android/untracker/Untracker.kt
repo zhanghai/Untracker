@@ -319,7 +319,7 @@ private class Builtins : IBuiltins {
         }
 
         val responseJson = buildJsonObject {
-            put("body", JsonPrimitive(response.body?.string()))
+            put("body", JsonPrimitive(response.body.string()))
             put(
                 "headers",
                 buildJsonArray {
