@@ -19,12 +19,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.aboutLibraries.android)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.kotlin.plugin.serialization)
 }
-
-kotlin { compilerOptions { jvmTarget = JvmTarget.JVM_1_8 } }
 
 android {
     namespace = "me.zhanghai.android.untracker"
