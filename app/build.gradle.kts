@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 /*
  * Copyright 2023 Google LLC
  *
