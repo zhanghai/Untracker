@@ -57,10 +57,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -74,6 +73,7 @@ import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.Untracker
 import me.zhanghai.android.untracker.ui.component.UndecoratedTextField
 import me.zhanghai.android.untracker.util.Stateful
+import me.zhanghai.android.untracker.util.setText
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -193,11 +193,13 @@ fun TextBottomSheet(
             ) {
                 CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 40.dp) {
                     if (currentText != null) {
-                        val clipboardManager = LocalClipboardManager.current
+                        val clipboard = LocalClipboard.current
                         OutlinedButton(
                             onClick = {
-                                clipboardManager.setText(AnnotatedString(currentText))
-                                dismiss()
+                                coroutineScope.launch {
+                                    clipboard.setText(currentText)
+                                    dismiss()
+                                }
                             },
                             contentPadding = ButtonDefaults.ButtonWithIconContentPadding,
                         ) {

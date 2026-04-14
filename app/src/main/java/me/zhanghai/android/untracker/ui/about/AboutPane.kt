@@ -32,19 +32,20 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.EntryProviderScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import me.zhanghai.android.untracker.R
 import me.zhanghai.android.untracker.ui.component.NavigationItemInfo
@@ -54,6 +55,7 @@ import me.zhanghai.android.untracker.ui.main.MainAppScreenKey
 import me.zhanghai.android.untracker.ui.main.MainScreenPaneKey
 import me.zhanghai.android.untracker.util.asInsets
 import me.zhanghai.android.untracker.util.copy
+import me.zhanghai.android.untracker.util.setText
 import me.zhanghai.compose.preference.Preference
 
 @Serializable data object AboutPaneKey : MainScreenPaneKey
@@ -109,13 +111,14 @@ fun AboutPane(contentPadding: PaddingValues, navigator: Navigator<MainAppScreenK
                     packageInfo.versionName.orEmpty(),
                     packageInfo.versionCode,
                 )
-            val clipboardManager = LocalClipboardManager.current
+            val coroutineScope = rememberCoroutineScope()
+            val clipboard = LocalClipboard.current
             Preference(
                 title = { Text(text = stringResource(R.string.main_about_version_title)) },
                 modifier = Modifier.fillMaxWidth(),
                 summary = { Text(text = version) },
             ) {
-                clipboardManager.setText(AnnotatedString(version))
+                coroutineScope.launch { clipboard.setText(version) }
             }
             val uriHandler = LocalUriHandler.current
             val githubUri = stringResource(R.string.main_about_github_uri)
