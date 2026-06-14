@@ -17,13 +17,13 @@
 package me.zhanghai.android.untracker.model
 
 import androidx.compose.runtime.Immutable
-import java.util.UUID
+import kotlin.uuid.Uuid
 import kotlinx.serialization.Serializable
 
 @Immutable
 @Serializable
 data class Rule(
-    val id: String = UUID.randomUUID().toString(),
+    val id: String = Uuid.random().toString(),
     val name: String = "",
     val description: String = "",
     val script: String = "",
