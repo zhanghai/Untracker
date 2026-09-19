@@ -2,7 +2,7 @@
 aboutLibraries = "15.2.0"
 android-buildTools = "37.0.0"
 android-compileSdk = "37"
-android-gradlePlugin = "9.4.0"
+android-gradlePlugin = "9.4.1"
 android-minSdk = "23"
 android-targetSdk = "37"
 androidx-activity = "1.13.0"
