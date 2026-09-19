@@ -60,7 +60,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures { compose = true }
-    packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
+    packaging {
+        resources {
+            // https://github.com/kotlin/kotlinx.coroutines#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
+            excludes += "/DebugProbesKt.bin"
+        }
+    }
     bundle { language { enableSplit = false } }
 }
 
